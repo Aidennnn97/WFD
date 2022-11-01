@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--
+   작성자 : 김건우
+   작성일 : 2022.10.21
+   내용 : Sample Mapper 입니다.
+ -->
+<mapper namespace="kr.co.edu.common.dao.CommonDAO">
+
+    <!-- resultMap sample
+    <resultMap id="CrawlingSiteResult" type="CrawlingSite">
+        <result property="crawlingSiteSeq" column="crawling_site_seq"/>
+        <result property="site" column="site"/>
+        <collection property="CrawlingChannels" column="{crawlingSiteSeq = crawling_site_seq}" javaType="java.util.ArrayList" ofType="CrawlingChannel" select="getCrawlingChannelList" />
+    </resultMap> -->
+
+    <!--
+        작성자 : 김건우
+        작성일 : 2022.10.21
+        내용 : 데이터 조회 테스트
+     -->
+    <select id="testSelectList" parameterType="Test" resultType="Test">
+		SELECT
+		   test_seq AS testSeq
+		    , test_title AS testTitle
+		    , test_content AS testContent
+		FROM
+		   test_table;
+    </select>
+
+</mapper>

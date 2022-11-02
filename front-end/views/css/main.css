@@ -4,7 +4,7 @@
 	overflow: hidden;
     position: relative;
     margin: 12px 0 0;
-    height: 350px;
+    height: 300px;
     background-color: #eff2f8;
     display: flex;
   align-items: center;
@@ -21,7 +21,7 @@
   color: white;
   perspective: 1000px;
   transform-origin: center;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .icon-cards__content {
   position: absolute;
@@ -119,23 +119,27 @@
   }
 }
 
-.news_box{
-	overflow: scroll;
-	width: 70%;
-	height:1000px;
-	background-color:yellow;
+.content{
+	display: flex;
 }
 
-.today_news_title{
+.news_box{
+	overflow: scroll;
+	width: 65%;
+	height: 500px;
+	background-color: #eff2f8;
+}
+
+.today_news_title, .today_match_title{
 	width:100%;
 	text-align:center;
 }
 
-li{
-	padding-top: 28px;
+.news_list{
+	padding: 30px 30px;
 }
 
-a{
+.news_link{
 	display: table;
     width: 100%;
     table-layout: fixed;
@@ -161,7 +165,12 @@ a{
     vertical-align: middle;
 }
 
-
+.today_match{
+	overflow: scroll;
+	width: 35%;
+	height: 500px;
+	background-color: #eff298;
+}
 
 
 

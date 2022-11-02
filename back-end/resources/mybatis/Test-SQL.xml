@@ -7,7 +7,7 @@
    작성일 : 2022.10.21
    내용 : Sample Mapper 입니다.
  -->
-<mapper namespace="kr.co.edu.common.dao.CommonDAO">
+<mapper namespace="com.dcu.wfd.common.dao.CommonDAO">
 
     <!-- resultMap sample
     <resultMap id="CrawlingSiteResult" type="CrawlingSite">

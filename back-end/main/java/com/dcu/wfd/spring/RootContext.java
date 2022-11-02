@@ -23,7 +23,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration 
 public class RootContext {
-	/**
+   /**
      * HikariCP(DBCP) Config(설정 세팅) 객체 Bean 설정
      *
      * @author 김건우
@@ -42,7 +42,7 @@ public class RootContext {
     /**
      * HikariCP(DBCP) 객체 Bean 설정
      *
-     * @author 김건우	
+     * @author 김건우   
      * @since 2022.10.21
      */
     @Bean(name = "mainHikariDataSource")
@@ -84,7 +84,7 @@ public class RootContext {
     public MapperScannerConfigurer getMainMapperScannerConfigurer () {
         MapperScannerConfigurer mapperScannerConfigurer = null;
         mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("kr.co.edu");
+        mapperScannerConfigurer.setBasePackage("com.dcu.wfd");
         mapperScannerConfigurer.setAnnotationClass(org.apache.ibatis.annotations.Mapper.class);//Annotation을 지정해 줘야 service interface 를 Mapper라고 인식하지 않음 
         mapperScannerConfigurer.setSqlSessionTemplateBeanName("mainSqlSessionTemplate");
         return mapperScannerConfigurer;
@@ -102,7 +102,7 @@ public class RootContext {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(getMainHikariDataSource());
         sqlSessionFactoryBean.setConfiguration(this.configuration);
-        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mybatis/*-SQL.xml"));
+        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath*:/mybatis/*-SQL.xml"));
         return sqlSessionFactoryBean.getObject();
     }
 
@@ -118,4 +118,5 @@ public class RootContext {
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(getMainSqlSessionFactory(applicationContext));
         return sqlSessionTemplate;
     }
+    
 }

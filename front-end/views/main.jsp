@@ -53,8 +53,9 @@
 				<div class="today_news_title">
 					<h1>** 최신 뉴스 기사 **</h1>
 				</div>
+				<div class="news_list">
 				<ul>
-					<li class="news_list"><a class="news_link">
+					<li class="news"><a class="news_link">
 							<div class="img_area"></div>
 							<div class="text_area">
 								<strong>"손흥민 월드컵 불발 안돼... " 시즌중 월드컵 개최 비판 </strong>
@@ -65,7 +66,7 @@
 								</div>
 							</div>
 					</a></li>
-					<li class="news_list"><a class="news_link">
+					<li class="news"><a class="news_link">
 							<div class="img_area"></div>
 							<div class="text_area">
 								<strong>"손흥민 월드컵 불발 안돼... " 시즌중 월드컵 개최 비판 </strong>
@@ -76,7 +77,7 @@
 								</div>
 							</div>
 					</a></li>
-					<li class="news_list"><a class="news_link">
+					<li class="news"><a class="news_link">
 							<div class="img_area"></div>
 							<div class="text_area">
 								<strong>"손흥민 월드컵 불발 안돼... " 시즌중 월드컵 개최 비판 </strong>
@@ -87,7 +88,7 @@
 								</div>
 							</div>
 					</a></li>
-					<li class="news_list"><a class="news_link">
+					<li class="news"><a class="news_link">
 							<div class="img_area"></div>
 							<div class="text_area">
 								<strong>"손흥민 월드컵 불발 안돼... " 시즌중 월드컵 개최 비판 </strong>
@@ -98,7 +99,7 @@
 								</div>
 							</div>
 					</a></li>
-					<li class="news_list"><a class="news_link">
+					<li class="news"><a class="news_link">
 							<div class="img_area"></div>
 							<div class="text_area">
 								<strong>"손흥민 월드컵 불발 안돼... " 시즌중 월드컵 개최 비판 </strong>
@@ -109,7 +110,7 @@
 								</div>
 							</div>
 					</a></li>
-					<li class="news_list"><a class="news_link">
+					<li class="news"><a class="news_link">
 							<div class="img_area"></div>
 							<div class="text_area">
 								<strong>"손흥민 월드컵 불발 안돼... " 시즌중 월드컵 개최 비판 </strong>
@@ -122,6 +123,7 @@
 					</a></li>
 
 				</ul>
+				</div>
 			</div>
 			<!-- 뉴스박스 끝   -->
 
@@ -132,18 +134,94 @@
 					<h1>오늘 경기 일정</h1>
 				</div>
 				
-				<div class="league_box"
-					style="display: flex; justify-content: space-around;">
+				<div class="league_box">
 					<span>Epl</span> <span>Laliga</span> <span>Bundesliga</span> <span>Serie
 						A</span>
 				</div>
 				
+				<div class="today_match_list">
+					<div class="today_match">
+						<div class="today_match_home">
+							<span>팀이름</span>
+							<img class="home_img" alt="" src="">
+						</div>
+						<div class="match_time">02:30</div>
+						<div class="today_match_away">
+							<img class="home_img" alt="" src="">
+							<span>팀이름</span>
+						</div>
+					</div>
+					<div class="today_match">
+						<div class="today_match_home">
+							<span>팀이름</span>
+							<img class="home_img" alt="" src="">
+						</div>
+						<div class="match_time">02:30</div>
+						<div class="today_match_away">
+							<img class="home_img" alt="" src="">
+							<span>팀이름</span>
+						</div>
+					</div>
+					<div class="today_match">
+						<div class="today_match_home">
+							<span>팀이름</span>
+							<img class="home_img" alt="" src="">
+						</div>
+						<div class="match_time">02:30</div>
+						<div class="today_match_away">
+							<img class="home_img" alt="" src="">
+							<span>팀이름</span>
+						</div>
+					</div>
+					<div class="today_match">
+						<div class="today_match_home">
+							<span>팀이름</span>
+							<img class="home_img" alt="" src="">
+						</div>
+						<div class="match_time">02:30</div>
+						<div class="today_match_away">
+							<img class="home_img" alt="" src="">
+							<span>팀이름</span>
+						</div>
+					</div>
+					<div class="today_match">
+						<div class="today_match_home">
+							<span>팀이름</span>
+							<img class="home_img" alt="" src="">
+						</div>
+						<div class="match_time">02:30</div>
+						<div class="today_match_away">
+							<img class="home_img" alt="" src="">
+							<span>팀이름</span>
+						</div>
+					</div>
+					<div class="today_match">
+						<div class="today_match_home">
+							<span>팀이름</span>
+							<img class="home_img" alt="" src="">
+						</div>
+						<div class="match_time">02:30</div>
+						<div class="today_match_away">
+							<img class="home_img" alt="" src="">
+							<span>팀이름</span>
+						</div>
+					</div>
+					<div class="today_match">
+						<div class="today_match_home">
+							<span>팀이름</span>
+							<img class="home_img" alt="" src="">
+						</div>
+						<div class="match_time">02:30</div>
+						<div class="today_match_away">
+							<img class="home_img" alt="" src="">
+							<span>팀이름</span>
+						</div>
+					</div>
+				</div>
 				
 			</div>
 			<!-- 오늘경기일정 끝  -->
-			<div class="today_match_list">
-				<div class="to"></div>
-			</div>
+			
 		</div>
 		</div>
 </body>

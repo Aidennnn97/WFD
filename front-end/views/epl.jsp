@@ -15,6 +15,28 @@
 	<%@ include file="../views/header.jsp"%>
 	<!--  페이지 Nav바 끝  -->
 	
+	<!-- 경기리스트 박스 시작  -->
+	<div class="match_schedule_box">
+		<div class="match_schedule_list">
+			<div class="match_schedule">
+				<div class="match_day">2022/10/22</div>
+				<div class="match_vs">
+					<div class="match_home">
+					<img alt="" src="">
+					<div class="match_home_score"></div>
+					</div>
+					
+					<div class="match_away">
+					<div class="match_away_score"></div>
+					<img alt="" src="">
+					</div>
+				</div>
+				<div class="match_time">15:00</div>
+			</div>
+		</div>
+	</div>
+	<!-- 경기리스트 박스 끝  -->
+	
 </body>
 </html>
 

@@ -165,15 +165,17 @@
     vertical-align: middle;
 }
 
-.today_match{
+.today_match_box{
 	overflow: scroll;
 	width: 35%;
 	height: 500px;
 	background-color: #eff298;
 }
 
-
-
+.league_box{ /* 적용이안됨  */
+	display:flex;
+	justify-content: space-around;
+}
 
 
 

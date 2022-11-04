@@ -1,0 +1,187 @@
+@charset "UTF-8";
+
+.match_schedule {
+	width: 215px;
+	height: 130px;
+	padding: 20px 0;
+}
+
+.match_day {
+	text-align: center;
+}
+
+.match_vs {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 20px 0;
+}
+
+.match_score {
+	width: 20%;
+	margin: 0 20px;
+	text-align: center;
+}
+
+.team_emblem {
+	width: 40%;
+	text-align: center;
+}
+
+.team_logo {
+	width: 30px;
+	height: 30px;
+	background-color: black;
+}
+
+.match_time {
+	text-align: center;
+}
+
+.owl-carousel .owl-item {
+	display: block;
+	width: 100%;
+	float: left;
+	border: 5px solid #fff;
+	border-radius: 20px;
+	margin-left: 54px;
+	margin-right: 35px;
+	margin-top: 15px;
+}
+
+.owl-item {
+	width: 300px;
+}
+
+.testimonial-item.equal-height.style-6 {
+	background-color: #eee;
+	border-radius: 10px;
+	margin: 10px;
+	width: 220px;
+	height: auto;
+}
+
+.testimonial-content.quote {
+	padding: 17px 55px;
+}
+
+.et_right_sidebar #main-content .container:before {
+	display: none;
+}
+
+.match_info_box {
+	background:
+		url(https://portal.kleague.com/images/portal/img-bg-login3.png)
+		no-repeat bottom;
+	background-color: #0b0e12;
+	padding-bottom: 30px;
+	height: 680px;
+	min-height: 680px;
+	background-size: cover;
+	margin-bottom: 20px;
+}
+
+.match_info_detail{
+	width: 100%;
+    height: 520px;
+    background: url(/resources/img/field.png) no-repeat 100%;
+    background-size: 80% 100%;
+    background-position: center;
+}
+
+.match_info_top{
+	height: 160px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.rank_info_box{
+	display: flex;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.team_rank_box{
+	width: 60%;
+}
+
+.personal_rank_box{
+	width: 40%;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+}
+th,
+td {
+  padding: 6px 15px;
+}
+th {
+  background: #42444e;
+  color: #fff;
+}
+tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+tr:first-child th:last-child {
+  border-top-right-radius: 6px;
+}
+td {
+  border-right: 1px solid #c6c9cc;
+  border-bottom: 1px solid #c6c9cc;
+}
+td:first-child {
+  border-left: 1px solid #c6c9cc;
+}
+tr:nth-child(even) td {
+  background: #eaeaed;
+}
+tr:last-child td:first-child {
+  border-bottom-left-radius: 6px;
+}
+tr:last-child td:last-child {
+  border-bottom-right-radius: 6px;
+}
+
+.team_data_box{
+	display: flex;
+	justify-content: space-around;
+}
+
+.data_bar_graph{
+	width: 33%;
+	height: 300px;
+	background-color: black;
+}
+
+.personal_data_box{
+	display: flex;
+	justify-content: space-around;
+}
+
+.data_circle_graph{
+	width: 49%;
+	height: 300px;
+	background-color: yellow;
+}
+
+.data_visibility_box{
+	width:100%;
+}
+
+.data_bubble_chart, .data_word_cloud{
+	width: 100%;
+	height: 500px;
+	background-color: green;
+	margin-bottom: 20px;
+}
+
+
+
+
+
+

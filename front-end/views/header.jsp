@@ -77,14 +77,14 @@ a {
 
 			<div class="headerLeft">
 
-				<div class="logo"><h1><a href="main.jsp">WorldFootballData</a></h1></div>
+				<div class="logo"><h1><a href="main">WorldFootballData</a></h1></div>
 				<div class="main-menu">
 
 					<ul>	
-						<li><a href="epl.jsp">Epl</a></li>
-						<li><a href="#">Laliga</a></li>
-						<li><a href="#">Bundesliga</a></li>
-						<li><a href="#">Serie A</a></li>
+						<li><a href="epl">Epl</a></li>
+						<li><a href="laliga">Laliga</a></li>
+						<li><a href="bundesliga">Bundesliga</a></li>
+						<li><a href="seriea">Serie A</a></li>
 					</ul>
 
 				</div>

@@ -1,181 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
-	작성자 : 김건우
-	직성일 : 221020
-	내용 : Maven Spring Legacy Proeject 세팅
-	
-	1. 인터넷에서 라이브러리 파일을 가지고 올 수 있음 => dependencies dependency로 라이브러리 추가
-	2. .java 파일을 .class파일로 컴파일 해줌 => mvn compile
-	3. .war 파일로 만들어줌 => mvn package
- -->
- 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
-         
-    <modelVersion>4.0.0</modelVersion><!-- modelVersion: Maven POM의 버전 -->
+<!-- 작성자 : 김건우 직성일 : 221020 내용 : Maven Spring Legacy Proeject 세팅 1. 인터넷에서 
+	라이브러리 파일을 가지고 올 수 있음 => dependencies dependency로 라이브러리 추가 2. .java 파일을 .class파일로 
+	컴파일 해줌 => mvn compile 3. .war 파일로 만들어줌 => mvn package -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion><!-- modelVersion: Maven POM의 버전 -->
 	<groupId>com.dcu.wfd</groupId><!-- groupId: 기관(소속) 식별자 -->
-    <artifactId>spring-legacy-project</artifactId><!-- artifactId: 현재 project의 식별자 -->
-    <name>spring-legacy-project</name><!-- name: 현재 project의 명칭 -->
-    <packaging>war</packaging><!-- packaging: 어떤 파일 형식으로 패키징할 것인가를 정의, jar, war, exe 등이 올 수 있음 -->
-    <version>1.0.0-BUILD-SNAPSHOT</version><!-- version: 해당 artifact(컴포넌트)의 version, 뒤쪽 SNAPSHOT은 아직 개발 중임을 의미함 -->
-    
-    <!-- pom.xml에서 사용할 변수 설정 공간(시작) -->
-    <properties>
-    	<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
-    	<java-version>15</java-version>
-    	<framework.version>5.3.23</framework.version>
-    	<back-end-path>${project.basedir}/back-end</back-end-path>
-    	<front-end-path>${project.basedir}/front-end</front-end-path>
-    </properties>
-    <!-- pom.xml에서 사용할 변수 설정 공간(종료) -->
-    
-    <!-- 라이브러리를 제공해주는 제공사의 정보를 입력하는 공간(시작) -->
-    <repositories>
-    	<!-- Apache재단 Maven 의존성 라이브러리 저장소 -->
-        <repository>
-            <id>mvn2s</id>
-            <url>https://repo1.maven.org/maven2/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        
-    </repositories>
-    <!-- 라이브러리를 제공해주는 제공사의 정보를 입력하는 공간(종료) -->
-    
-    <!-- 사용할 라이브러리를 작성하는 공간(시작) -->
-    <dependencies>
+	<artifactId>spring-legacy-project</artifactId><!-- artifactId: 현재 project의 
+		식별자 -->
+	<name>spring-legacy-project</name><!-- name: 현재 project의 명칭 -->
+	<packaging>war</packaging><!-- packaging: 어떤 파일 형식으로 패키징할 것인가를 정의, jar, 
+		war, exe 등이 올 수 있음 -->
+	<version>1.0.0-BUILD-SNAPSHOT</version><!-- version: 해당 artifact(컴포넌트)의 
+		version, 뒤쪽 SNAPSHOT은 아직 개발 중임을 의미함 -->
+
+	<!-- pom.xml에서 사용할 변수 설정 공간(시작) -->
+	<properties>
+		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+		<java-version>15</java-version>
+		<framework.version>5.3.23</framework.version>
+		<back-end-path>${project.basedir}/back-end</back-end-path>
+		<front-end-path>${project.basedir}/front-end</front-end-path>
+	</properties>
+	<!-- pom.xml에서 사용할 변수 설정 공간(종료) -->
+
+	<!-- 라이브러리를 제공해주는 제공사의 정보를 입력하는 공간(시작) -->
+	<repositories>
+		<!-- Apache재단 Maven 의존성 라이브러리 저장소 -->
+		<repository>
+			<id>mvn2s</id>
+			<url>https://repo1.maven.org/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
+	</repositories>
+	<!-- 라이브러리를 제공해주는 제공사의 정보를 입력하는 공간(종료) -->
+
+	<!-- 사용할 라이브러리를 작성하는 공간(시작) -->
+	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
-		<!-- spring framework 라이브러리 : 해당 라이브러리 다운시 core, context, beans, expression, web, jcl 같이 다운 -->
+		<!-- spring framework 라이브러리 : 해당 라이브러리 다운시 core, context, beans, expression, 
+			web, jcl 같이 다운 -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-webmvc</artifactId>
-		    <version>${framework.version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${framework.version}</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-jdbc</artifactId>
-		    <version>${framework.version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${framework.version}</version>
 		</dependency>
-		
-		
-    	<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-    	<!-- servlet라이브러리 : jsp to html -->
+
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<!-- servlet라이브러리 : jsp to html -->
 		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>javax.servlet-api</artifactId>
-		    <version>4.0.1</version>
-		    <scope>provided</scope>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<!-- Mysql JDBC -->
 		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
-		    <version>8.0.30</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.30</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
 		<dependency>
-		    <groupId>com.zaxxer</groupId>
-		    <artifactId>HikariCP</artifactId>
-		    <version>5.0.1</version>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>5.0.1</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
 		<!-- MyBatis : SQL 작성을 쉽게 해주는 라이브러리 -->
 		<dependency>
-		    <groupId>org.mybatis</groupId>
-		    <artifactId>mybatis</artifactId>
-		    <version>3.5.11</version>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.11</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 		<!-- MyBatis모듈과 Spring모듈을 연동하기 위한 라이브러리 -->
 		<dependency>
-		    <groupId>org.mybatis</groupId>
-		    <artifactId>mybatis-spring</artifactId>
-		    <version>2.0.7</version>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>2.0.7</version>
 		</dependency>
-		
-		<dependency>
-          <groupId>jstl</groupId>
-          <artifactId>jstl</artifactId>
-          <version>1.2</version>
-      	</dependency>
-      	
-      	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-      	<!-- JSON to Java Object, Java Object to JSON 라이브러리-->
-		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>2.13.4.2</version>
-		</dependency>
-      	
-		
-    </dependencies>
-    <!-- 사용할 라이브러리를 작성하는 공간(종료) -->
-    
-    <!-- build 즉, 배포 방식을 어떻게 할 것인가를 정의하는 공간(시작) -->
-    <build>
-    	<finalName>ROOT</finalName>
-    	<!-- directory: 빌드 경로 (다른 곳에서 ${deploy.path} 활용하면 됨) -->
-        <directory>${project.basedir}/target</directory>
-        <!-- sourceDirectory: Java 및 관련 자원 소스 경로 -->
-        <sourceDirectory>${back-end-path}/main/java</sourceDirectory>
-        <!-- testSourceDirectory: Test용 Java 소스 경로 -->
-       	<!--  <testSourceDirectory>${back-end-path}/test/java</testSourceDirectory> -->
-        <!-- outputDirectory: 컴파일 후 .class 파일 저장 경로 -->
-        <outputDirectory>${build.directory}/classes</outputDirectory>
-        
-        <!-- resources: JAVA File 이외의 자원들을 classpath로 설정하기 위한 곳 -->
-        <resources>
-            <resource>
-                <directory>${back-end-path}/main/resources</directory>
-            </resource>
-        </resources>
-        
-        <!-- plugins: Maven Plugin을 설정하는 곳 -->
-        <plugins>
-            <!-- maven compile plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
-                <configuration>
-                    <source>${java-version}</source><!-- 소스코드 Java 버전 -->
-                    <target>${java-version}</target><!-- compile시 결과물 Java 버전 -->
-                </configuration>
-            </plugin>
 
-            <!-- maven war package plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
-                <configuration>
-                    <!-- webResources: web 관련 자원들의 (html, js, css 등..) 경로 -->
-                    <webResources>
-                        <resource>
-                            <directory>${front-end-path}</directory>
-                        </resource>
-                    </webResources>
-                    <!-- webappDirectory: package된 후 web관련 자원들이 배포될 경로 -->
-                    <!-- <webappDirectory>${build.directory}</webappDirectory>-->
-                    <!-- web.xml 경로 -->
-                    <webXml>${project.basedir}/front-end/WEB-INF/web.xml</webXml>
-                </configuration>
-            </plugin>
-        </plugins>
-        
-    </build>
-    <!-- build 즉, 배포 방식을 어떻게 할 것인가를 정의하는 공간(종료) -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<!-- JSON to Java Object, Java Object to JSON 라이브러리 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.4.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.15.3</version>
+		</dependency>
+
+
+	</dependencies>
+	<!-- 사용할 라이브러리를 작성하는 공간(종료) -->
+
+	<!-- build 즉, 배포 방식을 어떻게 할 것인가를 정의하는 공간(시작) -->
+	<build>
+		<finalName>ROOT</finalName>
+		<!-- directory: 빌드 경로 (다른 곳에서 ${deploy.path} 활용하면 됨) -->
+		<directory>${project.basedir}/target</directory>
+		<!-- sourceDirectory: Java 및 관련 자원 소스 경로 -->
+		<sourceDirectory>${back-end-path}/main/java</sourceDirectory>
+		<!-- testSourceDirectory: Test용 Java 소스 경로 -->
+		<!-- <testSourceDirectory>${back-end-path}/test/java</testSourceDirectory> -->
+		<!-- outputDirectory: 컴파일 후 .class 파일 저장 경로 -->
+		<outputDirectory>${build.directory}/classes</outputDirectory>
+
+		<!-- resources: JAVA File 이외의 자원들을 classpath로 설정하기 위한 곳 -->
+		<resources>
+			<resource>
+				<directory>${back-end-path}/main/resources</directory>
+			</resource>
+		</resources>
+
+		<!-- plugins: Maven Plugin을 설정하는 곳 -->
+		<plugins>
+			<!-- maven compile plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.10.1</version>
+				<configuration>
+					<source>${java-version}</source><!-- 소스코드 Java 버전 -->
+					<target>${java-version}</target><!-- compile시 결과물 Java 버전 -->
+				</configuration>
+			</plugin>
+
+			<!-- maven war package plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.2</version>
+				<configuration>
+					<!-- webResources: web 관련 자원들의 (html, js, css 등..) 경로 -->
+					<webResources>
+						<resource>
+							<directory>${front-end-path}</directory>
+						</resource>
+					</webResources>
+					<!-- webappDirectory: package된 후 web관련 자원들이 배포될 경로 -->
+					<!-- <webappDirectory>${build.directory}</webappDirectory> -->
+					<!-- web.xml 경로 -->
+					<webXml>${project.basedir}/front-end/WEB-INF/web.xml</webXml>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+	<!-- build 즉, 배포 방식을 어떻게 할 것인가를 정의하는 공간(종료) -->
 </project>
 

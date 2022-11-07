@@ -33,7 +33,7 @@ public class RootContext {
     public HikariConfig getMainHikariConfig () {
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName("com.mysql.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/test");
+        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/ms");
         hikariConfig.setUsername("user");
         hikariConfig.setPassword("user");
         return hikariConfig;

@@ -2,32 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<!--
-   작성자 : 김건우
-   작성일 : 2022.10.21
-   내용 : Sample Mapper 입니다.
- -->
+<!-- 작성자 : 김건우 작성일 : 2022.10.21 내용 : Sample Mapper 입니다. -->
 <mapper namespace="com.dcu.wfd.common.dao.CommonDAO">
 
-    <!-- resultMap sample
-    <resultMap id="CrawlingSiteResult" type="CrawlingSite">
-        <result property="crawlingSiteSeq" column="crawling_site_seq"/>
-        <result property="site" column="site"/>
-        <collection property="CrawlingChannels" column="{crawlingSiteSeq = crawling_site_seq}" javaType="java.util.ArrayList" ofType="CrawlingChannel" select="getCrawlingChannelList" />
-    </resultMap> -->
+	<!-- resultMap sample <resultMap id="CrawlingSiteResult" type="CrawlingSite"> 
+		<result property="crawlingSiteSeq" column="crawling_site_seq"/> <result property="site" 
+		column="site"/> <collection property="CrawlingChannels" column="{crawlingSiteSeq 
+		= crawling_site_seq}" javaType="java.util.ArrayList" ofType="CrawlingChannel" 
+		select="getCrawlingChannelList" /> </resultMap> -->
 
-    <!--
-        작성자 : 김건우
-        작성일 : 2022.10.21
-        내용 : 데이터 조회 테스트
-     -->
-    <select id="testSelectList" parameterType="Test" resultType="Test">
+	<!-- 작성자 : 김건우 작성일 : 2022.10.21 내용 : 데이터 조회 테스트 -->
+	<select id="testSelectList" parameterType="Test" resultType="Test">  
 		SELECT
-		   test_seq AS testSeq
-		    , test_title AS testTitle
-		    , test_content AS testContent
+		test_seq AS testSeq
+		, test_title AS testTitle
+		, test_content AS testContent
 		FROM
-		   test_table;
-    </select>
+		test_table;
+	</select>
 
+	<insert id="naverSportsNewsInsert" parameterType="java.util.HashMap"> <!-- parameterType: ${}값의 자료형을 명시해준다, resultType: 데이터를 반환할 그릇을 의미  -->
+		INSERT INTO news (
+			news_title,
+			news_main_image,
+			news_content,
+			crawling_date
+		) VALUES (
+			#{news_title},
+			#{news_main_image},
+			#{news_content},
+			NOW()
+		)
+	</insert>
 </mapper>

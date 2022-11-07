@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 작성자 : 김건우 작성일 : 2022.10.21 내용 : Sample Mapper 입니다. -->
+<mapper namespace="com.dcu.wfd.common.dao.MainDAO">
+
+	<insert id="naverSportsNewsPopularInsert" parameterType="java.util.HashMap"> <!-- parameterType: ${}값의 자료형을 명시해준다, resultType: 데이터를 반환할 그릇을 의미  -->
+		INSERT INTO news (
+			news_title,
+			news_main_image,
+			news_content,
+			news_views,
+			crawling_date
+		) VALUES (
+			#{news_title},
+			#{news_main_image},
+			#{news_content},
+			#{news_url},
+			#{news_views},
+			NOW()
+		)
+	</insert>
+</mapper>

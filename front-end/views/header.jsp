@@ -70,6 +70,15 @@ a {
 }
 
 </style>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
 </head>
 <body>
 <div class="header">

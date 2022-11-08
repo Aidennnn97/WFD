@@ -68,6 +68,7 @@ public class RootContext {
             //Mybatis SQL 작성시, 자주 활용하는 Class 별칭 세팅
             TypeAliasRegistry typeAliasRegistry = super.getTypeAliasRegistry();
             typeAliasRegistry.registerAlias("Test", com.dcu.wfd.common.vo.Test.class);
+            typeAliasRegistry.registerAlias("News", com.dcu.wfd.common.vo.NewsVO.class);
         }
     }
     //Mybatis 동작 설정 객체 생성

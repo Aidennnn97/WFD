@@ -41,36 +41,35 @@ public class NaverSportsNewsPopularCrawling {
 				String aid = (String)newsList.get(i).get("aid");
 				String newstitle = (String)newsList.get(i).get("title");
 				String newsContent = (String)newsList.get(i).get("subContent");
-				String newsThumbnail = (String)newsList.get(i).get("thumbnail");
 				String newsViews = String.valueOf(newsList.get(i).get("totalCount"));
 				String newsUrl = "https://sports.news.naver.com/news?oid="+oid+"&aid="+aid;
 				
 				// map 에 전달하면 쿼리스트링으로 바꿔준다 
-//				HashMap<String, Object> requestParams = new HashMap<>();
-//				requestParams.put("oid", oid);
-//				requestParams.put("aid", aid);
+				HashMap<String, Object> requestParams = new HashMap<>();
+				requestParams.put("oid", oid);
+				requestParams.put("aid", aid);
 				
 				// 기사 상세 페이지, reqeustParams에 저장된 oid, aid를 가져와 url주소 뒤에 ?oid=1234&aid=5678 이런식으로 만들어줌  
-//				String newResponseBody = httpUtil.httpRequest("https://sports.news.naver.com/news", requestParams);
+				String newResponseBody = httpUtil.httpRequest("https://sports.news.naver.com/news", requestParams);
 				
 				// jsoup 사용 
-//				Document doc = Jsoup.parse(responseBody); // 도큐먼트 오브젝트파일로 바꿈 
+				Document doc = Jsoup.parse(newResponseBody); // 도큐먼트 오브젝트파일로 바꿈 
 //				
 //				Element newTitleElement = doc.selectFirst("#content > div > div.content > div > div.news_headline > h4");
 //	            Element newContentElement = doc.selectFirst("#newsEndContents");
 //	            Element newInsertDateTimeElement = doc.selectFirst("#content > div > div.content > div > div.news_headline > div > span:nth-child(1)");
-//	            Element newImageUrlElement = doc.selectFirst("span.end_photo_org > img");
+	            Element newImageUrlElement = doc.selectFirst("span.end_photo_org > img");
 //	            
 //	            String newsTitle = newTitleElement.text();
 //	            String newsContent = newContentElement.text();
 //	            String newsInsertDateTime = newInsertDateTimeElement.text();
-	            //String newsImageUrl = newImageUrlElement.attr("src"); //이미지는 태그안의 속성을 가져와야한다
+	            String newsImageUrl = newImageUrlElement.attr("src"); //이미지는 태그안의 속성을 가져와야한다
 	            
 	            HashMap<String, String> crawlingData = new HashMap<>();
 	            
 	            crawlingData.put("news_title", newstitle);
 	            crawlingData.put("news_content", newsContent);
-	            crawlingData.put("news_main_image", newsThumbnail);
+	            crawlingData.put("news_main_image", newsImageUrl);
 	            crawlingData.put("news_url", newsUrl);
 	            crawlingData.put("news_views", newsViews);
 	            
@@ -78,7 +77,7 @@ public class NaverSportsNewsPopularCrawling {
 	            
 	            System.out.println("newsTitle: " + newstitle);
 	            System.out.println("newsContent: " + newsContent);
-	            System.out.println("newsImg: " + newsThumbnail);
+	            System.out.println("newsImg: " + newsImageUrl);
 	            System.out.println("newsUrl: " + newsUrl);
 	            System.out.println("newsViews: " + newsViews);
 	            System.out.println("oid: " + oid);

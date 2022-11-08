@@ -7,23 +7,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WorldFootballData</title>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
 <link rel="stylesheet" href="/resources/css/reset.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/league.css" type="text/css">
+<link rel="stylesheet" href="/resources/css/league.css?ver=1.3"
+	type="text/css">
 </head>
 <body>
 	<!--  페이지 Nav바 시작  -->
 	<%@ include file="header.jsp"%>
 	<!--  페이지 Nav바 끝  -->
 
-	<div class="container"> <!-- container start -->
+	<div class="container">
+		<!-- container start -->
 
 		<!-- 상단 리그 경기 일정 캐러셀 시작  -->
 		<div class="row">
@@ -32,9 +26,9 @@
 
 					<!--  ////////////////////////////////////////////////////////  -->
 					<div class="testimonial-item equal-height style-6"
-						style="height: 150px;">
+						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2022/10/22</div>
+							<div class="match_day">2522/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -52,9 +46,9 @@
 					</div>
 					<!--  ////////////////////////////////////////////////////////  -->
 					<div class="testimonial-item equal-height style-6"
-						style="height: 150px;">
+						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2022/10/22</div>
+							<div class="match_day">2522/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -72,9 +66,9 @@
 					</div>
 					<!--  ////////////////////////////////////////////////////////  -->
 					<div class="testimonial-item equal-height style-6"
-						style="height: 150px;">
+						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2022/10/22</div>
+							<div class="match_day">2522/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -92,9 +86,9 @@
 					</div>
 					<!--  ////////////////////////////////////////////////////////  -->
 					<div class="testimonial-item equal-height style-6"
-						style="height: 150px;">
+						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2022/10/22</div>
+							<div class="match_day">2522/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -112,9 +106,9 @@
 					</div>
 					<!--  ////////////////////////////////////////////////////////  -->
 					<div class="testimonial-item equal-height style-6"
-						style="height: 150px;">
+						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2022/10/22</div>
+							<div class="match_day">2522/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -132,9 +126,9 @@
 					</div>
 					<!--  ////////////////////////////////////////////////////////  -->
 					<div class="testimonial-item equal-height style-6"
-						style="height: 150px;">
+						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2022/10/22</div>
+							<div class="match_day">2522/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -152,9 +146,9 @@
 					</div>
 					<!--  ////////////////////////////////////////////////////////  -->
 					<div class="testimonial-item equal-height style-6"
-						style="height: 150px;">
+						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2022/10/22</div>
+							<div class="match_day">2522/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -172,9 +166,9 @@
 					</div>
 					<!--  ////////////////////////////////////////////////////////  -->
 					<div class="testimonial-item equal-height style-6"
-						style="height: 150px;">
+						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2022/10/22</div>
+							<div class="match_day">2522/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -203,7 +197,14 @@
 				<div class="match_info_top_home"></div>
 				<div class="match_info_top_away"></div>
 			</div>
-			<div class="match_info_detail"></div>
+			<div class="match_info_detail">
+				
+				<%@ include file="formation/formation4141.jsp"%>
+				
+				<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+				
+	
+			</div>
 		</div>
 		<!-- 축구경기장 끝  -->
 
@@ -276,15 +277,16 @@
 		</div>
 		<!-- Rank box Finish -->
 
-<!-- data visibility box Start -->
+		<!-- data visibility box Start -->
 		<div class="data_visibility_box">
 			<div class="data_bubble_chart">Bubble Chart</div>
 			<div class="data_word_cloud">Word Cloud</div>
 		</div>
-<!-- data visibility box Finish -->
+		<!-- data visibility box Finish -->
 
 
-	</div> <!-- container Finish -->
+	</div>
+	<!-- container Finish -->
 
 
 	<script type="text/javascript">

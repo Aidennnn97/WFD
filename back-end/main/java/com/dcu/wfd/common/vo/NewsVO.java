@@ -1,7 +1,7 @@
 package com.dcu.wfd.common.vo;
 
 public class NewsVO {
-	private String newsTitle, newsContent, newsOid, newsAid, newsImgUrl;
+	   private String newsTitle, newsContent, newsImgUrl, newsViews, crawlingDate, newsUrl;
 
 	public String getNewsTitle() {
 		return newsTitle;
@@ -19,27 +19,35 @@ public class NewsVO {
 		this.newsContent = newsContent;
 	}
 
-	public String getNewsOid() {
-		return newsOid;
-	}
-
-	public void setNewsOid(String newsOid) {
-		this.newsOid = newsOid;
-	}
-
-	public String getNewsAid() {
-		return newsAid;
-	}
-
-	public void setNewsAid(String newsAid) {
-		this.newsAid = newsAid;
-	}
-
 	public String getNewsImgUrl() {
 		return newsImgUrl;
 	}
 
 	public void setNewsImgUrl(String newsImgUrl) {
 		this.newsImgUrl = newsImgUrl;
+	}
+
+	public String getNewsViews() {
+		return newsViews;
+	}
+
+	public void setNewsViews(String newsViews) {
+		this.newsViews = newsViews;
+	}
+
+	public String getCrawlingDate() {
+		return crawlingDate;
+	}
+
+	public void setCrawlingDate(String crawlingDate) {
+		this.crawlingDate = crawlingDate;
+	}
+
+	public String getNewsUrl() {
+		return newsUrl;
+	}
+
+	public void setNewsUrl(String newsUrl) {
+		this.newsUrl = newsUrl;
 	}
 }

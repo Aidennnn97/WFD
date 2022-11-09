@@ -85,7 +85,7 @@
 							</div>
 						</div>
 						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;">
+							<div class="player_imgBox"style="background-color: blue;height: 50px;">
 								<img src="">
 							</div>
 							<div class="player_personal_info">

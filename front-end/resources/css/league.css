@@ -141,12 +141,11 @@ tr:first-child th:last-child {
 td {
   border-right: 1px solid #c6c9cc;
   border-bottom: 1px solid #c6c9cc;
+ 
 }
 td:first-child {
   border-left: 1px solid #c6c9cc;
-}
-tr:nth-child(even) td {
-  background: #eaeaed;
+   background: #eaeaed;
 }
 tr:last-child td:first-child {
   border-bottom-left-radius: 6px;
@@ -192,7 +191,7 @@ tr:last-child td:last-child {
 	position: relative;
 }
 
-.goalkeeperBox, .defendersBox, .midfieldersBox, .forwardsBox, .strikerBox{
+.goalkeeperBox, .defendersBox, .midfieldersBox, .forwardsBox, .strikerBox, .defendermidfieldersBox{
 	display: flex;
     flex-direction: column;
     padding: 50px 0;

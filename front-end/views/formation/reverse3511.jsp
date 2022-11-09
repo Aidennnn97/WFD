@@ -7,23 +7,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-				<!-- Away Pomation Start -->
+								<!-- Away Pomation Start -->
 				<div class="match" style="transform: scaleX(-1)">
-					<div class="goalkeeperBox" style="width:25%;">
+					<div class="goalkeeperBox" style="width:20%;">
 						<div class="player_info" >
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
 								<img src="">
 							</div>
 							<div class="player_personal_info">
 								<div class="player_no" style="transform: scaleX(-1)">0</div>
 								.
-								<div class="player_name" style="transform: scaleX(-1)">조현우</div>
+								<div class="player_name" style="transform: scaleX(-1)">조현후</div>
 							</div>
 						</div>
 					</div>
-					<div class="defendersBox" style="width:25%; justify-content: space-around;">
+					<div class="defendersBox" style="width:20%; justify-content: space-around;">
 						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
 								<img src="">
 							</div>
 							<div class="player_personal_info">
@@ -33,17 +33,7 @@
 							</div>
 						</div>
 						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
-								<img src="">
-							</div>
-							<div class="player_personal_info">
-								<div class="player_name" style="transform: scaleX(-1)">조현우</div>
-								.
-								<div class="player_no" style="transform: scaleX(-1)">0</div>
-							</div>
-						</div>
-						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
 								<img src="">
 							</div>
 							<div class="player_personal_info">
@@ -53,7 +43,7 @@
 							</div>
 						</div>
 						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
 								<img src="">
 							</div>
 							<div class="player_personal_info">
@@ -63,29 +53,49 @@
 							</div>
 						</div>
 					</div>
-					<div class="midfieldersBox" style="width:25%; justify-content: space-evenly;">
+					<div class="midfieldersBox" style="width:20%; justify-content: space-evenly;">
 						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
 								<img src="">
 							</div>
 							<div class="player_personal_info">
-							<div class="player_name" style="transform: scaleX(-1)">조현우</div>
+						<div class="player_name" style="transform: scaleX(-1)">조현우</div>
 								.
 								<div class="player_no" style="transform: scaleX(-1)">0</div>
 							</div>
 						</div>
 						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
 								<img src="">
 							</div>
 							<div class="player_personal_info">
-							<div class="player_name" style="transform: scaleX(-1)">조현우</div>
+						<div class="player_name" style="transform: scaleX(-1)">조현우</div>
 								.
 								<div class="player_no" style="transform: scaleX(-1)">0</div>
 							</div>
 						</div>
 						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
+								<img src="">
+							</div>
+							<div class="player_personal_info">
+						<div class="player_name" style="transform: scaleX(-1)">조현우</div>
+								.
+								<div class="player_no" style="transform: scaleX(-1)">0</div>
+							</div>
+						</div>
+						<div class="player_info">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
+								<img src="">
+							</div>
+							<div class="player_personal_info">
+						<div class="player_name" style="transform: scaleX(-1)">조현우</div>
+								.
+								<div class="player_no" style="transform: scaleX(-1)">0</div>
+							</div>
+						</div>
+						<div class="player_info">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
 								<img src="">
 							</div>
 							<div class="player_personal_info">
@@ -95,38 +105,31 @@
 							</div>
 						</div>
 					</div>
-					<div class="forwardsBox" style="width:25%; justify-content: space-evenly;">
+					<div class="forwardsBox" style="width:20%; justify-content: space-evenly;">
 						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
 								<img src="">
 							</div>
 							<div class="player_personal_info">
 								<div class="player_name" style="transform: scaleX(-1)">조현우</div>
 								.
 								<div class="player_no" style="transform: scaleX(-1)">0</div>
-							</div>
-						</div>
-						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
-								<img src="">
-							</div>
-							<div class="player_personal_info">
-								<div class="player_name" style="transform: scaleX(-1)">조현우</div>
-								.
-								<div class="player_no" style="transform: scaleX(-1)">0</div>
-							</div>
-						</div>
-						<div class="player_info">
-							<div class="player_imgBox"style="background-color: blue;height: 50px;">
-								<img src="">
-							</div>
-							<div class="player_personal_info">
-								<div class="player_name" style="transform: scaleX(-1)">발렌틴</div>
-								.
-								<div class="player_no" style="transform: scaleX(-1)">6</div>
 							</div>
 						</div>
 					</div>
+										<div class="strikerBox" style="width:20%;">
+						<div class="player_info">
+							<div class="player_imgBox"style="background-color: blue;height: 40px;">
+								<img src="">
+							</div>
+							<div class="player_personal_info">
+								<div class="player_name" style="transform: scaleX(-1)">조현우</div>
+								.
+								<div class="player_no" style="transform: scaleX(-1)">0</div>
+							</div>
+						</div>
+					</div>
+					
 
 				</div>
 				<!-- Away Pomation Finish -->

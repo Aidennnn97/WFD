@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WorldFootballData</title>
 <link rel="stylesheet" href="/resources/css/reset.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/league.css?ver=1.3"
+<link rel="stylesheet" href="/resources/css/league.css?ver=1.5"
 	type="text/css">
 </head>
 <body>
@@ -28,7 +28,7 @@
 					<div class="testimonial-item equal-height style-6"
 						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2522/10/22</div>
+							<div class="match_day">2022/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -48,7 +48,7 @@
 					<div class="testimonial-item equal-height style-6"
 						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2522/10/22</div>
+							<div class="match_day">2022/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -68,7 +68,7 @@
 					<div class="testimonial-item equal-height style-6"
 						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2522/10/22</div>
+							<div class="match_day">2022/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -88,7 +88,7 @@
 					<div class="testimonial-item equal-height style-6"
 						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2522/10/22</div>
+							<div class="match_day">2022/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -108,7 +108,7 @@
 					<div class="testimonial-item equal-height style-6"
 						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2522/10/22</div>
+							<div class="match_day">2022/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -128,7 +128,7 @@
 					<div class="testimonial-item equal-height style-6"
 						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2522/10/22</div>
+							<div class="match_day">2022/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -148,7 +148,7 @@
 					<div class="testimonial-item equal-height style-6"
 						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2522/10/22</div>
+							<div class="match_day">2022/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -168,7 +168,7 @@
 					<div class="testimonial-item equal-height style-6"
 						style="height: 140px;">
 						<div class="match_schedule">
-							<div class="match_day">2522/10/22</div>
+							<div class="match_day">2022/10/22</div>
 							<div class="match_vs">
 								<div class="team_emblem">
 									<img class="team_logo" alt="" src="">
@@ -198,12 +198,14 @@
 				<div class="match_info_top_away"></div>
 			</div>
 			<div class="match_info_detail">
-				
-				<%@ include file="formation/formation4141.jsp"%>
-				
+
+
+				<%@ include file="formation/formation4231.jsp"%>
+
 				<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-				
-	
+
+				<%@ include file="formation/reverse433.jsp"%>
+
 			</div>
 		</div>
 		<!-- 축구경기장 끝  -->
@@ -212,7 +214,7 @@
 		<div class="rank_info_box">
 			<!-- Team Rank Start -->
 			<div class="team_rank_box">
-				<table>
+				<table class="team_rank_table">
 					<thead>
 						<tr>
 							<th>순위</th>
@@ -224,17 +226,6 @@
 							<th>패</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>8</td>
-							<td>Marco Belinelli</td>
-							<td>G</td>
-							<td>6-5</td>
-							<td>195</td>
-							<td>195</td>
-							<td>195</td>
-						</tr>
-					</tbody>
 				</table>
 				<div class="team_data_box">
 					<div class="data_bar_graph"></div>
@@ -257,14 +248,7 @@
 							<th>슈팅</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>8</td>
-							<td>Marco Belinelli</td>
-							<td>G</td>
-							<td>6-5</td>
-							<td>195</td>
-						</tr>
+					<tbody class="personal_rank_table">
 					</tbody>
 				</table>
 				<div class="personal_data_box">
@@ -290,6 +274,8 @@
 
 
 	<script type="text/javascript">
+	
+	/* 상단 카로셀  */
 		$(document).ready(function() {
 			$("#testimonial-slider").owlCarousel({
 				items : 7,
@@ -302,6 +288,61 @@
 				autoPlay : true
 			});
 		});
+		
+		/* 팀 순위테이블  */
+	      $(document).ready(function(){
+	          var teamRankData;
+	          var personalRankData;
+	             $.ajax({
+	                url: "/craw/eplTeamRank.ajax",
+	                dataType : "json",
+	                type : "post",
+	                async: false,
+	                success:function(data){
+	                   teamRankData = data;
+	                   for(var i=0; i < data.length; i++){
+	                         $(".team_rank_table").append(
+	                            "<tbody>"+
+	                               "<tr>"+
+	                                  "<td>"+data[i].teamRank+"</td>"+
+	                                  "<td class='teamClick'><img class='team_img' src="+data[i].teamImg+" style='width:25px;'>"+data[i].teamName +" >"+"</td>"+
+	                                  "<td>"+data[i].teamGame+"</td>"+
+	                                  "<td>"+data[i].teamPts+"</td>"+
+	                                  "<td>"+data[i].teamWin+"</td>"+
+	                                  "<td>"+data[i].teamDraw+"</td>"+
+	                                  "<td>"+data[i].teamLoss+"</td>"+
+	                               "</tr>"+
+	                            "</tbody>"
+	                      ); 
+	                      
+	                      
+	                   }
+	                }
+	             })
+	          })
+	          
+	          
+	          /* 전체선수 테이블 20명까지  */
+	          $(document).ready(function(){
+         $.ajax({
+            url: "/craw/eplPlayerRank.ajax",
+            dataType : "json",
+            type : "post",
+            success:function(data2){
+               for(var i=0; i < data2.length; i++){
+                  $(".personal_rank_table").append(
+                           "<tr>"+
+                              "<td>"+data2[i].personRank+"</td>"+
+                              "<td><img class='player_img' src="+data2[i].playerImg+" style='width:25px;height:25px;border-radius:50%;'>"+data2[i].name+"</td>"+
+                              "<td>"+data2[i].personGf+"</td>"+
+                              "<td>"+data2[i].personAst+"</td>"+
+                              "<td>"+data2[i].personSht+"</td>"+
+                           "</tr>"
+                  );
+               }
+            }
+         })
+      })
 	</script>
 </body>
 </html>

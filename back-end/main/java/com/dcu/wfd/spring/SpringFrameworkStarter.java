@@ -42,5 +42,20 @@ public class SpringFrameworkStarter implements WebApplicationInitializer{
         FilterRegistration.Dynamic filter = servletContext.addFilter("encodingFilter", CharacterEncodingFilter.class);
         filter.setInitParameter("encoding","utf-8");
         filter.addMappingForServletNames(null,false,"dispatcher");
+        
+        //Scheduler
+        
+        
 	}
+	
 }
+
+
+
+
+
+
+
+
+
+

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dcu.wfd.common.service.MainService;
 import com.dcu.wfd.common.vo.NewsVO;
 import com.dcu.wfd.util.HttpUtil;
+import com.dcu.wfd.util.Task;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,9 +38,22 @@ public class MainController {
 		List<NewsVO> newsList = mainService.newsSelectList();
 
 		model.addAttribute("newsList", newsList);
+		
+		System.out.println(Task.a);
 
 		return "/main";
 	}
+	
+	// 네이버 인기순 뉴스 크롤링하여 데이터베이스에 저장. 
+		@RequestMapping("/naverSportsNewsPopularInsert") //RequestMappingUrl요청이 오면 실행할 함수
+		public ModelAndView naverSportsNewsPopularInsert() { // 데이터와 뷰를 동시에 설정 가능 
+
+			ModelAndView mav = new ModelAndView("jsonView"); 
+
+			mainService.naverSportsNewsPopularInsert();
+
+			return mav;
+		}
 
 	@RequestMapping("/craw/crawSelect.ajax")
 	@ResponseBody
@@ -98,34 +112,38 @@ public class MainController {
 	         HashMap<String, Object> jsonData =  mapper.readValue(responseBody, new TypeReference<HashMap<String, Object> >() {});
 	         HashMap<String, Object> matchList = (HashMap<String, Object>) jsonData.get("schedule");
 	         ArrayList<HashMap<String,Object>> matchList2 = (ArrayList<HashMap<String, Object>>) matchList.get(date.format(today));
-	         for(int i = 0; i < matchList2.size(); i++) {
-	            String leagueName = (String) matchList2.get(i).get("leagueName");
-	            String startDate = (String) matchList2.get(i).get("startDate");
-	            String startTime = (String) matchList2.get(i).get("startTime");
-	            String awayTN = (String) matchList2.get(i).get("awayTeamName");
-	            String homeTN = (String) matchList2.get(i).get("homeTeamName");
-	            String homeResult = (String) matchList2.get(i).get("homeResult");
-	            String awayResult = (String) matchList2.get(i).get("awayResult");
-	            String awayTeamImageUrl = (String) matchList2.get(i).get("awayTeamImageUrl");
-	            String homeTeamImageUrl = (String) matchList2.get(i).get("homeTeamImageUrl");
-	            
-	            
-	            HashMap<String, String> matchData = new HashMap<>(); 
-	            
-	            if(leagueName.equals("프리미어리그") || leagueName.equals("라리가") || leagueName.equals("세리에A") || leagueName.equals("분데스리가")) {
-	               matchData.put("leagueName", leagueName);
-	               matchData.put("startDate", startDate);
-	               matchData.put("homeTN", homeTN);
-	               matchData.put("homeResult", homeResult);
-	               matchData.put("homeTeamImageUrl", homeTeamImageUrl);
-	               matchData.put("awayTN", awayTN);
-	               matchData.put("awayResult", awayResult);
-	               matchData.put("awayTeamImageUrl", awayTeamImageUrl);
-	               matchData.put("startTime", startTime);
-	               matchDataList.add(matchData);
-	               
-	            }
+	         if(matchList2 != null) {
+		         for(int i = 0; i < matchList2.size(); i++) {
+			            String leagueName = (String) matchList2.get(i).get("leagueName");
+			            String startDate = (String) matchList2.get(i).get("startDate");
+			            String startTime = (String) matchList2.get(i).get("startTime");
+			            String awayTN = (String) matchList2.get(i).get("awayTeamName");
+			            String homeTN = (String) matchList2.get(i).get("homeTeamName");
+			            String homeResult = (String) matchList2.get(i).get("homeResult");
+			            String awayResult = (String) matchList2.get(i).get("awayResult");
+			            String awayTeamImageUrl = (String) matchList2.get(i).get("awayTeamImageUrl");
+			            String homeTeamImageUrl = (String) matchList2.get(i).get("homeTeamImageUrl");
+			            
+			            
+			            HashMap<String, String> matchData = new HashMap<>(); 
+			            
+			            if(leagueName.equals("프리미어리그") || leagueName.equals("라리가") || leagueName.equals("세리에A") || leagueName.equals("분데스리가")) {
+			               matchData.put("leagueName", leagueName);
+			               matchData.put("startDate", startDate);
+			               matchData.put("homeTN", homeTN);
+			               matchData.put("homeResult", homeResult);
+			               matchData.put("homeTeamImageUrl", homeTeamImageUrl);
+			               matchData.put("awayTN", awayTN);
+			               matchData.put("awayResult", awayResult);
+			               matchData.put("awayTeamImageUrl", awayTeamImageUrl);
+			               matchData.put("startTime", startTime);
+			               matchDataList.add(matchData);
+			               
+			            }
 
+	         }
+	         } else {
+	        	 matchDataList.add(null);
 	         }
 	      } catch (Exception e) {
 	         // TODO: handle exception
@@ -134,21 +152,8 @@ public class MainController {
 	      return matchDataList;
 	      }
 
-	@RequestMapping("/epl")
-	public String eplJsp(Model model) {
+	
 
-		return "/epl";
-	}
-
-	// 네이버 인기순 뉴스 크롤링하여 데이터베이스에 저장. 
-	@RequestMapping("/naverSportsNewsPopularInsert") //RequestMappingUrl요청이 오면 실행할 함수
-	public ModelAndView naverSportsNewsPopularInsert() { // 데이터와 뷰를 동시에 설정 가능 
-
-		ModelAndView mav = new ModelAndView("jsonView"); 
-
-		mainService.naverSportsNewsPopularInsert();
-
-		return mav;
-	}
+	
 
 }

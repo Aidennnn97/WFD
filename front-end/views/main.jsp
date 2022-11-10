@@ -81,8 +81,9 @@
 	</div>
 	<script type="text/javascript">
     
-	/* 최신뉴스기사크롤링 */
      $(document).ready(function(){
+    	 
+    		/* 최신뉴스기사크롤링 */
          $.ajax({
              url :"/craw/crawSelect.ajax",
              dataType : "json",
@@ -107,16 +108,15 @@
                 
              }
          })
-     });
-     
+    	 
 	/* 오늘 경기 일정 크롤링  */
-     $(document).ready(function(){
          $.ajax({
              url :"/craw/matchCrawling.ajax",
              dataType : "json",
              type : "post",
              success:function(data){
             	 
+            	 if(data.length){
             	 for (var i = 0; i < data.length; i++){
             		 $(".today_match_list").append(
                              "<div class='today_match'>"+
@@ -138,183 +138,208 @@
                        		"</div>"
                           );    
             	 }
+            	 } else {
+            		 $(".today_match_list").append(
+               				"<div class='today_match'>"+
+               				
+               					"오늘은 경기가 없습니다."+
+               				"</div>"
+               		 );    
+            	 }
                 	
             	 $("#selectbox").on("change", function(){
             		 
-            		 /* 기존에 선택되어 추가된 요소 비우기  */
-            		 $(".today_match_list").empty();
+            		 if(data.length){
+            			 
+            			 if($("option:selected", this).text()=="전체일정"){
+            				 
+            				 /* 기존에 선택되어 추가된 요소 비우기  */
+                      		$(".today_match_list").empty();
+            				 
+                      		for (var i = 0; i < data.length; i++){
+                      			$(".today_match_list").append(
+                                        "<div class='today_match'>"+
+                                        
+                		                      "<div class='today_match_home'>"+
+                		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
+                		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
+                		                         "<div class='score'>"+data[i].homeResult +"</div>"+
+                		                      "</div>"+
+                                      
+                		                      "<div class='match_time'>"+ data[i].startTime.replace(/\B(?=(\d{2})+(?!\d))/g, ':') +"</div>"+
+                		                      
+                		                      "<div class='today_match_away'>"+
+                		                      	"<div class='score'>"+data[i].awayResult+"</div>"+
+                		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
+                		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
+                		                      "</div>"+
+                                      
+                                  		"</div>"
+                                     );   
+                      		}
+            				 
+            			 } /* 전체일정 if finish */
+            			 else if($("option:selected", this).text() == "프리미어리그"){
+            				 /* 기존에 선택되어 추가된 요소 비우기  */
+                       		$(".today_match_list").empty();
+            				 var cnt = 0;
+                       		for (var i = 0; i < data.length; i++){
+                         		if(data[i].leagueName == "프리미어리그"){
+                         			cnt++;
+                         				$(".today_match_list").append(
+                                                "<div class='today_match'>"+
+                                                
+                        		                      "<div class='today_match_home'>"+
+                        		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
+                        		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
+                        		                         "<div class='score'>"+data[i].homeResult +"</div>"+
+                        		                      "</div>"+
+                                              
+                        		                      "<div class='match_time'>"+ data[i].startTime.replace(/\B(?=(\d{2})+(?!\d))/g, ':') +"</div>"+
+                        		                      
+                        		                      "<div class='today_match_away'>"+
+                        		                      	"<div class='score'>"+data[i].awayResult+"</div>"+
+                        		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
+                        		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
+                        		                      "</div>"+
+                                              
+                                          		"</div>"
+                                             );    
+                         		
+                         		}
+                         		}
+                       		if(cnt == 0){
+                          		 $(".today_match_list").append(
+                           				"<div class='today_match'>"+
+                           				
+                           					"오늘은 경기가 없습니다."+
+                           				"</div>"
+                           		 );    
+                        		}
+            			 }
+            			 else if($("option:selected", this).text() == "라리가"){
+            				 /* 기존에 선택되어 추가된 요소 비우기  */
+                        		$(".today_match_list").empty();
+                        		var cnt = 0;
+                        		for (var i = 0; i < data.length; i++){
+                          		if(data[i].leagueName == "라리가"){
+                          			cnt++;
+                          			$(".today_match_list").append(
+                                             "<div class='today_match'>"+
+                                             
+                     		                      "<div class='today_match_home'>"+
+                     		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
+                     		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
+                     		                         "<div class='score'>"+data[i].homeResult +"</div>"+
+                     		                      "</div>"+
+                                           
+                     		                      "<div class='match_time'>"+ data[i].startTime.replace(/\B(?=(\d{2})+(?!\d))/g, ':') +"</div>"+
+                     		                      
+                     		                      "<div class='today_match_away'>"+
+                     		                      	"<div class='score'>"+data[i].awayResult+"</div>"+
+                     		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
+                     		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
+                     		                      "</div>"+
+                                           
+                                       		"</div>"
+                                          );    
+                          		}
+                          		}
+                        		if(cnt == 0){
+                             		 $(".today_match_list").append(
+                              				"<div class='today_match'>"+
+                              				
+                              					"오늘은 경기가 없습니다."+
+                              				"</div>"
+                              		 );    
+                           		}
+            			 }
+            			 else if($("option:selected", this).text() == "분데스리가"){
+            				 /* 기존에 선택되어 추가된 요소 비우기  */
+                     		$(".today_match_list").empty();
+                     		var cnt = 0;
+                     		for (var i = 0; i < data.length; i++){
+                       		if(data[i].leagueName == "분데스리가"){
+                       			cnt++;
+                       			$(".today_match_list").append(
+                                          "<div class='today_match'>"+
+                                          
+                  		                      "<div class='today_match_home'>"+
+                  		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
+                  		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
+                  		                         "<div class='score'>"+data[i].homeResult +"</div>"+
+                  		                      "</div>"+
+                                        
+                  		                      "<div class='match_time'>"+ data[i].startTime.replace(/\B(?=(\d{2})+(?!\d))/g, ':') +"</div>"+
+                  		                      
+                  		                      "<div class='today_match_away'>"+
+                  		                      	"<div class='score'>"+data[i].awayResult+"</div>"+
+                  		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
+                  		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
+                  		                      "</div>"+
+                                        
+                                    		"</div>"
+                                       );    
+                       		}
+                       		}
+                     		if(cnt == 0){
+                         		 $(".today_match_list").append(
+                          				"<div class='today_match'>"+
+                          				
+                          					"오늘은 경기가 없습니다."+
+                          				"</div>"
+                          		 );    
+                       		}
+            			 }
+            			 else if($("option:selected", this).text() == "세리에A"){
+            				 /* 기존에 선택되어 추가된 요소 비우기  */
+                      		$(".today_match_list").empty();
+                      		var cnt = 0;
+                      		for (var i = 0; i < data.length; i++){
+                      			cnt++;
+                        		if(data[i].leagueName == "세리에A"){
+                        			$(".today_match_list").append(
+                                           "<div class='today_match'>"+
+                                           
+                   		                      "<div class='today_match_home'>"+
+                   		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
+                   		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
+                   		                         "<div class='score'>"+data[i].homeResult +"</div>"+
+                   		                      "</div>"+
+                                         
+                   		                      "<div class='match_time'>"+ data[i].startTime.replace(/\B(?=(\d{2})+(?!\d))/g, ':') +"</div>"+
+                   		                      
+                   		                      "<div class='today_match_away'>"+
+                   		                      	"<div class='score'>"+data[i].awayResult+"</div>"+
+                   		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
+                   		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
+                   		                      "</div>"+
+                                         
+                                     		"</div>"
+                                        );    
+                        		}
+                        		}
+                      		if(cnt == 0){
+                         		 $(".today_match_list").append(
+                          				"<div class='today_match'>"+
+                          				
+                          					"오늘은 경기가 없습니다."+
+                          				"</div>"
+                          		 );    
+                       		}
+            			 }
+            			 
+            		 } else{
+            			 $(".today_match_list").append(
+                    				"<div class='today_match'>"+
+                    				
+                    					"오늘은 경기가 없습니다."+
+                    				"</div>"
+                    		 );   
+            		 }
             		 
-                     for (var i = 0; i < data.length; i++){
-                     	
-                     	if($("option:selected", this).text() == "전체일정"){
-                     		if(data.length){
-                     			$(".today_match_list").append(
-                                        "<div class='today_match'>"+
-                                        
-                		                      "<div class='today_match_home'>"+
-                		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
-                		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
-                		                         "<div class='score'>"+data[i].homeResult +"</div>"+
-                		                      "</div>"+
-                                      
-                		                      "<div class='match_time'>"+ data[i].startTime.replace(/\B(?=(\d{2})+(?!\d))/g, ':') +"</div>"+
-                		                      
-                		                      "<div class='today_match_away'>"+
-                		                      	"<div class='score'>"+data[i].awayResult+"</div>"+
-                		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
-                		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
-                		                      "</div>"+
-                                      
-                                  		"</div>"
-                                     );    
-                     		}
-                     		else{
-                         		$(".today_match_list").append(
-                         				"<div class='today_match'>"+
-                         				
-                         					"오늘은 경기가 없습니다."+
-                         				"</div>"
-                         		 );    
-                         	}
-                     		
-                     	} /* first if finish */
-                     	
-                     	if($("option:selected", this).text() == "프리미어리그"){
-                     		if(data[i].leagueName == "프리미어리그"){
-                     			$(".today_match_list").append(
-                                        "<div class='today_match'>"+
-                                        
-                		                      "<div class='today_match_home'>"+
-                		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
-                		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
-                		                         "<div class='score'>"+data[i].homeResult +"</div>"+
-                		                      "</div>"+
-                                      
-                		                      "<div class='match_time'>"+ data[i].startTime.replace(/\B(?=(\d{2})+(?!\d))/g, ':') +"</div>"+
-                		                      
-                		                      "<div class='today_match_away'>"+
-                		                      	"<div class='score'>"+data[i].awayResult+"</div>"+
-                		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
-                		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
-                		                      "</div>"+
-                                      
-                                  		"</div>"
-                                     );    
-                     		}
-                     		else{
-                         		$(".today_match_list").append(
-                         				"<div class='today_match'>"+
-                         				
-                         					"오늘은 경기가 없습니다."+
-                         				"</div>"
-                         		 );    
-                         	}
-                     		
-                     	} /* first if finish */
-
-                     	if($("option:selected", this).text() == "라리가"){
-                     		if(data[i].leagueName == "라리가"){
-                     			$(".today_match_list").append(
-                                        "<div class='today_match'>"+
-                                        
-                		                      "<div class='today_match_home'>"+
-                		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
-                		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
-                		                         "<div class='score'>"+data[i].homeResult +"</div>"+
-                		                      "</div>"+
-                                      
-                		                      "<div class='match_time'>"+ data[i].startTime.replace(/\B(?=(\d{2})+(?!\d))/g, ':') +"</div>"+
-                		                      
-                		                      "<div class='today_match_away'>"+
-                		                      	"<div class='score'>"+data[i].awayResult+"</div>"+
-                		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
-                		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
-                		                      "</div>"+
-                                      
-                                  		"</div>"
-                                     );    
-                     		}
-                     		else{
-                         		$(".today_match_list").append(
-                         				"<div class='today_match'>"+
-                         				
-                         					"오늘은 경기가 없습니다."+
-                         				"</div>"
-                         		 );    
-                         	}
-                     		
-                     	} /* first if finish */
-                     	
-                     	if($("option:selected", this).text() == "분데스리가"){
-                     		if(data[i].leagueName == "분데스리가"){
-                     			$(".today_match_list").append(
-                                        "<div class='today_match'>"+
-                                        
-                		                      "<div class='today_match_home'>"+
-                		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
-                		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
-                		                         "<div class='score'>"+data[i].homeResult +"</div>"+
-                		                      "</div>"+
-                                      
-                		                      "<div class='match_time'>"+ data[i].startTime.replace(/\B(?=(\d{2})+(?!\d))/g, ':') +"</div>"+
-                		                      
-                		                      "<div class='today_match_away'>"+
-                		                      	"<div class='score'>"+data[i].awayResult+"</div>"+
-                		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
-                		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
-                		                      "</div>"+
-                                      
-                                  		"</div>"
-                                     );    
-                     		}
-                     		else{
-                         		$(".today_match_list").append(
-                         				"<div class='today_match'>"+
-                         				
-                         					"오늘은 경기가 없습니다."+
-                         				"</div>"
-                         		 );    
-                         	}
-                     		
-                     	} /* first if finish */
-                     	
-                     	if($("option:selected", this).text() == "세리에A"){
-                     		if(data[i].leagueName == "세리에A"){
-                     			$(".today_match_list").append(
-                                        "<div class='today_match'>"+
-                                        
-                		                      "<div class='today_match_home'>"+
-                		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
-                		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
-                		                         "<div class='score'>"+data[i].homeResult +"</div>"+
-                		                      "</div>"+
-                                      
-                		                      "<div class='match_time'>"+ data[i].startTime.replace(/\B(?=(\d{2})+(?!\d))/g, ':') +"</div>"+
-                		                      
-                		                      "<div class='today_match_away'>"+
-                		                      	"<div class='score'>"+data[i].awayResult+"</div>"+
-                		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
-                		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
-                		                      "</div>"+
-                                      
-                                  		"</div>"
-                                     );    
-                     		}
-                     		else{
-                         		$(".today_match_list").append(
-                         				"<div class='today_match'>"+
-                         				
-                         					"오늘은 경기가 없습니다."+
-                         				"</div>"
-                         		 );    
-                         	}
-                     		
-                     	} /* first if finish */
-                     	
-                     	
-                        
-                     }/* for finish */
-                     
+            		 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+            		 
             		}); /* select change function finish */
             	 
              }

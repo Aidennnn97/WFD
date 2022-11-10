@@ -1,9 +1,12 @@
 @charset "UTF-8";
 
 .match_schedule {
-	width: 215px;
+	width: 100%;
 	height: 130px;
 	padding: 20px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .match_day {
@@ -15,12 +18,16 @@
 	align-items: center;
 	justify-content: center;
 	margin: 20px 0;
+	width:280px;
 }
 
 .match_score {
-	width: 20%;
+	width: 50%;
 	margin: 0 20px;
 	text-align: center;
+	display:flex;
+	justify-content: space-evenly;
+	font-size: 50px;
 }
 
 .team_emblem {
@@ -29,36 +36,30 @@
 }
 
 .team_logo {
-	width: 30px;
-	height: 30px;
-	background-color: black;
+	width: 50px;
+	height: 50px;
 }
 
 .match_time {
 	text-align: center;
+	position: absolute;
+	top: 80%;
 }
 
-.owl-carousel .owl-item {
-	display: block;
-	width: 100%;
-	float: left;
-	border: 5px solid #fff;
-	border-radius: 20px;
-	margin-left: 54px;
-	margin-right: 35px;
-	margin-top: 15px;
+.owl-item{
+	width: 400px;
+	display:flex;
+	justify-content: center;
 }
 
-.owl-item {
-	width: 300px;
-}
 
 .testimonial-item.equal-height.style-6 {
 	background-color: #eee;
 	border-radius: 10px;
 	margin: 10px;
-	width: 220px;
-	height: auto;
+	display: flex;
+	justify-content: center;
+	width: 100%;
 }
 
 .testimonial-content.quote {
@@ -75,15 +76,52 @@
 		no-repeat bottom;
 	background-color: #0b0e12;
 	padding-bottom: 30px;
-	height: 680px;
+	height: 800px;
 	min-height: 680px;
 	background-size: cover;
 	margin-bottom: 20px;
 }
+.match_info_top{
+	display:flex;
+	padding: 0 10%;
+}
+.match_info_top_home, .match_info_top_away{
+	width: 50%;
+	height: 100px;
+}
+
+.match_home_info, .match_away_info{
+	display: flex;
+}
+
+.match_home_info_img, .match_away_info_img{
+	width:30%;
+	height: 100px;
+	background-color: yellow;
+}
+
+.match_home_info_formation, .match_away_info_formation{
+	width:20%;
+	height:100px;
+	background-color: blue;
+}
+
+.match_home_info_name, .match_away_info_name{
+	width: 30%;
+	height: 100px;
+	background-color: red;
+}
+
+.match_home_info_goal, .match_away_info_goal{
+	width: 20%;
+	height: 100px;
+	background-color: green;
+}
+
 
 .match_info_detail{
 	width: 100%;
-    height: 580px;
+    height: 700px;
     background: url(/resources/img/fielddd.jpeg) no-repeat 100%;
     background-size: 80% 90%;
     background-position: center;
@@ -123,6 +161,7 @@ table {
   width: 100%;
   text-align: left;
   margin-bottom: 10px;
+  height: 900px;
 }
 th,
 td {

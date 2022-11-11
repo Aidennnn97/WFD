@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dcu.wfd.common.service.MainService;
 import com.dcu.wfd.common.vo.NewsVO;
 import com.dcu.wfd.util.HttpUtil;
-import com.dcu.wfd.util.Task;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -39,7 +38,6 @@ public class MainController {
 
 		model.addAttribute("newsList", newsList);
 		
-		System.out.println(Task.a);
 
 		return "/main";
 	}

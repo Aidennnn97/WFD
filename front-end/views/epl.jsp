@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WorldFootballData</title>
 <link rel="stylesheet" href="/resources/css/reset.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/league.css?ver=1.14"
+<link rel="stylesheet" href="/resources/css/league.css?ver=1.16"
 	type="text/css">
 </head>
 <body>
@@ -33,30 +33,21 @@
 		<div class="match_info_box">
 			<div class="match_info_top">
 				<div class="match_info_top_home">
-					<div class="match_home_info">
-						<div class="match_home_info_img">Home team Emblem</div>
-						<div class="match_home_info_formation">Home team Formation</div>
-						<div class="match_home_info_name">Home team Name</div>
-						<div class="match_home_info_goal">Home team Goal</div>
+					<div class="match_info_home_detail">
 					</div>
 				</div>
 				<div class="match_info_top_away">
-					<div class="match_away_info">
-						<div class="match_away_info_goal">Away team Goal</div>
-						<div class="match_away_info_name">Away team Name</div>
-						<div class="match_away_info_formation">Away team Formation</div>
-						<div class="match_away_info_img">Away team team Emblem</div>
+					<div class="match_info_away_detail">
 					</div>
 				</div>
 			</div>
 			<div class="match_info_detail">
 				
-
-				<%@ include file="formation/formation4321.jsp"%>
-
+				<div class="match_home"></div>
+				
 				<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-
-				<%@ include file="formation/reverse4321.jsp"%>
+				
+				<div class="match_away"></div>
 
 			</div>
 		</div>
@@ -242,7 +233,7 @@
                 if(data3.length){
                 	var cnt = 0;
                 for(var i=0; i < data3.length; i++){
-                	if(data3[i].leagueName == "라리가"){
+                	if(data3[i].leagueName == "세리에A"){
                 		cnt++;
                    $("#testimonial-slider").append(
                          "<div class='testimonial-item equal-height style-6' ' style='height:170px;'>"+
@@ -276,7 +267,7 @@
                 if(cnt ==0){
                     $("#testimonial-slider").append(
                             "<div class='testimonial-item equal-height style-6' style='height:170px;'>"+
-                                 "<div class='match_schedule'>"+
+                                 "<div style='margin-top:70px;'>"+
                                     	"오늘은 경기가 없습니다. *^_^*"+
                                      "</div>"+
                             "</div>"
@@ -288,7 +279,7 @@
                 } else{
                     $("#testimonial-slider").append(
                             "<div class='testimonial-item equal-height style-6' style='height:170px;'>"+
-                                 "<div class='match_schedule'>"+
+                                 "<div style='margin-top:70px;'>"+
                                     	"오늘은 경기가 없습니다."+
                                      "</div>"+
                                      "</div>"
@@ -317,7 +308,225 @@
                          gameId : gameId,
                       },
                       success:function(data5){
-                         console.log(gameId)
+                    	  $(".match_home").empty();
+                    	  $(".match_away").empty();
+                    	  $(".match_info_home_detail").empty();
+                    	  $(".match_info_away_detail").empty();
+                    	  
+                    	  
+                    	  const matchData = data5[data5.length-1];
+                    	  var data = data5[data5.length-1].homeTeamFormation;
+                          var data2 = data5[data5.length-1].awayTeamFormation;
+                          
+                          if(data.length == 3) {
+                             var homeTeamFormation = data.replace(/(\d{1})(\d{1})(\d{1})/g, '$1-$2-$3')
+                          } else if (data.length == 4) {
+                             var homeTeamFormation = data.replace(/(\d{1})(\d{1})(\d{1})(\d{1})/g, '$1-$2-$3-$4')
+                          } else if (data.length == 5) {
+                             var homeTeamFormation = data.replace(/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/g, '$1-$2-$3-$4-$5')
+                          }
+                          
+                          if(data2.length == 3) {
+                             var awayTeamFormation = data2.replace(/(\d{1})(\d{1})(\d{1})/g, '$1-$2-$3')
+                          } else if (data2.length == 4) {
+                             var awayTeamFormation = data2.replace(/(\d{1})(\d{1})(\d{1})(\d{1})/g, '$1-$2-$3-$4')
+                          } else if (data2.length == 5) {
+                             var awayTeamFormation = data2.replace(/(\d{1})(\d{1})(\d{1})(\d{1})(\d{1})/g, '$1-$2-$3-$4-$5')
+                          }
+                          
+                          
+                          const JsonHomeArray = [];
+                          
+                          for(var i=0; i<data5.length; i++){
+                             if(data5[i].homePlayerFormation !=null){
+                                  var JsonHome = new Object();
+                                JsonHome.homePlayerName = data5[i].homePlayerName;
+                                JsonHome.homePlayerFormation = data5[i].homePlayerFormation;
+                                JsonHome.homePlayerChanged = data5[i].homePlayerChanged;
+                                JsonHome.homePlayerImg = data5[i].homePlayerImg;
+                                JsonHome.homePlayerStarted = data5[i].homePlayerStarted;
+                                JsonHomeArray.push(JsonHome);
+                             }
+                         }
+                          var HomePlayerInfo = JSON.stringify(JsonHomeArray);
+                          
+                          
+                          /////////////////////////////////////////////////away
+                          
+                          const JsonAwayArray = [];
+                          
+                          for(var i=0; i<data5.length; i++){
+                             if(data5[i].awayPlayerFormation !=null){
+                                  var JsonAway = new Object();
+                                JsonAway.awayPlayerName = data5[i].awayPlayerName;
+                                JsonAway.awayPlayerFormation = data5[i].awayPlayerFormation;
+                                JsonAway.awayPlayerChanged = data5[i].awayPlayerChanged;
+                                JsonAway.awayPlayerImg = data5[i].awayPlayerImg;
+                                JsonAway.awayPlayerStarted = data5[i].awayPlayerStarted;
+                                JsonAwayArray.push(JsonAway);
+                             }
+                         }
+                          
+                          var AwayPlayerInfo = JSON.stringify(JsonAwayArray);
+                          
+                          var sortItem = "awayPlayerFormation";
+                          
+                         /*  AwayPlayerInfo.sort(function(a,b) {
+                             return a[sortItem]- b[sortItem];
+                          }); */
+                          
+                          console.log(data5);
+                          console.log(AwayPlayerInfo);
+                          
+                          
+                          
+                        	 
+                        	$(".match_info_home_detail").append(
+                        		"<div class='match_home_info_img'><img class='match_team_emblem' src='"+matchData.homeTeamImg+"'/></div>"+
+                        		"<div class='match_home_info_formation'>"+homeTeamFormation+"</div>"+
+                        		"<div class='match_home_info_name'>"+matchData.homeTeamName+"</div>"+
+                        		"<div class='match_home_info_goal'>"+matchData.homeTeamResult+"</div>"
+                        	);
+                        	
+    						$(".match_info_away_detail").append(
+                            		"<div class='match_away_info_goal'>"+matchData.awayTeamResult+"</div>"+
+                            		"<div class='match_away_info_name'>"+matchData.awayTeamName+"</div>"+
+                            		"<div class='match_away_info_formation'>"+awayTeamFormation+"</div>"+
+                            		"<div class='match_away_info_img'><img class='match_team_emblem' src='"+matchData.awayTeamImg+"'/></div>"
+                            	);
+                        	
+                        	if(matchData.homeTeamFormation == "3421"){
+                        	 $(".match_home").append(
+                        			 <%@ include file="formation/formation3421.jsp"%>
+                        	 );
+                        	} else if(matchData.homeTeamFormation == "343"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation343.jsp"%>
+                        		);
+                        	} else if(matchData.homeTeamFormation == "3511"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation3511.jsp"%>
+                        		);
+                        	} else if(matchData.homeTeamFormation == "352"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation352.jsp"%>
+                        		);
+                        	}else if(matchData.homeTeamFormation == "41212"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation41212.jsp"%>
+                        		);
+                        	} else if(matchData.homeTeamFormation == "4132"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation4132.jsp"%>
+                        		);
+                        	}else if(matchData.homeTeamFormation == "4141"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation4141.jsp"%>
+                        		);
+                        	}else if(matchData.homeTeamFormation == "4231"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation4231.jsp"%>
+                        		);
+                        	}else if(matchData.homeTeamFormation == "4321"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation4321.jsp"%>
+                        		);
+                        	}else if(matchData.homeTeamFormation == "433"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation433.jsp"%>
+                        		);
+                        	}else if(matchData.homeTeamFormation == "442"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation442.jsp"%>
+                        		);
+                        	}else if(matchData.homeTeamFormation == "451"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation451.jsp"%>
+                        		);
+                        	}else if(matchData.homeTeamFormation == "532"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation532.jsp"%>
+                        		);
+                        	}else if(matchData.homeTeamFormation == "541"){
+                        		$(".match_home").append(
+                        		<%@ include file="formation/formation541.jsp"%>
+                        		);
+                        	}else if(matchData.homeTeamFormation == "3142"){
+                        		$(".match_home").append(
+                                		<%@ include file="formation/formation3142.jsp"%>
+                                		);
+                                	}else if(matchData.homeTeamFormation == "3412"){
+                                		$(".match_home").append(
+                                        		<%@ include file="formation/formation3412.jsp"%>
+                                        		);
+                                        	}
+                        	
+                        	if(matchData.awayTeamFormation == "3421"){
+                        		$(".match_away").append(
+                           			 <%@ include file="formation/reverse3421.jsp"%>
+                           	 );
+                        	} else if(matchData.awayTeamFormation == "343"){
+                        		$(".match_away").append(
+                              			 <%@ include file="formation/reverse343.jsp"%>
+                              	 );
+                        	}else if(matchData.awayTeamFormation == "3511"){
+                        		$(".match_away").append(
+                             			 <%@ include file="formation/reverse3511.jsp"%>
+                             	 );
+                       	}else if(matchData.awayTeamFormation == "352"){
+                    		$(".match_away").append(
+                         			 <%@ include file="formation/reverse352.jsp"%>
+                         	 );
+			                   	}else if(matchData.awayTeamFormation == "41212"){
+			                		$(".match_away").append(
+			                     			 <%@ include file="formation/reverse41212.jsp"%>
+			                     	 );
+			               	}else if(matchData.awayTeamFormation == "4132"){
+			            		$(".match_away").append(
+			                 			 <%@ include file="formation/reverse4132.jsp"%>
+			                 	 );
+			           	}else if(matchData.awayTeamFormation == "4141"){
+			        		$(".match_away").append(
+			             			 <%@ include file="formation/reverse4141.jsp"%>
+			             	 );
+			       	}else if(matchData.awayTeamFormation == "4231"){
+			    		$(".match_away").append(
+			         			 <%@ include file="formation/reverse4231.jsp"%>
+			         	 );
+				   	}else if(matchData.awayTeamFormation == "4321"){
+						$(".match_away").append(
+				     			 <%@ include file="formation/reverse4321.jsp"%>
+				     	 );
+					}else if(matchData.awayTeamFormation == "433"){
+						$(".match_away").append(
+				     			 <%@ include file="formation/reverse433.jsp"%>
+				     	 );
+					}else if(matchData.awayTeamFormation == "442"){
+						$(".match_away").append(
+				     			 <%@ include file="formation/reverse442.jsp"%>
+				     	 );
+					}else if(matchData.awayTeamFormation == "451"){
+						$(".match_away").append(
+				     			 <%@ include file="formation/reverse451.jsp"%>
+				     	 );
+					}else if(matchData.awayTeamFormation == "532"){
+						$(".match_away").append(
+				     			 <%@ include file="formation/reverse541.jsp"%>
+				     	 );
+					}else if(matchData.awayTeamFormation == "541"){
+						$(".match_away").append(
+				     			 <%@ include file="formation/reverse541.jsp"%>
+				     	 );
+					}else if(matchData.awayTeamFormation == "3142"){
+						$(".match_away").append(
+				     			 <%@ include file="formation/reverse3142.jsp"%>
+				     	 );
+					}else if(matchData.awayTeamFormation == "3412"){
+						$(".match_away").append(
+				     			 <%@ include file="formation/reverse3412.jsp"%>
+				     	 );
+					}
+                        			 
                       }
                    })
                 });

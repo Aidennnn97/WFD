@@ -96,199 +96,141 @@ public class EplController {
 	   @ResponseBody
 	   public ArrayList<HashMap<String, String>> craw_select3(String gameId, HttpServletRequest req, HttpServletResponse resp)throws Exception {
 	      boolean result = false;
-	       ArrayList<HashMap<String, String>> GameDetailList = new ArrayList<>();
+	      ArrayList<HashMap<String, String>> GameDetailList = new ArrayList<>();
 
-	       String url = "https://sports.daum.net/prx/hermes/api/game/get.json?gameId="+gameId+"&detail=liveData";
-	       try {
-	          HttpUtil httpUtil = new HttpUtil();
-	          String responseBody = httpUtil.httpRequest(url, null);
-	          
-	          HashMap<String, String> Detail1 = new HashMap<>();
+	      String url = "https://sports.daum.net/prx/hermes/api/game/get.json?gameId="+gameId+"&detail=liveData";
+	      try {
+	         HttpUtil httpUtil = new HttpUtil();
+	         String responseBody = httpUtil.httpRequest(url, null);
 
-	          ObjectMapper mapper = new ObjectMapper();         //json 파싱기
-	           HashMap<String, Object> jsonData =  mapper.readValue(responseBody, new TypeReference<HashMap<String, Object> >() {});
-	           String startDate = (String) jsonData.get("startDate");
-	           String startTime = (String) jsonData.get("startTime");
-	           
-	           Detail1.put("startDate", startDate);
-	           Detail1.put("startDate", startDate);
-	           
-	           
-//	           HashMap<String, Object> homeList = (HashMap<String, Object>) jsonData.get("home");     
-	           HashMap<String,Object> jData2 = mapper.readValue(responseBody, new TypeReference<HashMap<String,Object>>() {});
-	             
-	             HashMap<String, Object> jData3 = mapper.convertValue(jData2.get("home"), new TypeReference<HashMap<String,Object>>() {});
-	             String HomeTeamResult = (String) jData3.get("result");
-	             
-	             
+	         HashMap<String, String> Detail1 = new HashMap<>();
 
-	             HashMap<String, Object> homeTeamInfo = (HashMap<String, Object>) jData3.get("team");  
-	             String HomeTeamName = (String) homeTeamInfo.get("name");
+	         ObjectMapper mapper = new ObjectMapper();         //json 파싱기
+	         HashMap<String, Object> jsonData =  mapper.readValue(responseBody, new TypeReference<HashMap<String, Object> >() {});
+	         HashMap<String, Object> homeList = (HashMap<String, Object>) jsonData.get("home");
+	         HashMap<String, Object> homeTeamList= (HashMap<String, Object>) homeList.get("team");
+	         HashMap<String, Object> homeFormationList = (HashMap<String, Object>) homeList.get("formation");
+	         ArrayList<HashMap<String, Object>> homeTeamPlayer = (ArrayList<HashMap<String, Object>>) jsonData.get("homePerson");
 
-	             String HomeTeamImage = (String) homeTeamInfo.get("imageUrl");
-	             
-	             Detail1.put("HomeTeamResult", HomeTeamResult);
-	             Detail1.put("HomeTeamName", HomeTeamName);
-	             Detail1.put("HomeTeamImage", HomeTeamImage);
-	             
-	             
-	             
-	             HashMap<String, Object> hometeamformation = (HashMap<String, Object>) jData3.get("formation");
-	             
-	             if(hometeamformation != null) {
-	                String homeTeamformation = (String) hometeamformation.get("formation");
-	                Detail1.put("homeTeamformation", homeTeamformation);
-	     
-	             } else {
-	                Detail1.put("homeTeamformation", null);
-	                
-	             }
+	         String homeTeamName = (String)homeTeamList.get("name");
+	         String homeTeamImg = (String) homeTeamList.get("imageUrl");
+	         String homeTeamResult = (String) homeList.get("result");
+	         Detail1.put("homeTeamName", homeTeamName);
+	         Detail1.put("homeTeamImg", homeTeamImg);
+	         Detail1.put("homeTeamResult", homeTeamResult);
+
+	         if(homeFormationList != null) {
+
+	            String homeTeamFormation = (String) homeFormationList.get("name");
+	            Detail1.put("homeTeamFormation", homeTeamFormation);
+
+	         } else {
+
+	            Detail1.put("homeTeamFormation", null);
+	         }
+	         for(int i=0; i < homeTeamPlayer.size(); i++) {
+	            HashMap<String, String> Detail2 = new HashMap<>();
+
+	            String homePlayerName = (String) homeTeamPlayer.get(i).get("name");
+	            String homePlayerImg = (String) homeTeamPlayer.get(i).get("imageUrl");
+	            String homePlayerFormation = String.valueOf(homeTeamPlayer.get(i).get("formationPlace"));
+	            String homePlayerChanged = String.valueOf(homeTeamPlayer.get(i).get("isChanged"));
+	            String homePlayerStarted = String.valueOf(homeTeamPlayer.get(i).get("isStarted"));
+
+	            Detail2.put("homePlayerName", homePlayerName);
+	            Detail2.put("homePlayerImg", homePlayerImg);
+	            Detail2.put("homePlayerFormation", homePlayerFormation);
+	            Detail2.put("homePlayerChanged", homePlayerChanged);
+	            Detail2.put("homePlayerStarted", homePlayerStarted);
+	            GameDetailList.add(Detail2);
+
+	         }
+
+	         HashMap<String, Object> awayList = (HashMap<String, Object>) jsonData.get("away");
+	         HashMap<String, Object> awayTeamList = (HashMap<String, Object>) awayList.get("team");
+	         HashMap<String, Object> awayFormationList = (HashMap<String, Object>) awayList.get("formation");
+	         ArrayList<HashMap<String, Object>> awayTeamPlayer = (ArrayList<HashMap<String, Object>>) jsonData.get("awayPerson");
 
 
-	             ArrayList<HashMap<String, Object>> homePlayerList = (ArrayList<HashMap<String, Object>>) jData2.get("homePerson");
-	             
-	             if(homePlayerList != null) {
-	                for(int t=0; t < homePlayerList.size(); t++) {         //1 대신 awayPlayerList.size()
-	                   HashMap<String, String> Detail2 = new HashMap<>();
-	                   String homePlayerName = (String) homePlayerList.get(t).get("name");
-	                   String homePlayerPosition = String.valueOf(homePlayerList.get(t).get("formationPlace"));
-	                   String homePlayerIsStarted = String.valueOf(homePlayerList.get(t).get("isStarted"));
-	                   String homePlayerisChanged = String.valueOf(homePlayerList.get(t).get("isChanged"));
-	                   
-	                   
-	                   Detail2.put("homePlayerName", homePlayerName);
-	                   Detail2.put("homePlayerPosition", homePlayerPosition);
-	                   Detail2.put("homePlayerIsStarted", homePlayerIsStarted);
-	                   Detail2.put("homePlayerisChanged", homePlayerisChanged);
-	                   
-	                   GameDetailList.add(Detail2);
-	                }
-	                
-	             } else {
-	                HashMap<String, String> Detail2 = new HashMap<>();
-	               
-	               Detail2.put("homePlayerName", null);
-	               Detail2.put("homePlayerPosition", null);
-	               Detail2.put("homePlayerIsStarted", null);
-	               Detail2.put("homePlayerisChanged", null);
-	               GameDetailList.add(Detail2);
-	             }
-	                   
-	             
-	             
-	             HashMap<String, Object> jData4 = mapper.convertValue(jData2.get("away"), new TypeReference<HashMap<String,Object>>() {});
-//	             System.out.println("jData4 >>> " + jData4);
-	             
-	             HashMap<String, Object> awayTeamInfo = (HashMap<String, Object>) jData4.get("team");
-//	             System.out.println("awayTeamInfo >>> " + awayTeamInfo);
-	             
-	             HashMap<String, Object> awayTeamformation = (HashMap<String, Object>) jData4.get("formation");
-	             
-	             String AwayTeamResult = (String) jData4.get("result");
-	             
-	             String AwayTeamName = (String) awayTeamInfo.get("name");
-	             
-	             String AwayTeamImage = (String) awayTeamInfo.get("imageUrl");
-	             
-	             Detail1.put("AwayTeamResult", AwayTeamResult);
-	             Detail1.put("AwayTeamName", AwayTeamName);
-	             Detail1.put("AwayTeamImage", AwayTeamImage);
-	             
-	             if(awayTeamformation != null) {
-	                String AwayTeamFormation = (String) awayTeamformation.get("name");
-	                
-	                Detail1.put("AwayTeamFormation", AwayTeamFormation);
-	                
-	                
-	             } else {
-	                Detail1.put("AwayTeamFormation", null);
-	             }
-	             
-	             
-	             ArrayList<HashMap<String, Object>> awayPlayerList = (ArrayList<HashMap<String, Object>>) jData2.get("awayPerson");
-	             if(awayPlayerList != null) {
-	                for(int j=0; j < awayPlayerList.size(); j++) {         //1 대신 awayPlayerList.size()
-	                   HashMap<String, String> Detail3 = new HashMap<>();
-	                   String awayPlayerName = (String) awayPlayerList.get(j).get("name");
-	                   String awayPlayerPosition = String.valueOf(awayPlayerList.get(j).get("formationPlace"));
-	                   String awayPlayerIsStarted = String.valueOf(awayPlayerList.get(j).get("isStarted"));
-	                   String awayPlayerisChanged = String.valueOf(awayPlayerList.get(j).get("isChanged"));
-	                   
-	                   Detail3.put("awayPlayerName",awayPlayerName);
-	                   Detail3.put("awayPlayerPosition",awayPlayerPosition);
-	                   Detail3.put("awayPlayerIsStarted",awayPlayerIsStarted);
-	                   Detail3.put("awayPlayerisChanged",awayPlayerisChanged);
-	                   
-	                   GameDetailList.add(Detail3);
-	                }
-	                
-	             } else {
-	                HashMap<String, String> Detail3 = new HashMap<>();
-	               
-	               Detail3.put("awayPlayerName",null);
-	               Detail3.put("awayPlayerPosition",null);
-	               Detail3.put("awayPlayerIsStarted",null);
-	               Detail3.put("awayPlayerisChanged",null);
-	               
-	               GameDetailList.add(Detail3);
-	             }
-	             
-	             
-	             
-	             // 홈팀 경기 정보 (점유율, 슈팅 등등)
-	             HashMap<String, Object> homeTeamStat = (HashMap<String, Object>) jData2.get("homeTeamStat");
-	             
-	             String HomePossession = String.valueOf(homeTeamStat.get("possession"));      //점유율
-	             String HomeShooting = String.valueOf(homeTeamStat.get("sht"));      //점유율
-	             String HomeSog = String.valueOf(homeTeamStat.get("sog"));      //유효슈팅
-	             String HomeCk = String.valueOf(homeTeamStat.get("ck"));      //코너킥
-	             String HomeFo = String.valueOf(homeTeamStat.get("fo"));      //파울
-	             String HomeOff = String.valueOf(homeTeamStat.get("off"));      //오프사이드
-	             String HomeYel = String.valueOf(homeTeamStat.get("yel"));      //경고
-	             String HomeRed = String.valueOf(homeTeamStat.get("red"));      //퇴장
-	             
-	             
-	             Detail1.put("HomePossession",HomePossession);
-	             Detail1.put("HomeShooting",HomeShooting);
-	             Detail1.put("HomeSog",HomeSog);
-	             Detail1.put("HomeCk",HomeCk);
-	             Detail1.put("HomeFo",HomeFo);
-	             Detail1.put("HomeOff",HomeOff);
-	             Detail1.put("HomeYel",HomeYel);
-	             Detail1.put("HomeRed",HomeRed);
-	             
-	          // 어웨이팀 경기 정보 (점유율, 슈팅 등등)
-	          HashMap<String, Object> awayTeamStat = (HashMap<String, Object>) jData2.get("awayTeamStat");
-	          
-	          String AwayPossession = String.valueOf(awayTeamStat.get("possession"));      //점유율
-	          String AwayShooting = String.valueOf(awayTeamStat.get("sht"));      //점유율
-	          String AwaySog = String.valueOf(awayTeamStat.get("sog"));      //유효슈팅
-	          String AwayCk = String.valueOf(awayTeamStat.get("ck"));      //코너킥
-	          String AwayFo = String.valueOf(awayTeamStat.get("fo"));      //파울
-	          String AwayOff = String.valueOf(awayTeamStat.get("off"));      //오프사이드
-	          String AwayYel = String.valueOf(awayTeamStat.get("yel"));      //경고
-	          String AwayRed = String.valueOf(awayTeamStat.get("red"));      //퇴장
-	          
-	          Detail1.put("AwayPossession",AwayPossession);
-	          Detail1.put("AwayShooting",AwayShooting);
-	          Detail1.put("AwaySog",AwaySog);
-	          Detail1.put("AwayCk",AwayCk);
-	          Detail1.put("AwayFo",AwayFo);
-	          Detail1.put("AwayOff",AwayOff);
-	          Detail1.put("AwayYel",AwayYel);
-	          Detail1.put("AwayRed",AwayRed);
-	          
-	          
-	          
-	          GameDetailList.add(Detail1);
-	          
-	          result = true;
+	         String awayTeamName = (String) awayTeamList.get("name");
+	         String awayTeamImg = (String) awayTeamList.get("imageUrl");
+	         String awayTeamResult = (String) awayList.get("result");
 
-	       } catch (Exception e) {
-	          // TODO Auto-generated catch block
-	          e.printStackTrace();
-	       }
-	      
+	         Detail1.put("awayTeamName", awayTeamName);
+	         Detail1.put("awayTeamImg", awayTeamImg);
+	         Detail1.put("awayTeamResult", awayTeamResult);
+
+	         if(awayFormationList != null) {
+	            String awayTeamFormation = (String) awayFormationList.get("name");
+	            Detail1.put("awayTeamFormation", awayTeamFormation);
+	         } else {
+	            Detail1.put("awayTeamFormation", null);
+
+	         }
+	         for(int i=0; i < awayTeamPlayer.size(); i++) {
+	            HashMap<String, String> Detail3 = new HashMap<>();
+
+	            String awayPlayerName = (String) awayTeamPlayer.get(i).get("name");
+	            String awayPlayerImg = (String) awayTeamPlayer.get(i).get("imageUrl");
+	            String awayPlayerFormation = String.valueOf(awayTeamPlayer.get(i).get("formationPlace"));
+	            String awayPlayerChanged = String.valueOf(awayTeamPlayer.get(i).get("isChanged"));
+	            String awayPlayerStarted = String.valueOf(awayTeamPlayer.get(i).get("isStarted"));
+
+	            Detail3.put("awayPlayerName", awayPlayerName);
+	            Detail3.put("awayPlayerImg", awayPlayerImg);
+	            Detail3.put("awayPlayerFormation", awayPlayerFormation);
+	            Detail3.put("awayPlayerChanged", awayPlayerChanged);
+	            Detail3.put("awayPlayerStarted", awayPlayerStarted);
+	            GameDetailList.add(Detail3);
+
+
+	         }
+	         HashMap<String, Object> homeStatList = (HashMap<String, Object>) jsonData.get("homeTeamStat");
+	         String HomePossession = String.valueOf(homeStatList.get("possession"));      //점유율
+	         String HomeShooting = String.valueOf(homeStatList.get("sht"));      //점유율
+	         String HomeSog = String.valueOf(homeStatList.get("sog"));      //유효슈팅
+	         String HomeCk = String.valueOf(homeStatList.get("ck"));      //코너킥
+	         String HomeFo = String.valueOf(homeStatList.get("fo"));      //파울
+	         String HomeOff = String.valueOf(homeStatList.get("off"));      //오프사이드
+	         String HomeYel = String.valueOf(homeStatList.get("yel"));      //경고
+	         String HomeRed = String.valueOf(homeStatList.get("red"));      //퇴장
+
+
+	         Detail1.put("HomePossession", HomePossession);
+	         Detail1.put("HomeShooting", HomeShooting);
+	         Detail1.put("HomeSog", HomeSog);
+	         Detail1.put("HomeCk", HomeCk);
+	         Detail1.put("HomeFo", HomeFo);
+	         Detail1.put("HomeOff", HomeOff);
+	         Detail1.put("HomeYel", HomeYel);
+	         Detail1.put("HomeRed", HomeRed);
+
+	         HashMap<String, Object> awayStatList = (HashMap<String, Object>) jsonData.get("awayTeamStat");
+	         String AwayPossession = String.valueOf(awayStatList.get("possession"));      //점유율
+	         String AwayShooting = String.valueOf(awayStatList.get("sht"));      //점유율
+	         String AwaySog = String.valueOf(awayStatList.get("sog"));      //유효슈팅
+	         String AwayCk = String.valueOf(awayStatList.get("ck"));      //코너킥
+	         String AwayFo = String.valueOf(awayStatList.get("fo"));      //파울
+	         String AwayOff = String.valueOf(awayStatList.get("off"));      //오프사이드
+	         String AwayYel = String.valueOf(awayStatList.get("yel"));      //경고
+	         String AwayRed = String.valueOf(awayStatList.get("red"));      //퇴장
+
+	         Detail1.put("AwayPossession", AwayPossession);
+	         Detail1.put("AwayShooting", AwayShooting);
+	         Detail1.put("AwaySog", AwaySog);
+	         Detail1.put("AwayCk", AwayCk);
+	         Detail1.put("AwayFo", AwayFo);
+	         Detail1.put("AwayOff", AwayOff);
+	         Detail1.put("AwayYel", AwayYel);
+	         Detail1.put("AwayRed", AwayRed);
+	         GameDetailList.add(Detail1);
+	         
+	         
+	         result = true;
+	      } catch (Exception e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
 	      return GameDetailList;
 	   }
 	

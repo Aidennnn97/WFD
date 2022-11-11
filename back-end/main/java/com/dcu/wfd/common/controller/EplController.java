@@ -136,12 +136,14 @@ public class EplController {
 	            String homePlayerFormation = String.valueOf(homeTeamPlayer.get(i).get("formationPlace"));
 	            String homePlayerChanged = String.valueOf(homeTeamPlayer.get(i).get("isChanged"));
 	            String homePlayerStarted = String.valueOf(homeTeamPlayer.get(i).get("isStarted"));
+	            String homePlayerBackNumber = String.valueOf(homeTeamPlayer.get(i).get("backNumber"));
 
 	            Detail2.put("homePlayerName", homePlayerName);
 	            Detail2.put("homePlayerImg", homePlayerImg);
 	            Detail2.put("homePlayerFormation", homePlayerFormation);
 	            Detail2.put("homePlayerChanged", homePlayerChanged);
 	            Detail2.put("homePlayerStarted", homePlayerStarted);
+	            Detail2.put("homePlayerBackNumber", homePlayerBackNumber);
 	            GameDetailList.add(Detail2);
 
 	         }
@@ -175,12 +177,14 @@ public class EplController {
 	            String awayPlayerFormation = String.valueOf(awayTeamPlayer.get(i).get("formationPlace"));
 	            String awayPlayerChanged = String.valueOf(awayTeamPlayer.get(i).get("isChanged"));
 	            String awayPlayerStarted = String.valueOf(awayTeamPlayer.get(i).get("isStarted"));
+	            String awayPlayerBackNumber = String.valueOf(awayTeamPlayer.get(i).get("backNumber"));
 
 	            Detail3.put("awayPlayerName", awayPlayerName);
 	            Detail3.put("awayPlayerImg", awayPlayerImg);
 	            Detail3.put("awayPlayerFormation", awayPlayerFormation);
 	            Detail3.put("awayPlayerChanged", awayPlayerChanged);
 	            Detail3.put("awayPlayerStarted", awayPlayerStarted);
+	            Detail3.put("awayPlayerBackNumber", awayPlayerBackNumber);
 	            GameDetailList.add(Detail3);
 
 

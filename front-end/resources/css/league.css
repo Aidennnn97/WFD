@@ -250,6 +250,9 @@ tr:last-child td:last-child {
 
 .player_info{
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .goalkeeperBox, .defendersBox, .midfieldersBox, .forwardsBox, .strikerBox, .defendermidfieldersBox{

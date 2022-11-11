@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WorldFootballData</title>
 <link rel="stylesheet" href="/resources/css/reset.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/league.css?ver=1.16"
+<link rel="stylesheet" href="/resources/css/league.css?ver=1.17"
 	type="text/css">
 </head>
 <body>
@@ -308,6 +308,8 @@
                          gameId : gameId,
                       },
                       success:function(data5){
+                    	  
+                    	  
                     	  $(".match_home").empty();
                     	  $(".match_away").empty();
                     	  $(".match_info_home_detail").empty();
@@ -335,51 +337,55 @@
                           }
                           
                           
-                          const JsonHomeArray = [];
+                          const homeArray = [];
                           
                           for(var i=0; i<data5.length; i++){
-                             if(data5[i].homePlayerFormation !=null){
+                             if(data5[i].homePlayerFormation !=null && data5[i].homePlayerFormation != "null"){
                                   var JsonHome = new Object();
                                 JsonHome.homePlayerName = data5[i].homePlayerName;
                                 JsonHome.homePlayerFormation = data5[i].homePlayerFormation;
                                 JsonHome.homePlayerChanged = data5[i].homePlayerChanged;
                                 JsonHome.homePlayerImg = data5[i].homePlayerImg;
                                 JsonHome.homePlayerStarted = data5[i].homePlayerStarted;
-                                JsonHomeArray.push(JsonHome);
+                                JsonHome.homePlayerBackNumber = data5[i].homePlayerBackNumber;
+                                homeArray.push(JsonHome);
                              }
                          }
-                          var HomePlayerInfo = JSON.stringify(JsonHomeArray);
                           
+                          var sortHomeItem = "homePlayerFormation";
+                          
+                          homeArray.sort(function(a,b) {
+                          return a[sortHomeItem]- b[sortHomeItem];
+                       });  
+                          
+                          console.log(homeArray);
                           
                           /////////////////////////////////////////////////away
                           
-                          const JsonAwayArray = [];
+                          const awayArray = [];
                           
                           for(var i=0; i<data5.length; i++){
-                             if(data5[i].awayPlayerFormation !=null){
-                                  var JsonAway = new Object();
-                                JsonAway.awayPlayerName = data5[i].awayPlayerName;
-                                JsonAway.awayPlayerFormation = data5[i].awayPlayerFormation;
-                                JsonAway.awayPlayerChanged = data5[i].awayPlayerChanged;
-                                JsonAway.awayPlayerImg = data5[i].awayPlayerImg;
-                                JsonAway.awayPlayerStarted = data5[i].awayPlayerStarted;
-                                JsonAwayArray.push(JsonAway);
-                             }
-                         }
+                              if(data5[i].awayPlayerFormation !=null && data5[i].awayPlayerFormation != "null"){
+                                   var JsonAway = new Object();
+                                 JsonAway.awayPlayerName = data5[i].awayPlayerName;
+                                 JsonAway.awayPlayerFormation = data5[i].awayPlayerFormation;
+                                 JsonAway.awayPlayerChanged = data5[i].awayPlayerChanged;
+                                 JsonAway.awayPlayerImg = data5[i].awayPlayerImg;
+                                 JsonAway.awayPlayerStarted = data5[i].awayPlayerStarted;
+                                 JsonAway.awayPlayerBackNumber = data5[i].awayPlayerBackNumber;
+                                 awayArray.push(JsonAway);
+                            
+                              }
+                              
+                          }
+                           
+                           var sortAwayItem = "awayPlayerFormation";
                           
-                          var AwayPlayerInfo = JSON.stringify(JsonAwayArray);
+                           awayArray.sort(function(a,b) {
+                           return a[sortAwayItem]- b[sortAwayItem];
+                        });  
                           
-                          var sortItem = "awayPlayerFormation";
-                          
-                         /*  AwayPlayerInfo.sort(function(a,b) {
-                             return a[sortItem]- b[sortItem];
-                          }); */
-                          
-                          console.log(data5);
-                          console.log(AwayPlayerInfo);
-                          
-                          
-                          
+                        console.log(awayArray);
                         	 
                         	$(".match_info_home_detail").append(
                         		"<div class='match_home_info_img'><img class='match_team_emblem' src='"+matchData.homeTeamImg+"'/></div>"+

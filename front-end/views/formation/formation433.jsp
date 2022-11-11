@@ -9,9 +9,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+0+"</div>"+
+								"<div class='player_no'>"+homeArray[0].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[0].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 					"</div>"+
@@ -21,9 +21,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+1+"</div>"+
+								"<div class='player_no'>"+homeArray[1].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[1].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 						"<div class='player_info'>"+
@@ -31,9 +31,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+2+"</div>"+
+								"<div class='player_no'>"+homeArray[2].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[2].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 						"<div class='player_info'>"+
@@ -41,9 +41,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+3+"</div>"+
+								"<div class='player_no'>"+homeArray[3].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[3].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 						"<div class='player_info'>"+
@@ -51,9 +51,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+4+"</div>"+
+								"<div class='player_no'>"+homeArray[4].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[4].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 					"</div>"+
@@ -63,9 +63,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+5+"</div>"+
+								"<div class='player_no'>"+homeArray[5].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[5].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 						"<div class='player_info'>"+
@@ -73,9 +73,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+6+"</div>"+
+								"<div class='player_no'>"+homeArray[6].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[6].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 						"<div class='player_info'>"+
@@ -83,9 +83,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+6+"</div>"+
+								"<div class='player_no'>"+homeArray[7].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[7].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 					"</div>"+
@@ -95,9 +95,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+6+"</div>"+
+								"<div class='player_no'>"+homeArray[8].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[8].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 						"<div class='player_info'>"+
@@ -105,9 +105,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+6+"</div>"+
+								"<div class='player_no'>"+homeArray[9].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[9].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 						"<div class='player_info'>"+
@@ -115,9 +115,9 @@
 								"<img src=''>"+
 							"</div>"+
 							"<div class='player_personal_info'>"+
-								"<div class='player_no'>"+6+"</div>"+
+								"<div class='player_no'>"+homeArray[10].homePlayerBackNumber+"</div>"+
 								"."+
-								"<div class='player_name'></div>"+
+								"<div class='player_name'>"+homeArray[10].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
 					"</div>"+

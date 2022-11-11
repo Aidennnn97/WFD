@@ -43,7 +43,7 @@ public class EplController {
 	         ObjectMapper mapper = new ObjectMapper();
 	         HashMap<String, Object> jsonData =  mapper.readValue(responseBody, new TypeReference<HashMap<String, Object> >() {});
 	         HashMap<String, Object> matchList = (HashMap<String, Object>) jsonData.get("schedule");
-	         ArrayList<HashMap<String,Object>> matchList2 = (ArrayList<HashMap<String, Object>>) matchList.get(date.format(today));
+	         ArrayList<HashMap<String,Object>> matchList2 = (ArrayList<HashMap<String, Object>>) matchList.get("20221106");
 	         
 	         if(matchList2 != null) {
 	            

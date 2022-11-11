@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WorldFootballData</title>
 <link rel="stylesheet" href="/resources/css/reset.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/league.css?ver=1.17"
+<link rel="stylesheet" href="/resources/css/league.css?ver=1.19"
 	type="text/css">
 </head>
 <body>
@@ -233,7 +233,7 @@
                 if(data3.length){
                 	var cnt = 0;
                 for(var i=0; i < data3.length; i++){
-                	if(data3[i].leagueName == "세리에A"){
+                	if(data3[i].leagueName == "프리미어리그"){
                 		cnt++;
                    $("#testimonial-slider").append(
                          "<div class='testimonial-item equal-height style-6' ' style='height:170px;'>"+
@@ -517,7 +517,7 @@
 				     	 );
 					}else if(matchData.awayTeamFormation == "532"){
 						$(".match_away").append(
-				     			 <%@ include file="formation/reverse541.jsp"%>
+				     			 <%@ include file="formation/reverse532.jsp"%>
 				     	 );
 					}else if(matchData.awayTeamFormation == "541"){
 						$(".match_away").append(

@@ -280,6 +280,12 @@ tr:last-child td:last-child {
 	color: white;
 }
 
+.player_img{
+	width:100%;
+	border-radius: 50%;
+	height: 100%;
+}
+
 
 
 

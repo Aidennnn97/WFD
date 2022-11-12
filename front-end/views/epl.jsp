@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WorldFootballData</title>
 <link rel="stylesheet" href="/resources/css/reset.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/league.css?ver=1.19"
+<link rel="stylesheet" href="/resources/css/league.css?ver=1.20"
 	type="text/css">
 </head>
 <body>
@@ -153,14 +153,15 @@
 		                       
 		                       var td = tr.children();
 		                       // tr.text()는 클릭된 Row 즉 tr에 있는 모든 값을 가져온다.
-		                        var Tid = td.eq(7).text();
+		                        var teamId = td.eq(7).text();
+		                       console.log(teamId);
 		                       
 		                     $.ajax({
 		                        url:"/craw/innerPlayerRank.ajax",
 		                        dataType: "json",
 		                        type: "post",
 		                        data:{
-		                           Tid : Tid, //url 주소로 팀 아이디 값을 넘겨줌 
+		                           teamId : teamId, //url 주소로 팀 아이디 값을 넘겨줌 
 		                        },
 		                        success:function(data4){
 		                        	// 정렬할 기준설정 

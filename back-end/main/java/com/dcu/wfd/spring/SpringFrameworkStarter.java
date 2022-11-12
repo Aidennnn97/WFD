@@ -12,6 +12,8 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.dcu.wfd.util.CrawlingThread;
+
 /**
  * SpringFrameWork context 실행을 위한 class
  * 
@@ -44,7 +46,8 @@ public class SpringFrameworkStarter implements WebApplicationInitializer{
         filter.addMappingForServletNames(null,false,"dispatcher");
         
         //Scheduler
-        
+        CrawlingThread ct = new CrawlingThread();
+        ct.start();
         
 	}
 	

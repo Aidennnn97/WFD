@@ -15,14 +15,14 @@ import com.dcu.wfd.crawling.module.TodayMatchScheduleCrawling;
 
 public class CrawlingThread extends Thread {
 	
-	// 크롤링 시간담을 상수 선언.
-	private final Object[][] STANDARD_TIMES = {{"naverSportsNewsLatest", 1000}, 
-			{"todayMatchSchedule", 1000}, 
-			{"todayEplMatchSchedule", 1000},
-			{"eplTeamRank", 1000},
-			{"eplPlayerRank", 1000},
-			{"eplMatchDetail", 1000},
-			{"eplInnerPlayer", 1000}
+	// 크롤링 시간담을 상수 선언. 60분 마다 크롤링.
+	private final Object[][] STANDARD_TIMES = {{"naverSportsNewsLatest", 60*60}, 
+			{"todayMatchSchedule", 60*60}, 
+			{"todayEplMatchSchedule", 60*60},
+			{"eplTeamRank", 60*60},
+			{"eplPlayerRank", 60*60},
+			{"eplMatchDetail", 60*60},
+			{"eplInnerPlayer", 60*60}
 	}; 
 	
 	
@@ -74,6 +74,7 @@ public class CrawlingThread extends Thread {
 								if(difTimes > crawlingDataTimes) {
 									ArrayList<HashMap<String, String>> data = nsnlc.naverSportsNewsLatestCrawling();
 									if(data != null && data.size() > 0) {
+										System.out.println("크롤링링");
 										DataStorage.setNaverSportsNewsLatestData(data);
 										DataStorage.setNaverSportsNewsLatestCrawlingTime(new Date());
 									}
@@ -99,8 +100,6 @@ public class CrawlingThread extends Thread {
 								
 								// 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
 								long difTimes = (currentTodayMatchScheduleCrawlingTime.getTime() - oldTodayMatchScheduleCrawlingTime.getTime()) / 1000; // 초
-								
-								System.out.println("difTimes: " +difTimes);
 								
 								// 크롤링 할 
 								if(difTimes > crawlingDataTimes) {
@@ -131,8 +130,6 @@ public class CrawlingThread extends Thread {
 								// 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
 								long difTimes = (currentTodayEplMatchCrawlingTime.getTime() - oldTodayEplMatchCrawlingTime.getTime()) / 1000; // 초
 								
-								System.out.println("difTimes: " +difTimes);
-								
 								// 크롤링 할 
 								if(difTimes > crawlingDataTimes) {
 									ArrayList<HashMap<String, String>> data = emsc.eplMatchScheduleCrawling();
@@ -161,8 +158,6 @@ public class CrawlingThread extends Thread {
 								
 								// 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
 								long difTimes = (currentEplTeamRankCrawlingTime.getTime() - oldEplTeamRankCrawlingTime.getTime()) / 1000; // 초
-								
-								System.out.println("difTimes: " +difTimes);
 								
 								// 크롤링 할 
 								if(difTimes > crawlingDataTimes) {
@@ -193,8 +188,6 @@ public class CrawlingThread extends Thread {
 								// 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
 								long difTimes = (currentEplPlayerRankCrawlingTime.getTime() - oldEplPlayerRankCrawlingTime.getTime()) / 1000; // 초
 								
-								System.out.println("difTimes: " +difTimes);
-								
 								// 크롤링 할 
 								if(difTimes > crawlingDataTimes) {
 									ArrayList<HashMap<String, String>> data = eprc.eplPlayerRank();
@@ -207,25 +200,10 @@ public class CrawlingThread extends Thread {
 					} 
 					
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 				} // for finish 
 				
 				
-				Thread.sleep(1000*10);
+				Thread.sleep(1000*60*10);
 				
 			} catch (Exception e) {
 				

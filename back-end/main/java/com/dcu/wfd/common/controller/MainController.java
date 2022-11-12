@@ -54,7 +54,7 @@ public class MainController {
 	// 네이버 최신뉴스 크롤링.
 	@RequestMapping("/craw/crawSelect.ajax")
 	@ResponseBody
-	public ArrayList<HashMap<String, String>> craw_select()throws Exception {
+	public ArrayList<HashMap<String, String>> naverSportsNewsLatest()throws Exception {
 
 		// DataStorage VO의 변수에 담긴 네이버 최신뉴스 크롤링데이터 리턴.
 		return DataStorage.getNaverSportsNewsLatestData();
@@ -64,7 +64,7 @@ public class MainController {
 	// 오늘의 경기 크롤링 url 
 	@RequestMapping("/craw/matchCrawling.ajax")
 	@ResponseBody
-	public ArrayList<HashMap<String, String>> craw_select2()throws Exception {
+	public ArrayList<HashMap<String, String>> todayMatch()throws Exception {
 
 		// DataStorage VO의 변수에 담긴 오늘경기일정 크롤링데이터 리턴.
 		return DataStorage.getTodayMatchScheduleData();

@@ -42,6 +42,7 @@ public class DataStorage {
 	// 상세정보 크롤링한 시간 담을 변수.
 	private static Date eplMatchDetailCrawlingTime = null;
 	
+	
 	public static ArrayList<HashMap<String, String>> getNaverSportsNewsLatestData() {
 		return naverSportsNewsLatestData;
 	}
@@ -126,6 +127,8 @@ public class DataStorage {
 	public static void setEplMatchDetailCrawlingTime(Date eplMatchDetailCrawlingTime) {
 		DataStorage.eplMatchDetailCrawlingTime = eplMatchDetailCrawlingTime;
 	}
+	
+	
 	
 	
 	

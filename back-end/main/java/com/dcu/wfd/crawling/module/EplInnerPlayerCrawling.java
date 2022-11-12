@@ -2,6 +2,8 @@ package com.dcu.wfd.crawling.module;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.dcu.wfd.common.vo.DataStorage;
 import com.dcu.wfd.util.HttpUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class EplInnerPlayerCrawling {
 	
 	public ArrayList<HashMap<String, String>> eplInnerPlayerCrawling(String teamId)throws Exception{
-
+		
 		// 모든 팀 내의 선수단 정보를 받아올 그릇 (리그 내 전체 선수 데이터)
 		ArrayList<HashMap<String, String>> allPlayerList = new ArrayList<>();
 		HttpUtil httpUtil = new HttpUtil();

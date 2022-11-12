@@ -2,6 +2,8 @@ package com.dcu.wfd.crawling.module;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.dcu.wfd.common.vo.DataStorage;
 import com.dcu.wfd.util.HttpUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class EplMatchDetailCrawling {
 	// 경기 상세 정보 크롤링 모듈.
 	public ArrayList<HashMap<String, String>> eplMatchDetailCrawling(String gameId)throws Exception {
-
+		
 		ArrayList<HashMap<String, String>> GameDetailList = new ArrayList<>();
 
 		String url = "https://sports.daum.net/prx/hermes/api/game/get.json?gameId="+gameId+"&detail=liveData";

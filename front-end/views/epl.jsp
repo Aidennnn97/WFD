@@ -154,7 +154,6 @@
 		                       var td = tr.children();
 		                       // tr.text()는 클릭된 Row 즉 tr에 있는 모든 값을 가져온다.
 		                        var teamId = td.eq(7).text();
-		                       console.log(teamId);
 		                       
 		                     $.ajax({
 		                        url:"/craw/innerPlayerRank.ajax",

@@ -16,13 +16,13 @@ import com.dcu.wfd.crawling.module.TodayMatchScheduleCrawling;
 public class CrawlingThread extends Thread {
 	
 	// 크롤링 시간담을 상수 선언.
-	private final Object[][] STANDARD_TIMES = {{"naverSportsNewsLatest", 10}, 
-			{"todayMatchSchedule", 10}, 
-			{"todayEplMatchSchedule", 10},
-			{"eplTeamRank", 10},
-			{"eplPlayerRank", 10},
-			{"eplMatchDetail", 10},
-			{"eplInnerPlayer", 10}
+	private final Object[][] STANDARD_TIMES = {{"naverSportsNewsLatest", 1000}, 
+			{"todayMatchSchedule", 1000}, 
+			{"todayEplMatchSchedule", 1000},
+			{"eplTeamRank", 1000},
+			{"eplPlayerRank", 1000},
+			{"eplMatchDetail", 1000},
+			{"eplInnerPlayer", 1000}
 	}; 
 	
 	
@@ -39,8 +39,7 @@ public class CrawlingThread extends Thread {
 				EplTeamRankCrawling etrc = new EplTeamRankCrawling();
 				EplPlayerRankCrawling eprc = new EplPlayerRankCrawling();
 				EplInnerPlayerCrawling eipc = new EplInnerPlayerCrawling();
-				String gameId = null;
-				String teamId = null;
+				
 				
 				for(Object [] STANDARD_TIME : STANDARD_TIMES) {
 					
@@ -143,37 +142,6 @@ public class CrawlingThread extends Thread {
 									}
 								}
 						}
-					} else if(crawlingDataName.equals("eplMatchDetail")) {
-						// DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
-						if(DataStorage.getEplMatchDetailData() == null) {
-							// data에 크롤링하여 데이터를 넣고...
-							ArrayList<HashMap<String, String>> data = emdc.eplMatchDetailCrawling(gameId);
-							// 만약 크롤링한 데이터가 있으면...
-							if(data != null && data.size() > 0) {
-								// DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
-								DataStorage.setEplMatchDetailData(data);
-								DataStorage.setEplMatchDetailCrawlingTime(new Date());
-							}
-						} else { // DataStorage VO 변수에 데이터가 들어 있다면...
-								// 크롤링된 시간을 변수에 담고...
-								Date oldEplMatchDetailCrawlingTime = DataStorage.getEplMatchDetailCrawlingTime();
-								// 현재크롤링한시간 변수에 담고...
-								Date currentEplMatchDetailCrawlingTime = new Date();
-								
-								// 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
-								long difTimes = (currentEplMatchDetailCrawlingTime.getTime() - oldEplMatchDetailCrawlingTime.getTime()) / 1000; // 초
-								
-								System.out.println("difTimes: " +difTimes);
-								
-								// 크롤링 할 
-								if(difTimes > crawlingDataTimes) {
-									ArrayList<HashMap<String, String>> data = emdc.eplMatchDetailCrawling(gameId);
-									if(data != null && data.size() > 0) {
-										DataStorage.setEplMatchDetailData(data);
-										DataStorage.setEplMatchDetailCrawlingTime(new Date());
-									}
-								}
-						}
 					} else if(crawlingDataName.equals("eplTeamRank")) {
 						// DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
 						if(DataStorage.getEplTeamRankData() == null) {
@@ -236,38 +204,7 @@ public class CrawlingThread extends Thread {
 									}
 								}
 						}
-					} else if(crawlingDataName.equals("eplInnerPlayer")) {
-						// DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
-						if(DataStorage.getEplInnerPlayerRankData() == null) {
-							// data에 크롤링하여 데이터를 넣고...
-							ArrayList<HashMap<String, String>> data = eipc.eplInnerPlayerCrawling(teamId);
-							// 만약 크롤링한 데이터가 있으면...
-							if(data != null && data.size() > 0) {
-								// DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
-								DataStorage.setEplInnerPlayerRankData(data);
-								DataStorage.setEplInnerPlayerRankCrawlingTime(new Date());
-							}
-						} else { // DataStorage VO 변수에 데이터가 들어 있다면...
-								// 크롤링된 시간을 변수에 담고...
-								Date oldEplInnerPlayerRankCrawlingTime = DataStorage.getEplInnerPlayerRankCrawlingTime();
-								// 현재크롤링한시간 변수에 담고...
-								Date currentEplInnerPlayerRankCrawlingTime = new Date();
-								
-								// 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
-								long difTimes = (currentEplInnerPlayerRankCrawlingTime.getTime() - oldEplInnerPlayerRankCrawlingTime.getTime()) / 1000; // 초
-								
-								System.out.println("difTimes: " +difTimes);
-								
-								// 크롤링 할 
-								if(difTimes > crawlingDataTimes) {
-									ArrayList<HashMap<String, String>> data = eipc.eplInnerPlayerCrawling(teamId);
-									if(data != null && data.size() > 0) {
-										DataStorage.setEplInnerPlayerRankData(data);
-										DataStorage.setEplInnerPlayerRankCrawlingTime(new Date());
-									}
-								}
-						}
-					}
+					} 
 					
 					
 					
@@ -288,7 +225,7 @@ public class CrawlingThread extends Thread {
 				} // for finish 
 				
 				
-				Thread.sleep(1000*5);
+				Thread.sleep(1000*10);
 				
 			} catch (Exception e) {
 				

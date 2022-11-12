@@ -48,7 +48,6 @@ public class SpringFrameworkStarter implements WebApplicationInitializer{
         //Scheduler
         CrawlingThread ct = new CrawlingThread();
         ct.start();
-        
 	}
 	
 }

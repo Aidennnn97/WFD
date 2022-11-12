@@ -14,7 +14,6 @@ import com.dcu.wfd.common.vo.DataStorage;
 import com.dcu.wfd.common.vo.NewsVO;
 
 
-
 @Controller
 public class MainController {
 
@@ -30,7 +29,7 @@ public class MainController {
 	}
 
 	@RequestMapping("/main")
-	public String mainJsp(Model model) {
+	public String mainJsp(Model model) throws Exception {
 
 		// 뉴스정보에대한 변수객체생성
 		List<NewsVO> newsList = mainService.newsSelectList();

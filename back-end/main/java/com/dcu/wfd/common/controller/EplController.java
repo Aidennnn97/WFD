@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,11 @@ public class EplController {
 
 	@RequestMapping("/epl")
 	public String eplJsp(Model model) {
-
+		
+		ArrayList<HashMap<String, String>> allTeamPlayer =  DataStorage.getEplInnerPlayerRankData();
+		
+		model.addAttribute("allTeamPlayer", allTeamPlayer);
+		
 		return "/epl";
 	}
 
@@ -32,6 +37,7 @@ public class EplController {
 	public ArrayList<HashMap<String, String>> eplTodayMatch()throws Exception {
 
 		// DataStorage VO의 변수에 담긴 프리미어리그 경기일정 크롤링 데이터 리턴.
+		
 		return DataStorage.getTodayEplMatchData();
 
 	}
@@ -137,8 +143,29 @@ public class EplController {
 					Detail3.put("awayPlayerBackNumber", awayPlayerBackNumber);
 					GameDetailList.add(Detail3);
 
-
 				}
+				
+				
+				ArrayList<HashMap<String, Object>> playerGoal = (ArrayList<HashMap<String, Object>>) jsonData.get("goal");
+	            for(int i=0; i < playerGoal.size(); i++) {
+	               
+	               HashMap<String, String> Detail4 = new HashMap<>();
+
+	               String homeAway = (String) playerGoal.get(i).get("homeAway");
+	               String halfTime = (String) playerGoal.get(i).get("periodType");
+	               String timeMin = String.valueOf(playerGoal.get(i).get("timeMin"));
+	               HashMap<String, Object> whoGoalList = (HashMap<String, Object>) playerGoal.get(i).get("person");
+	               String whoGoal = (String) whoGoalList.get("name");
+	               
+	               Detail4.put("homeAway", homeAway);
+	               Detail4.put("halfTime", halfTime);
+	               Detail4.put("timeMin", timeMin);
+	               Detail4.put("whoGoal", whoGoal);
+	               GameDetailList.add(Detail4);
+
+	            }
+				
+				
 				HashMap<String, Object> homeStatList = (HashMap<String, Object>) jsonData.get("homeTeamStat");
 				String HomePossession = String.valueOf(homeStatList.get("possession"));      //점유율
 				String HomeShooting = String.valueOf(homeStatList.get("sht"));      //점유율
@@ -212,23 +239,11 @@ public class EplController {
 	public ArrayList<HashMap<String, String>> innerPlayerRank(String teamId)throws Exception{
 		// 모든 팀 내의 선수단 정보를 받아올 그릇 (리그 내 전체 선수 데이터)
 				ArrayList<HashMap<String, String>> allPlayerList = new ArrayList<>();
+				
 				HttpUtil httpUtil = new HttpUtil();
 
-				// 팀 리스트의 데이터 크롤링 주소 
-				//String url2 = "https://sports.daum.net/prx/hermes/api/team/rank.json?leagueCode=epl&seasonKey=20222023&page=1&pageSize=100";
 				try {
 					ObjectMapper mapper = new ObjectMapper();
-					//			String repBody2 = httpUtil.httpRequest(url2, null);
-					//			
-					//			
-					//			HashMap<String, Object> data2 = mapper.readValue(repBody2, new TypeReference<HashMap<String, Object>>() {});   
-					//			
-					//			// 팀 리스트 크롤링 주소안의 list로부터 팀 아이디 값을 받아옴. 
-					//			ArrayList<HashMap<String, Object>> teamList = (ArrayList<HashMap<String, Object>>) data2.get("list");
-
-					// 20개 팀 개수 만큼 반복 
-					//			for(int j=0; j<teamList.size(); j++) {
-					//				String playerTeamId = String.valueOf(teamList.get(j).get("teamId"));
 
 					// 팀 상세페이지의 데이터 크롤링 주소 
 					String url = "https://sports.daum.net/prx/hermes/api/person/list.json?leagueCode=epl&seasonKey=20222023&teamId="+ teamId +"&detail=true&pageSize=100";
@@ -289,6 +304,9 @@ public class EplController {
 					// TODO: handle exception
 					e.printStackTrace();
 				}
+				
+				DataStorage.setEplInnerPlayerRankData(allPlayerList);
+				
 				return allPlayerList;
 	}
 }

@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WorldFootballData</title>
 <link rel="stylesheet" href="/resources/css/reset.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/league.css?ver=1.20"
+<link rel="stylesheet" href="/resources/css/league.css?ver=1.27"
 	type="text/css">
 </head>
 <body>
@@ -22,9 +22,7 @@
 		<!-- 상단 리그 경기 일정 캐러셀 시작  -->
 		<div class="row" style="padding: 0 50px;">
 			<div class="col-md-6">
-				<div id="testimonial-slider" class="owl-carousel" >
-
-				</div>
+				<div id="testimonial-slider" class="owl-carousel"></div>
 			</div>
 		</div>
 		<!-- 상단 리그 경기 일정 캐러셀 끝  -->
@@ -33,23 +31,26 @@
 		<div class="match_info_box">
 			<div class="match_info_top">
 				<div class="match_info_top_home">
-					<div class="match_info_home_detail">
-					</div>
+					<div class="match_info_home_detail"></div>
 				</div>
 				<div class="match_info_top_away">
-					<div class="match_info_away_detail">
-					</div>
+					<div class="match_info_away_detail"></div>
 				</div>
 			</div>
 			<div class="match_info_detail">
-				
+
 				<div class="match_home"></div>
-				
+
 				<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-				
+
 				<div class="match_away"></div>
 
 			</div>
+
+			<div class="match_detail_chart">
+				<div id="chartdiv"></div>
+			</div>
+
 		</div>
 		<!-- 축구경기장 끝  -->
 
@@ -71,9 +72,10 @@
 					</thead>
 				</table>
 				<div class="team_data_box">
-					<div class="data_bar_graph"></div>
-					<div class="data_bar_graph"></div>
-					<div class="data_bar_graph"></div>
+					<div class="data_bar_graph">
+					</div>
+					<div class="data_bar_graph">
+					</div>
 				</div>
 			</div>
 			<!-- Team Rank Finish -->
@@ -95,7 +97,9 @@
 					</tbody>
 				</table>
 				<div class="personal_data_box">
-					<div class="data_circle_graph"></div>
+					<div class="data_circle_graph">
+						<div id="chartdiv2"></div>
+					</div>
 					<div class="data_circle_graph"></div>
 				</div>
 			</div>
@@ -107,7 +111,9 @@
 		<!-- data visibility box Start -->
 		<div class="data_visibility_box">
 			<div class="data_bubble_chart">Bubble Chart</div>
-			<div class="data_word_cloud">Word Cloud</div>
+			<div class="data_word_cloud">
+				<div id="chartdiv3"></div>
+			</div>
 		</div>
 		<!-- data visibility box Finish -->
 
@@ -115,10 +121,15 @@
 	</div>
 	<!-- container Finish -->
 
-
 	<script type="text/javascript">
 	
 	          $(document).ready(function(){
+	        	  
+	        	  
+	        	  var allTeamPlayer = `${allTeamPlayer}`;
+	        	  
+	        	  
+	        	  
 	        	  
 		          /* 팀 순위테이블 시작  */
 		             $.ajax({
@@ -186,6 +197,12 @@
 		                                  );
 		                               }
 		                        }
+		                        
+		                        
+		                        
+		                        
+		                        
+		                        
 		                     }); // ajax finish
 		                     
 		                     }); /* 팀 선택시 해당 팀의 선수 정보 가져오기 끝  */
@@ -199,26 +216,192 @@
 		        
 		        
 	        	  
-	     /* 전체선수 테이블 20명까지  */  
-         $.ajax({
-            url: "/craw/eplPlayerRank.ajax",
-            dataType : "json",
-            type : "post",
-            async: false,
-            success:function(data){
-               for(var i=0; i < data.length; i++){
-                  $(".personal_rank_table").append(
-                           "<tr>"+
-                              "<td>"+data[i].personRank+"</td>"+
-                              "<td><img class='player_img' src="+data[i].playerImg+" style='width:25px;height:25px;border-radius:50%;margin-right:10px;'>"+data[i].name+"</td>"+
-                              "<td>"+data[i].personGf+"</td>"+
-                              "<td>"+data[i].personAst+"</td>"+
-                              "<td>"+data[i].personSht+"</td>"+
-                           "</tr>"
-                  );
-               }
-            }
-         }); /* 전체선수 테이블 끝  */
+		             /* 전체선수 테이블 20명까지  */  
+		             $.ajax({
+		                url: "/craw/eplPlayerRank.ajax",
+		                dataType : "json",
+		                type : "post",
+		                async: false,
+		                success:function(data){
+		                   for(var i=0; i < 20; i++){
+		                      $(".personal_rank_table").append(
+		                               "<tr>"+
+		                                  "<td>"+data[i].personRank+"</td>"+
+		                                  "<td><img class='player_img' src="+data[i].playerImg+" style='width:25px;height:25px;border-radius:50%;margin-right:10px;'>"+data[i].name+"</td>"+
+		                                  "<td>"+data[i].personGf+"</td>"+
+		                                  "<td>"+data[i].personAst+"</td>"+
+		                                  "<td>"+data[i].personSht+"</td>"+
+		                               "</tr>"
+		                      );
+		                   }
+		                   
+		                   
+		                         
+		                   /* 득점순위 원 그래프 시작. */
+		               /*        var root = am5.Root.new("chartdiv2");
+
+		                      root.setThemes([
+		                        am5themes_Animated.new(root)
+		                      ]);
+
+		                      var chart = root.container.children.push(
+		                        am5percent.PieChart.new(root, {
+		                        })
+		                      );
+
+		                      var series = chart.series.push(
+		                        am5percent.PieSeries.new(root, {
+		                          name: "Series",
+		                          valueField: "value",
+		                          categoryField: "category",
+		                          alignLabels: false,
+                                  tooltip: am5.Tooltip.new(root, {
+	                                    labelText: "{value}골"
+	                               })
+		                        })
+		                      );
+		                   
+		                      series.labels.template.setAll({
+		                    	  fontSize: 10,
+		                    	  text: "{category}",
+		                    	  textType: "radial",
+		                    	  centerX: am5.percent(110)
+		                    	})
+
+		                         var chartData = [
+		                        	 {
+		 		                        category: data[data.length-20].name,
+		 		                        value: data[data.length-20].personGf
+		 		                      },
+		 		                      {
+		 		                        category: data[data.length-19].name,
+		 		                        value: data[data.length-19].personGf
+		 		                      },
+		 		                      {
+		 		                        category: data[data.length-18].name,
+		 		                        value: data[data.length-18].personGf
+		 		                      },
+		 		                      {
+		 		                        category: data[data.length-17].name,
+		 		                        value: data[data.length-17].personGf
+		 		                      },
+		 		                      {
+		 		                        category: data[data.length-16].name,
+		 		                        value: data[data.length-16].personGf
+		 		                      },
+		 		                      {
+		 		                        category: data[data.length-15].name,
+		 		                        value: data[data.length-15].personGf
+		 		                      },
+		 		                      {
+		 		                        category: data[data.length-14].name,
+		 		                        value: data[data.length-14].personGf
+		 		                      }
+		                         ];
+		                      
+		                      //console.log(chartData);
+		                      
+		                      series.data.setAll(chartData);
+		                      
+		                      series.ticks.template.set("visible", false);
+		                      
+		                      series.appear(1000, 100); */
+		                      /* 득점순위 원 그래프 종료. */
+		                      
+		                      
+		                      
+		                      /* 득점순위 워드클라우드 시작. */
+		                      // Create root
+								var wordRoot = am5.Root.new("chartdiv3");
+		                      
+		                      wordRoot.setThemes([
+		                    	  am5themes_Animated.new(wordRoot)
+		                    	]);
+		                      
+		                      var wordContainer = wordRoot.container.children.push(am5.Container.new(wordRoot, {
+		                    	  width: am5.percent(100),
+		                    	  height: am5.percent(100),
+		                    	  layout: wordRoot.verticalLayout
+		                    	}));
+		                      
+		                      var wordTitle = wordContainer.children.push(am5.Label.new(wordRoot, {
+		                    	  text: "EPL 득점 순위",
+		                    	  fontSize: 50,
+		                    	  x: am5.percent(50),
+		                    	  centerX: am5.percent(50)
+		                    	}));
+								
+								// Create series
+								var wordSeries = wordContainer.children.push(am5wc.WordCloud.new(wordRoot, {
+									categoryField: "category",
+									valueField: "value",
+								    maxFontSize: am5.percent(30),
+								    randomness: 0,
+								    calculateAggregates: true
+								}));
+								
+
+								//console.log(data);
+								
+									
+		                         var wordData = [];
+		                         
+		                         
+		                         for(var i = 0; i < data.length; i++){
+		                        	 var JsonPlayer = new Object();
+		                        	 JsonPlayer.category = data[i].name;
+		                        	 JsonPlayer.value = parseInt(data[i].personGf);
+		                        	 wordData.push(JsonPlayer);
+		                         }
+		                         
+		                         console.log(wordData)
+		                         
+		                         
+	                         	wordSeries.set("heatRules", [{
+		                        	  target: wordSeries.labels.template,
+		                        	  dataField: "value",
+		                        	  min: am5.color(0xB9E0FF),
+		                        	  max: am5.color(0x6C4AB6),
+		                        	  key: "fill"
+		                        	}]);
+		                         
+		                         wordSeries.labels.template.setAll({
+		                        	  fontFamily: "Courier New",
+		                        	  cursorOverStyle: "pointer",
+		                         })
+		                         
+		                         /* wordSeries.labels.template.events.on("click", function(ev) {
+									  const category = ev.target.dataItem.get("category");
+									  window.open("https://stackoverflow.com/questions/tagged/" + encodeURIComponent(category));
+									}); */
+									
+		                         wordSeries.labels.template.set("tooltipText", "{category}: [bold]{value}[/]골");
+		                         
+									wordSeries.data.setAll(wordData);
+									
+
+		                      /* 득점순위 워드클라우드 종료. */
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                      
+		                       
+		                }
+		             }); /* 전체선수 테이블 끝  */
 	        	 
          
          
@@ -309,12 +492,14 @@
                       },
                       success:function(data5){
                     	  
+                    	  console.log(data5);
                     	  
                     	  $(".match_home").empty();
                     	  $(".match_away").empty();
                     	  $(".match_info_home_detail").empty();
                     	  $(".match_info_away_detail").empty();
-                    	  
+                    	  $(".match_detail_chart").empty();
+                    	  $(".match_detail_chart").append("<div id='chartdiv'></div>");
                     	  
                     	  const matchData = data5[data5.length-1];
                     	  var data = data5[data5.length-1].homeTeamFormation;
@@ -338,10 +523,12 @@
                           
                           
                           const homeArray = [];
+                          const awayArray = [];
                           
                           for(var i=0; i<data5.length; i++){
+                        	  
                              if(data5[i].homePlayerFormation !=null && data5[i].homePlayerFormation != "null"){
-                                  var JsonHome = new Object();
+                                var JsonHome = new Object();
                                 JsonHome.homePlayerName = data5[i].homePlayerName;
                                 JsonHome.homePlayerFormation = data5[i].homePlayerFormation;
                                 JsonHome.homePlayerChanged = data5[i].homePlayerChanged;
@@ -350,6 +537,18 @@
                                 JsonHome.homePlayerBackNumber = data5[i].homePlayerBackNumber;
                                 homeArray.push(JsonHome);
                              }
+                             
+                             if(data5[i].awayPlayerFormation != null && data5[i].awayPlayerFormation != "null"){
+                            	 var JsonAway = new Object();
+                                 JsonAway.awayPlayerName = data5[i].awayPlayerName;
+                                 JsonAway.awayPlayerFormation = data5[i].awayPlayerFormation;
+                                 JsonAway.awayPlayerChanged = data5[i].awayPlayerChanged;
+                                 JsonAway.awayPlayerImg = data5[i].awayPlayerImg;
+                                 JsonAway.awayPlayerStarted = data5[i].awayPlayerStarted;
+                                 JsonAway.awayPlayerBackNumber = data5[i].awayPlayerBackNumber;
+                                 awayArray.push(JsonAway);
+                             }
+                             
                          }
                           
                           var sortHomeItem = "homePlayerFormation";
@@ -358,48 +557,90 @@
                           return a[sortHomeItem]- b[sortHomeItem];
                        });  
                           
-                          console.log(homeArray);
+                          const homeGoalArray = [];
+                          const awayGoalArray = [];
                           
-                          /////////////////////////////////////////////////away
-                          
-                          const awayArray = [];
-                          
-                          for(var i=0; i<data5.length; i++){
-                              if(data5[i].awayPlayerFormation !=null && data5[i].awayPlayerFormation != "null"){
-                                   var JsonAway = new Object();
-                                 JsonAway.awayPlayerName = data5[i].awayPlayerName;
-                                 JsonAway.awayPlayerFormation = data5[i].awayPlayerFormation;
-                                 JsonAway.awayPlayerChanged = data5[i].awayPlayerChanged;
-                                 JsonAway.awayPlayerImg = data5[i].awayPlayerImg;
-                                 JsonAway.awayPlayerStarted = data5[i].awayPlayerStarted;
-                                 JsonAway.awayPlayerBackNumber = data5[i].awayPlayerBackNumber;
-                                 awayArray.push(JsonAway);
-                            
-                              }
-                              
+                          for(var i = 0; i < data5.length; i++){
+                        	  if(data5[i].homeAway != null && data5[i].homeAway != "null"){
+                        		  if(data5[i].homeAway == "HOME"){
+                        			  var JsonHomeGoal = new Object();
+                            		  JsonHomeGoal.homeAway = data5[i].homeAway;
+                            		  if(data5[i].halfTime == "FIRST_HALF"){
+                            			  JsonHomeGoal.halfTime = "(전)";
+                        			  } else{
+                        				  JsonHomeGoal.halfTime = "(후)";
+                        			  }
+                            		  JsonHomeGoal.timeMin = data5[i].timeMin;
+                            		  JsonHomeGoal.whoGoal = data5[i].whoGoal;
+                            		  homeGoalArray.push(JsonHomeGoal);
+                        		  }
+                        		  if(data5[i].homeAway == "AWAY"){
+                        			  var JsonAwayGoal = new Object();
+                        			  JsonAwayGoal.homeAway = data5[i].homeAway;
+                        			  if(data5[i].halfTime == "FIRST_HALF"){
+	                        			  JsonAwayGoal.halfTime = "(전)";
+                        			  } else{
+                        				  JsonAwayGoal.halfTime = "(후)";
+                        			  }
+                        			  JsonAwayGoal.whoGoal = data5[i].whoGoal;
+                        			  JsonAwayGoal.timeMin = data5[i].timeMin;
+                        			  awayGoalArray.push(JsonAwayGoal);
+                        		  }
+                        	  }
+                        	  
                           }
-                           
+                          
+                          //console.log(homeGoalArray);
+                          //console.log(awayGoalArray);
+                          
+                          
                            var sortAwayItem = "awayPlayerFormation";
                           
                            awayArray.sort(function(a,b) {
                            return a[sortAwayItem]- b[sortAwayItem];
                         });  
                           
-                        console.log(awayArray);
+                        
                         	 
                         	$(".match_info_home_detail").append(
                         		"<div class='match_home_info_img'><img class='match_team_emblem' src='"+matchData.homeTeamImg+"'/></div>"+
                         		"<div class='match_home_info_formation'>"+homeTeamFormation+"</div>"+
                         		"<div class='match_home_info_name'>"+matchData.homeTeamName+"</div>"+
-                        		"<div class='match_home_info_goal'>"+matchData.homeTeamResult+"</div>"
+                        		"<div class='match_away_info_goal tooltip'>"+
+                        		"<span>"+matchData.homeTeamResult+"</span>"+
+                        		"<div class='home_tooltip_content'></div>"+
+                        		"</div>"
                         	);
                         	
+                        	
+                        	for(var i = 0; i < homeGoalArray.length; i++){
+                        		
+	                        	$(".home_tooltip_content").append(
+	                        		"<div>"+homeGoalArray[i].timeMin + "' " + homeGoalArray[i].whoGoal + " " + homeGoalArray[i].halfTime +"</div>"		
+	                        	);
+	                        	
+                        	} 
+                        	
+                        	
+                        	
     						$(".match_info_away_detail").append(
-                            		"<div class='match_away_info_goal'>"+matchData.awayTeamResult+"</div>"+
+                            		"<div class='match_away_info_goal tooltip'>"+
+                            		"<span>"+matchData.awayTeamResult+"</span>"+
+                            		"<div class='away_tooltip_content'></div>"+
+                            		"</div>"+
                             		"<div class='match_away_info_name'>"+matchData.awayTeamName+"</div>"+
                             		"<div class='match_away_info_formation'>"+awayTeamFormation+"</div>"+
                             		"<div class='match_away_info_img'><img class='match_team_emblem' src='"+matchData.awayTeamImg+"'/></div>"
                             	);
+    						
+							for(var i = 0; i < awayGoalArray.length; i++){
+                        		
+	                        	$(".away_tooltip_content").append(
+	                        		"<div>"+awayGoalArray[i].timeMin + "' " + awayGoalArray[i].whoGoal + " " + awayGoalArray[i].halfTime +"</div>"		
+	                        	);
+	                        	
+                        	} 
+    						
                         	
                         	if(matchData.homeTeamFormation == "3421"){
                         	 $(".match_home").append(
@@ -532,8 +773,188 @@
 				     			 <%@ include file="formation/reverse3412.jsp"%>
 				     	 );
 					}
+                        	
+                        	
+                            //매치 디테일 데이터 통계 시작
+                            
+                            // Create root element
+                            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+                            
+                            var root = am5.Root.new("chartdiv");
+                            
+                            // Set themes
+                            // https://www.amcharts.com/docs/v5/concepts/themes/
+                            root.setThemes([
+                              am5themes_Animated.new(root)
+                            ]);
+                            
+                            // Create chart
+                            // https://www.amcharts.com/docs/v5/charts/xy-chart/
+                            var chart = root.container.children.push(
+                              am5xy.XYChart.new(root, {
+                                /* panX: false,
+                                panY: false,
+                                wheelX: "panX",
+                                wheelY: "zoomX", */
+                                layout: root.verticalLayout,
+                                arrangeTooltips: true
+                              })
+                            );
+                            
+                            // Use only absolute numbers
+                            chart.getNumberFormatter().set("numberFormat", "#.#s");
+                            
+                            // Add legend
+                            // https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+                            var legend = chart.children.push(
+                              am5.Legend.new(root, {
+                                centerX: am5.p50,
+                                x: am5.p50
+                              })
+                            );
+                            
+                            // Data
+                            var data =   [
+                               {
+                                   age: "점유율",
+                                   home: +(data5[data5.length-1].HomePossession / 10),
+                                   away: -(data5[data5.length-1].AwayPossession / 10)
+                                 },
+                                 {
+                                     age: "슈팅",
+                                     home: +data5[data5.length-1].HomeShooting,
+                                     away: -data5[data5.length-1].AwayShooting
+                                   },
+                                   {
+                                       age: "유효슈팅",
+                                       home: +data5[data5.length-1].HomeSog,
+                                       away: -data5[data5.length-1].AwaySog
+                                     },
+                               {
+                                   age: "코너킥",
+                                   home: +data5[data5.length-1].HomeCk,
+                                   away: -data5[data5.length-1].AwayCk
+                                 },
+                               {
+                                   age: "파울",
+                                   home: +data5[data5.length-1].HomeFo,
+                                   away: -data5[data5.length-1].AwayFo
+                                 },
+                                 {
+                                     age: "경고",
+                                     home: +data5[data5.length-1].HomeYel,
+                                     away: -data5[data5.length-1].AwayYel
+                                   },
+                               {
+                                   age: "퇴장",
+                                   home: +data5[data5.length-1].HomeRed,
+                                   away: -data5[data5.length-1].AwayRed
+                                 }
+                               
+                               
+                               
+                            ];
+                            
+                            //console.log("data : ",data5[data5.length-1]);
+                            
+                            
+                            var yAxis = chart.yAxes.push(
+                              am5xy.CategoryAxis.new(root, {
+                                categoryField: "age",
+                                renderer: am5xy.AxisRendererY.new(root, {
+                                  inversed: true,
+                                  cellStartLocation: 0.1,
+                                  cellEndLocation: 0.9
+                                })
+                              })
+                            );
+                            
+                            yAxis.data.setAll(data);
+                            
+                            var xAxis = chart.xAxes.push(
+                              am5xy.ValueAxis.new(root, {
+                                renderer: am5xy.AxisRendererX.new(root, {})
+                              })
+                            );
+                            
+                            function createSeries(field, labelCenterX, pointerOrientation, rangeValue) {
+                              var series = chart.series.push(
+                                am5xy.ColumnSeries.new(root, {
+                                  xAxis: xAxis,
+                                  yAxis: yAxis,
+                                  valueXField: field,
+                                  categoryYField: "age",
+                                  sequencedInterpolation: true,
+                                  clustered: false,
+                                  tooltip: am5.Tooltip.new(root, {
+                                    pointerOrientation: "down",
+                                    labelText: "{categoryY}: {valueX}"
+                                  })
+                                })
+                              );
+                            
+                              series.columns.template.setAll({
+                                height: am5.p100
+                              });
+                            
+                              series.bullets.push(function() {
+                                return am5.Bullet.new(root, {
+                                  locationX: 1,
+                                  locationY: 0.5,
+                                  sprite: am5.Label.new(root, {
+                                    centerY: am5.p50,
+                                    text: "{valueX}",
+                                    populateText: true,
+                                    centerX: labelCenterX
+                                  })
+                                });
+                              });
+                            
+                              series.data.setAll(data);
+                              series.appear();
+                            
+                              var rangeDataItem = xAxis.makeDataItem({
+                                value: rangeValue
+                              });
+                              xAxis.createAxisRange(rangeDataItem);
+                              rangeDataItem.get("grid").setAll({
+                                strokeOpacity: 1,
+                                stroke: series.get("stroke")
+                              });
+                            
+                              var label = rangeDataItem.get("label");
+                              label.setAll({
+                                text: field.toUpperCase(),
+                                fontSize: "1.1em",
+                                fill: series.get("stroke"),
+                                paddingTop: 10,
+                                isMeasured: false,
+                                centerX: labelCenterX
+                              });
+                              label.adapters.add("dy", function() {
+                                return -chart.plotContainer.height();
+                              });
+                            
+                              return series;
+                            }
+                            
+                            createSeries("home", am5.p100, "right", -3);
+                            createSeries("away", 0, "left", 4);
+                            
+                            var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+                              behavior: "zoomY"
+                            }));
+                            cursor.lineY.set("forceHidden", true);
+                            cursor.lineX.set("forceHidden", true);
+                            
+                            chart.appear(1000, 100);
+							
+                               //매치 디테일 데이터 통계 끝
+
+                        	
+                        	
                         			 
-                      }
+                      } // success funciton finish.
                    })
                 });
                     

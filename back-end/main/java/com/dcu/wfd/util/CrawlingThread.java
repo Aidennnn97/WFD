@@ -58,6 +58,7 @@ public class CrawlingThread extends Thread {
 								// DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
 								DataStorage.setNaverSportsNewsLatestData(data);
 								DataStorage.setNaverSportsNewsLatestCrawlingTime(new Date());
+								System.out.println("크롤링~");
 							}
 						} else { // DataStorage VO 변수에 데이터가 들어 있다면...
 								// 크롤링된 시간을 변수에 담고...
@@ -203,7 +204,7 @@ public class CrawlingThread extends Thread {
 				} // for finish 
 				
 				
-				Thread.sleep(1000*60*10);
+				Thread.sleep(1000*60*50);
 				
 			} catch (Exception e) {
 				

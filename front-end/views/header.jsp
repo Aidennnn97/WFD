@@ -34,7 +34,6 @@
 }
 .main-menu {
     height: 60px;
-    float: left;
     position: relative;
     top: 15px;
     margin-left:100px;
@@ -76,9 +75,15 @@ a {
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
 <script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-<script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+	
+	<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/wc.js"></script>
+	
 </head>
 <body>
 <div class="header">

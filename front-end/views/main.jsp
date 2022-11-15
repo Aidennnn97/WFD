@@ -141,7 +141,6 @@
             	 } else {
             		 $(".today_match_list").append(
                				"<div class='today_match'>"+
-               				
                					"오늘은 경기가 없습니다."+
                				"</div>"
                		 );    

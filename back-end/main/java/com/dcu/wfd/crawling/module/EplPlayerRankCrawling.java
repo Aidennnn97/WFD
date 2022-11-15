@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dcu.wfd.common.vo.DataStorage;
 import com.dcu.wfd.util.HttpUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +24,7 @@ public class EplPlayerRankCrawling {
 			HashMap<String, Object> jsonTrData = mapper.readValue(repBody, new TypeReference<HashMap<String, Object>>() {});
 			ArrayList<HashMap<String, Object>> trList = (ArrayList<HashMap<String, Object>>) jsonTrData.get("list");
 
-			for(int i = 0; i <20; i++) {
+			for(int i = 0; i <50; i++) {
 				String name = (String) trList.get(i).get("name");
 				String playerImg = (String) trList.get(i).get("imageUrl");
 
@@ -49,6 +50,10 @@ public class EplPlayerRankCrawling {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		
+		// 클릭시 팀내 전체선수 순위 담을 변수 초기화.
+		DataStorage.setEplInnerPlayerRankData(trCrawlingDataList2);
+		
 		return trCrawlingDataList2;
 	}
 }

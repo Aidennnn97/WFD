@@ -13,8 +13,6 @@ public class TodayMatchScheduleCrawling {
 
 	public ArrayList<HashMap<String, String>> todayMatchScheduleCrawling()throws Exception {
 
-		boolean result = false;
-
 		ArrayList<HashMap<String, String>> matchDataList = new ArrayList<>();
 
 		Date today = new Date();

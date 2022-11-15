@@ -76,16 +76,21 @@
 		no-repeat bottom;
 	background-color: #0b0e12;
 	padding-bottom: 30px;
-	height: 800px;
+	height: 1300px;
 	min-height: 680px;
 	background-size: cover;
 	margin-bottom: 20px;
 	padding-top: 15px;
 }
+
 .match_info_top{
 	display:flex;
 	padding: 0 10%;
+	height: 80px;
+    width: 100%;
+    margin-top: 30px;
 }
+
 .match_info_top_home, .match_info_top_away{
 	width: 50%;
 	height: 100px;
@@ -151,11 +156,6 @@
 	height: 100%;
 }
 
-.match_info_top{
-	height: 80px;
-    width: 100%;
-    margin-top: 30px;
-}
 
 .match_team_emblem{
 	width: 100px;
@@ -170,11 +170,11 @@
 }
 
 .team_rank_box{
-	width: 60%;
+	width: 50%;
 }
 
 .personal_rank_box{
-	width: 40%;
+	width: 50%;
 }
 
 table {
@@ -221,9 +221,8 @@ tr:last-child td:last-child {
 }
 
 .data_bar_graph{
-	width: 33%;
+	width: 50%;
 	height: 300px;
-	background-color: black;
 }
 
 .personal_data_box{
@@ -234,17 +233,21 @@ tr:last-child td:last-child {
 .data_circle_graph{
 	width: 49%;
 	height: 300px;
-	background-color: yellow;
 }
 
 .data_visibility_box{
 	width:100%;
 }
 
+.match_detail_chart{
+	width: 100%;
+	height: 475px;
+	margin-bottom: 20px;
+	background-color: rgba( 255, 255, 255, 0.5 );
+}
 .data_bubble_chart, .data_word_cloud{
 	width: 100%;
 	height: 500px;
-	background-color: green;
 	margin-bottom: 20px;
 }
 
@@ -288,10 +291,35 @@ tr:last-child td:last-child {
 
 
 
+.home_tooltip_content, .away_tooltip_content{
+	width: 100%;
+	background-color: orange;
+	color: white;
+	text-align: center;
+	font-size: 13px;
+	visibility: hidden;
+}
 
 
+.tooltip:hover .home_tooltip_content, .tooltip:hover .away_tooltip_content{
+	visibility: visible;
+}
 
 
+#chartdiv {
+  width: 75%;
+  height: 400px;
+  padding: 0 10%;
+}
 
+#chartdiv2 {
+  width: 100%;
+  height: 300px;
+}
+
+#chartdiv3 {
+  width: 100%;
+  height: 500px;
+}
 
 

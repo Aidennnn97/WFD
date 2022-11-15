@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dcu.wfd.common.vo.DataStorage;
 import com.dcu.wfd.util.HttpUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,9 +24,19 @@ public class EplController {
 	@RequestMapping("/epl")
 	public String eplJsp(Model model) {
 		
-		ArrayList<HashMap<String, String>> allTeamPlayer =  DataStorage.getEplInnerPlayerRankData();
+//		ArrayList<HashMap<String, String>> allTeamPlayer =  DataStorage.getEplInnerPlayerRankData();
+//		
+//		ObjectMapper mapper = new ObjectMapper(); 
+//		
+//		try {
+//			String jsonData =  mapper.writeValueAsString(allTeamPlayer);
+//			System.out.println(jsonData);
+//			model.addAttribute("allTeamPlayer", jsonData);
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
-		model.addAttribute("allTeamPlayer", allTeamPlayer);
 		
 		return "/epl";
 	}
@@ -305,7 +316,7 @@ public class EplController {
 					e.printStackTrace();
 				}
 				
-				DataStorage.setEplInnerPlayerRankData(allPlayerList);
+//				DataStorage.setEplInnerPlayerRankData(allPlayerList);
 				
 				return allPlayerList;
 	}

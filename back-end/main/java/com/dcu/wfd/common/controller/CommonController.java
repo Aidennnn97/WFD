@@ -1,5 +1,7 @@
 package com.dcu.wfd.common.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.dcu.wfd.common.service.CommonService;
+import com.dcu.wfd.common.vo.DataStorage;
 import com.dcu.wfd.common.vo.Test;
 
 // Model: Service, DAO, DTO(VO)
@@ -80,6 +83,23 @@ public class CommonController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("/test2")
+	   public String test2Jsp(Model model) {
+		ArrayList<HashMap<String, String>> allTeamPlayer =  DataStorage.getEplInnerPlayerRankData();
+		
+		ObjectMapper mapper = new ObjectMapper(); 
+		
+		try {
+			String jsonData =  mapper.writeValueAsString(allTeamPlayer);
+			System.out.println(jsonData);
+			model.addAttribute("allTeamPlayer", jsonData);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      return "/test2";
+	   }
 	
 	
 	

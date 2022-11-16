@@ -8,6 +8,7 @@ import com.dcu.wfd.common.vo.DataStorage;
 import com.dcu.wfd.crawling.module.EplInnerPlayerCrawling;
 import com.dcu.wfd.crawling.module.EplMatchDetailCrawling;
 import com.dcu.wfd.crawling.module.EplMatchScheduleCrawling;
+import com.dcu.wfd.crawling.module.EplPlayerAsistRankCrawling;
 import com.dcu.wfd.crawling.module.EplPlayerRankCrawling;
 import com.dcu.wfd.crawling.module.EplTeamRankCrawling;
 import com.dcu.wfd.crawling.module.NaverSportsNewsLatestCrawling;
@@ -22,7 +23,8 @@ public class CrawlingThread extends Thread {
 			{"eplTeamRank", 60*60},
 			{"eplPlayerRank", 60*60},
 			{"eplMatchDetail", 60*60},
-			{"eplInnerPlayer", 60*60}
+			{"eplInnerPlayer", 60*60},
+			{"eplPlayerAsistRank", 60*60}
 	}; 
 	
 	
@@ -38,6 +40,7 @@ public class CrawlingThread extends Thread {
 				EplMatchDetailCrawling emdc = new EplMatchDetailCrawling();
 				EplTeamRankCrawling etrc = new EplTeamRankCrawling();
 				EplPlayerRankCrawling eprc = new EplPlayerRankCrawling();
+				EplPlayerAsistRankCrawling eparc = new EplPlayerAsistRankCrawling();
 				EplInnerPlayerCrawling eipc = new EplInnerPlayerCrawling();
 				
 				
@@ -92,6 +95,9 @@ public class CrawlingThread extends Thread {
 								// DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
 								DataStorage.setTodayMatchScheduleData(data);
 								DataStorage.setTodayMatchScheduleCrawlingTime(new Date());
+							} else {
+								DataStorage.setTodayMatchScheduleData(null);
+								DataStorage.setTodayMatchScheduleCrawlingTime(null);
 							}
 						} else { // DataStorage VO 변수에 데이터가 들어 있다면...
 								// 크롤링된 시간을 변수에 담고...
@@ -121,6 +127,9 @@ public class CrawlingThread extends Thread {
 								// DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
 								DataStorage.setTodayEplMatchData(data);
 								DataStorage.setTodayEplMatchCrawlingTime(new Date());
+							} else {
+								DataStorage.setTodayEplMatchData(null);
+								DataStorage.setTodayEplMatchCrawlingTime(null);
 							}
 						} else { // DataStorage VO 변수에 데이터가 들어 있다면...
 								// 크롤링된 시간을 변수에 담고...
@@ -150,6 +159,9 @@ public class CrawlingThread extends Thread {
 								// DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
 								DataStorage.setEplTeamRankData(data);
 								DataStorage.setEplTeamRankCrawlingTime(new Date());
+							} else {
+								DataStorage.setEplTeamRankData(null);
+								DataStorage.setEplTeamRankCrawlingTime(null);
 							}
 						} else { // DataStorage VO 변수에 데이터가 들어 있다면...
 								// 크롤링된 시간을 변수에 담고...
@@ -179,6 +191,9 @@ public class CrawlingThread extends Thread {
 								// DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
 								DataStorage.setEplPlayerRankData(data);
 								DataStorage.setEplPlayerRankCrawlingTime(new Date());
+							} else {
+								DataStorage.setEplPlayerRankData(null);
+								DataStorage.setEplPlayerRankCrawlingTime(null);
 							}
 						} else { // DataStorage VO 변수에 데이터가 들어 있다면...
 								// 크롤링된 시간을 변수에 담고...
@@ -198,7 +213,36 @@ public class CrawlingThread extends Thread {
 									}
 								}
 						}
-					} 
+					} else if(crawlingDataName.equals("eplPlayerAsistRank")) {
+		                  // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+		                  if(DataStorage.getEplPlayerAsistRankData() == null) {
+		                     // data에 크롤링하여 데이터를 넣고...
+		                     ArrayList<HashMap<String, String>> data = eparc.eplPlayerAsistRank();
+		                     // 만약 크롤링한 데이터가 있으면...
+		                     if(data != null && data.size() > 0) {
+		                        // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+		                        DataStorage.setEplPlayerAsistRankData(data);
+		                        DataStorage.setEplPlayerAsistRankCrawlingTime(new Date());
+		                     }
+		                  } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+		                        // 크롤링된 시간을 변수에 담고...
+		                        Date oldEplPlayerAsistRankCrawlingTime = DataStorage.getEplPlayerAsistRankCrawlingTime();
+		                        // 현재크롤링한시간 변수에 담고...
+		                        Date currentEplPlayerAsistRankCrawlingTime = new Date();
+		                        
+		                        // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+		                        long difTimes = (currentEplPlayerAsistRankCrawlingTime.getTime() - oldEplPlayerAsistRankCrawlingTime.getTime()) / 1000; // 초
+		                        
+		                        // 크롤링 할 
+		                        if(difTimes > crawlingDataTimes) {
+		                           ArrayList<HashMap<String, String>> data = eparc.eplPlayerAsistRank();
+		                           if(data != null && data.size() > 0) {
+		                              DataStorage.setEplPlayerAsistRankData(data);
+		                              DataStorage.setEplPlayerAsistRankCrawlingTime(new Date());
+		                           }
+		                        }
+		                  }
+		               } 
 					
 					
 				} // for finish 

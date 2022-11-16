@@ -243,6 +243,18 @@ public class EplController {
 		return DataStorage.getEplPlayerRankData();
 
 	}
+	
+	
+	
+   // 전체 선수 어시스트 순위 크롤링데이터 
+   @RequestMapping("/craw/eplPlayerAsistRank.ajax")
+   @ResponseBody
+   public ArrayList<HashMap<String, String>> eplPlayerAsistRank()throws Exception {
+      
+      return DataStorage.getEplPlayerAsistRankData();
+      
+   }
+	
 
 	//팀 내 모든선수 크롤링데이터 
 	@RequestMapping("/craw/innerPlayerRank.ajax")

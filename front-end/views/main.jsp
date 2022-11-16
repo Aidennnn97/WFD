@@ -108,6 +108,8 @@
                 
              }
          })
+         /* 최신 뉴스 기사 크롤링 끝. */
+         
     	 
 	/* 오늘 경기 일정 크롤링  */
          $.ajax({
@@ -116,11 +118,12 @@
              type : "post",
              success:function(data){
             	 
-            	 if(data.length){
+            	 if(data[0]){
+            		 
+            		 /* 경기일정박스 포문 시작. */
             	 for (var i = 0; i < data.length; i++){
             		 $(".today_match_list").append(
                              "<div class='today_match'>"+
-                             
      		                      "<div class='today_match_home'>"+
      		                         "<div class='team_name'>"+data[i].homeTN +"</div>"+
      		                         "<div class='team_emblem'><img src="+data[i].homeTeamImageUrl+" width='30' height='30'></div>"+
@@ -134,22 +137,13 @@
      		                         "<div class='team_emblem'><img class='home_img' src="+data[i].awayTeamImageUrl+" width='30' height='30'></div>"+ 
      		                      	"<div class='team_name'>"+data[i].awayTN+"</div>"+
      		                      "</div>"+
-                           
                        		"</div>"
                           );    
-            	 }
-            	 } else {
-            		 $(".today_match_list").append(
-               				"<div class='today_match'>"+
-               					"오늘은 경기가 없습니다."+
-               				"</div>"
-               		 );    
-            	 }
-                	
+            	 } /* 경기일정박스 포문 끝. */
+            	 
+            	 /*  change function start. */
             	 $("#selectbox").on("change", function(){
             		 
-            		 if(data.length){
-            			 
             			 if($("option:selected", this).text()=="전체일정"){
             				 
             				 /* 기존에 선택되어 추가된 요소 비우기  */
@@ -209,7 +203,7 @@
                          		}
                        		if(cnt == 0){
                           		 $(".today_match_list").append(
-                           				"<div class='today_match'>"+
+                           				"<div class='today_match' style='border: none; margin-top: 150px;'>"+
                            				
                            					"오늘은 경기가 없습니다."+
                            				"</div>"
@@ -246,7 +240,7 @@
                           		}
                         		if(cnt == 0){
                              		 $(".today_match_list").append(
-                              				"<div class='today_match'>"+
+                              				"<div class='today_match' style='border: none; margin-top: 150px;'>"+
                               				
                               					"오늘은 경기가 없습니다."+
                               				"</div>"
@@ -283,7 +277,7 @@
                        		}
                      		if(cnt == 0){
                          		 $(".today_match_list").append(
-                          				"<div class='today_match'>"+
+                          				"<div class='today_match' style='border: none; margin-top: 150px;'>"+
                           				
                           					"오늘은 경기가 없습니다."+
                           				"</div>"
@@ -320,30 +314,33 @@
                         		}
                       		if(cnt == 0){
                          		 $(".today_match_list").append(
-                          				"<div class='today_match'>"+
-                          				
+                          				"<div class='today_match' style='border: none; margin-top: 150px;'>"+
                           					"오늘은 경기가 없습니다."+
                           				"</div>"
                           		 );    
                        		}
             			 }
             			 
-            		 } else{
-            			 $(".today_match_list").append(
-                    				"<div class='today_match'>"+
-                    				
-                    					"오늘은 경기가 없습니다."+
-                    				"</div>"
-                    		 );   
-            		 }
-            		 
-            		 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
-            		 
             		}); /* select change function finish */
+            	 
+            	 
+            	 
+            	 } else {
+            		 $(".today_match_list").append(
+               				"<div class='today_match' style='border: none; margin-top: 150px;'>"+
+               					"오늘은 경기가 없습니다."+
+               				"</div>"
+               		 );    
+            	 }
+                	
+            	 
             	 
              }
          })
+         /* 오늘경기 일정 끝. */
+         
      });
+     /* 도큐먼트 레디 펑션 끝. */
 
      
  </script>

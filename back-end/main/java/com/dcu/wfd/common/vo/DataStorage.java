@@ -42,6 +42,11 @@ public class DataStorage {
 	// 상세정보 크롤링한 시간 담을 변수.
 	private static Date eplMatchDetailCrawlingTime = null;
 	
+	// 프리미어리그 선수 개인 어시스트 순위 크롤링데이터 담을 변수.
+	private static ArrayList<HashMap<String, String>> eplPlayerAsistRankData = null;
+	// 개인 어시스트 순위 크롤링한 시간 담을 변수.
+	private static Date eplPlayerAsistRankCrawlingTime = null;
+	
 	
 	public static ArrayList<HashMap<String, String>> getNaverSportsNewsLatestData() {
 		return naverSportsNewsLatestData;
@@ -126,6 +131,18 @@ public class DataStorage {
 	}
 	public static void setEplMatchDetailCrawlingTime(Date eplMatchDetailCrawlingTime) {
 		DataStorage.eplMatchDetailCrawlingTime = eplMatchDetailCrawlingTime;
+	}
+	public static ArrayList<HashMap<String, String>> getEplPlayerAsistRankData() {
+		return eplPlayerAsistRankData;
+	}
+	public static void setEplPlayerAsistRankData(ArrayList<HashMap<String, String>> eplPlayerAsistRankData) {
+		DataStorage.eplPlayerAsistRankData = eplPlayerAsistRankData;
+	}
+	public static Date getEplPlayerAsistRankCrawlingTime() {
+		return eplPlayerAsistRankCrawlingTime;
+	}
+	public static void setEplPlayerAsistRankCrawlingTime(Date eplPlayerAsistRankCrawlingTime) {
+		DataStorage.eplPlayerAsistRankCrawlingTime = eplPlayerAsistRankCrawlingTime;
 	}
 	
 	

@@ -37,6 +37,10 @@ public class EplTeamRankCrawling {
 				String teamGa = String.valueOf(teamRankInfo.get("ga"));
 				String teamGd = String.valueOf(teamRankInfo.get("gd"));
 				String teamPts = String.valueOf(teamRankInfo.get("pts"));
+				
+				HashMap<String, Object> teamRankInfo2 = (HashMap<String, Object>) trList.get(i).get("stat");
+	            String teamGfPerGame = String.valueOf(teamRankInfo2.get("gfPerGame"));
+	            String teamGaPerGame = String.valueOf(teamRankInfo2.get("gaPerGame"));
 
 				HashMap<String, String> teamRankData = new HashMap<>();
 
@@ -52,6 +56,8 @@ public class EplTeamRankCrawling {
 				teamRankData.put("teamGa", teamGa);
 				teamRankData.put("teamGd", teamGd);
 				teamRankData.put("teamPts", teamPts);
+				teamRankData.put("teamGfPerGame", teamGfPerGame);
+	            teamRankData.put("teamGaPerGame", teamGaPerGame);
 				trCrawlingDataList.add(teamRankData);
 
 			}

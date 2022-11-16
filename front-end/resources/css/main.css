@@ -8,10 +8,10 @@
 	overflow: hidden;
     position: relative;
     margin: 12px 0 0;
-    height: 450px;
+    height: 340px;
     display: flex;
-  align-items: center;
-  flex-direction: column;
+  	align-items: center;
+  	flex-direction: column;
 }
 
 .icon-cards {
@@ -47,8 +47,8 @@
   bottom: 0;
   width: 60vw;
   height: 40vw;
-  max-width: 550px;
-  max-height: 370px;
+  width: 500px;
+  height: 300px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
   transform-origin: center;
@@ -150,6 +150,7 @@
 	border: 1px solid grey;
 	border-radius: 20px;
 	overflow: hidden;
+	margin-bottom: 30px;
 }
 
 .today_news_title, .today_match_title{
@@ -208,6 +209,7 @@
 	width: 35%;
 	border: 1px solid grey;
 	border-radius: 20px;
+	margin-bottom: 30px;
 }
 
 .league_box{ 
@@ -253,6 +255,7 @@
 .team_emblem{
 	align-items: center;
 }
+
 
 
 

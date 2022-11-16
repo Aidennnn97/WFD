@@ -48,7 +48,6 @@
 			</div>
 
 			<div class="match_detail_chart">
-				<div id="chartdiv"></div>
 			</div>
 
 		</div>
@@ -58,9 +57,19 @@
 		<div class="rank_info_box">
 			<!-- Team Rank Start -->
 			<div class="team_rank_box">
-			
+				<div class="pieandbar">
 					<!-- 원 파이 그래프. -->
 					<div id="piechart"></div>
+					<div id="barchart"></div>
+				</div>
+				
+				<!-- data visibility box Start -->
+		<div class="data_visibility_box">
+				<div id="wordcloud"></div>
+				<div id="bubblechart"></div>
+		</div>
+		<!-- data visibility box Finish -->
+					
 				
 					<!-- 데이터 막대그래프. -->
 					<div id="barchartdiv"></div>
@@ -69,15 +78,7 @@
 		</div>
 		<!-- Rank box Finish -->
 
-		<!-- data visibility box Start -->
-		<div class="data_visibility_box">
-			<div class="data_bubble_chart">
-			</div>
-			<div class="data_word_cloud">
-				<div id="chartdiv3"></div>
-			</div>
-		</div>
-		<!-- data visibility box Finish -->
+		
 
 
 	</div>
@@ -94,7 +95,8 @@
 	                  dataType : "json",
 	                  type : "post",
 	                  success:function(data3){
-	                     if(data3.length){
+	                	  console.log(data3);
+	                     if(data3){
 	                     	var cnt = 0;
 	                     for(var i=0; i < data3.length; i++){
 	                     	if(data3[i].leagueName == "프리미어리그"){
@@ -102,7 +104,7 @@
 	                        $("#testimonial-slider").append(
 	                              "<div class='testimonial-item equal-height style-6' ' style='height:170px;'>"+
 	                                   "<div class='match_schedule' id='"+data3[i].gameId+"'>"+
-	                                       "<div class='match_day'>"+data3[i].startDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3')+"</div>"+
+	                                     //  "<div class='match_day'>"+data3[i].startDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3')+"</div>"+
 	                                       "<div class='match_vs'>"+
 	                                          "<div class='team_emblem'>"+
 	                                             "<img class='team_logo' src="+data3[i].homeTeamImageUrl+">"+
@@ -163,6 +165,9 @@
 	                         
 	                         /* 오늘 경기일정 박스 클릭시 경기 Id 값 가져오기 시작   */
 	                        $(".match_schedule").click(function(){
+	                        	if($(".match_info_box").css("display") == "none"){
+	                        		$(".match_info_box").show();
+	                        	}
 	                        var gameId = $(this).attr("id")
 	                        $.ajax({
 	                           url:"/craw/clickMatchData.ajax",
@@ -173,14 +178,18 @@
 	                           },
 	                           success:function(data5){
 	                         	  
-	                         	  console.log(data5);
-	                         	  
 	                         	  $(".match_home").empty();
 	                         	  $(".match_away").empty();
 	                         	  $(".match_info_home_detail").empty();
 	                         	  $(".match_info_away_detail").empty();
 	                         	  $(".match_detail_chart").empty();
-	                         	  $(".match_detail_chart").append("<div id='chartdiv'></div>");
+	                         	  $(".match_detail_chart").append(
+	                         			  "<div id='chartdiv'></div>"+
+	                         			  "<div id='chartdiv2'></div>"+
+	                         			  "<div id='chartdiv3'></div>"+
+	                         			  "<div id='chartdiv4'></div>"+
+	                         			  "<div id='chartdiv5'></div>"
+                        			  );
 	                         	  
 	                         	  const matchData = data5[data5.length-1];
 	                         	  var data = data5[data5.length-1].homeTeamFormation;
@@ -359,7 +368,11 @@
 	                             		$(".match_home").append(
 	                             		<%@ include file="formation/formation4321.jsp"%>
 	                             		);
-	                             	}else if(matchData.homeTeamFormation == "433"){
+	                             	}else if(matchData.homeTeamFormation == "4312"){
+	                             		$(".match_home").append(
+	    	                             		<%@ include file="formation/formation4312.jsp"%>
+	    	                             		);
+	    	                             	}else if(matchData.homeTeamFormation == "433"){
 	                             		$(".match_home").append(
 	                             		<%@ include file="formation/formation433.jsp"%>
 	                             		);
@@ -425,6 +438,10 @@
 	     						$(".match_away").append(
 	     				     			 <%@ include file="formation/reverse4321.jsp"%>
 	     				     	 );
+	     					}else if(matchData.awayTeamFormation == "4312"){
+	     						$(".match_away").append(
+	     				     			 <%@ include file="formation/reverse4312.jsp"%>
+	     				     	 );
 	     					}else if(matchData.awayTeamFormation == "433"){
 	     						$(".match_away").append(
 	     				     			 <%@ include file="formation/reverse433.jsp"%>
@@ -456,183 +473,335 @@
 	     					}
 	                             	
 	                             	
-	                                 //매치 디테일 데이터 통계 시작
-	                                 
-	                                 // Create root element
-	                                 // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-	                                 
-	                                 var root = am5.Root.new("chartdiv");
-	                                 
-	                                 // Set themes
-	                                 // https://www.amcharts.com/docs/v5/concepts/themes/
-	                                 root.setThemes([
-	                                   am5themes_Animated.new(root)
-	                                 ]);
-	                                 
-	                                 // Create chart
-	                                 // https://www.amcharts.com/docs/v5/charts/xy-chart/
-	                                 var chart = root.container.children.push(
-	                                   am5xy.XYChart.new(root, {
-	                                     /* panX: false,
-	                                     panY: false,
-	                                     wheelX: "panX",
-	                                     wheelY: "zoomX", */
-	                                     layout: root.verticalLayout,
-	                                     arrangeTooltips: true
-	                                   })
-	                                 );
-	                                 
-	                                 // Use only absolute numbers
-	                                 chart.getNumberFormatter().set("numberFormat", "#.#s");
-	                                 
-	                                 // Add legend
-	                                 // https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
-	                                 var legend = chart.children.push(
-	                                   am5.Legend.new(root, {
-	                                     centerX: am5.p50,
-	                                     x: am5.p50
-	                                   })
-	                                 );
-	                                 
-	                                 // Data
-	                                 var data =   [
-	                                    {
-	                                        age: "점유율",
-	                                        home: +(data5[data5.length-1].HomePossession / 10),
-	                                        away: -(data5[data5.length-1].AwayPossession / 10)
-	                                      },
-	                                      {
-	                                          age: "슈팅",
-	                                          home: +data5[data5.length-1].HomeShooting,
-	                                          away: -data5[data5.length-1].AwayShooting
-	                                        },
-	                                        {
-	                                            age: "유효슈팅",
-	                                            home: +data5[data5.length-1].HomeSog,
-	                                            away: -data5[data5.length-1].AwaySog
-	                                          },
-	                                    {
-	                                        age: "코너킥",
-	                                        home: +data5[data5.length-1].HomeCk,
-	                                        away: -data5[data5.length-1].AwayCk
-	                                      },
-	                                    {
-	                                        age: "파울",
-	                                        home: +data5[data5.length-1].HomeFo,
-	                                        away: -data5[data5.length-1].AwayFo
-	                                      },
-	                                      {
-	                                          age: "경고",
-	                                          home: +data5[data5.length-1].HomeYel,
-	                                          away: -data5[data5.length-1].AwayYel
-	                                        },
-	                                    {
-	                                        age: "퇴장",
-	                                        home: +data5[data5.length-1].HomeRed,
-	                                        away: -data5[data5.length-1].AwayRed
-	                                      }
-	                                    
-	                                    
-	                                    
-	                                 ];
-	                                 
-	                                 //console.log("data : ",data5[data5.length-1]);
-	                                 
-	                                 
-	                                 var yAxis = chart.yAxes.push(
-	                                   am5xy.CategoryAxis.new(root, {
-	                                     categoryField: "age",
-	                                     renderer: am5xy.AxisRendererY.new(root, {
-	                                       inversed: true,
-	                                       cellStartLocation: 0.1,
-	                                       cellEndLocation: 0.9
-	                                     })
-	                                   })
-	                                 );
-	                                 
-	                                 yAxis.data.setAll(data);
-	                                 
-	                                 var xAxis = chart.xAxes.push(
-	                                   am5xy.ValueAxis.new(root, {
-	                                     renderer: am5xy.AxisRendererX.new(root, {})
-	                                   })
-	                                 );
-	                                 
-	                                 function createSeries(field, labelCenterX, pointerOrientation, rangeValue) {
-	                                   var series = chart.series.push(
-	                                     am5xy.ColumnSeries.new(root, {
-	                                       xAxis: xAxis,
-	                                       yAxis: yAxis,
-	                                       valueXField: field,
-	                                       categoryYField: "age",
-	                                       sequencedInterpolation: true,
-	                                       clustered: false,
-	                                       tooltip: am5.Tooltip.new(root, {
-	                                         pointerOrientation: "down",
-	                                         labelText: "{categoryY}: {valueX}"
-	                                       })
-	                                     })
-	                                   );
-	                                 
-	                                   series.columns.template.setAll({
-	                                     height: am5.p100
-	                                   });
-	                                 
-	                                   series.bullets.push(function() {
-	                                     return am5.Bullet.new(root, {
-	                                       locationX: 1,
-	                                       locationY: 0.5,
-	                                       sprite: am5.Label.new(root, {
-	                                         centerY: am5.p50,
-	                                         text: "{valueX}",
-	                                         populateText: true,
-	                                         centerX: labelCenterX
-	                                       })
-	                                     });
-	                                   });
-	                                 
-	                                   series.data.setAll(data);
-	                                   series.appear();
-	                                 
-	                                   var rangeDataItem = xAxis.makeDataItem({
-	                                     value: rangeValue
-	                                   });
-	                                   xAxis.createAxisRange(rangeDataItem);
-	                                   rangeDataItem.get("grid").setAll({
-	                                     strokeOpacity: 1,
-	                                     stroke: series.get("stroke")
-	                                   });
-	                                 
-	                                   var label = rangeDataItem.get("label");
-	                                   label.setAll({
-	                                     text: field.toUpperCase(),
-	                                     fontSize: "1.1em",
-	                                     fill: series.get("stroke"),
-	                                     paddingTop: 10,
-	                                     isMeasured: false,
-	                                     centerX: labelCenterX
-	                                   });
-	                                   label.adapters.add("dy", function() {
-	                                     return -chart.plotContainer.height();
-	                                   });
-	                                 
-	                                   return series;
-	                                 }
-	                                 
-	                                 createSeries("home", am5.p100, "right", -3);
-	                                 createSeries("away", 0, "left", 4);
-	                                 
-	                                 var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
-	                                   behavior: "zoomY"
-	                                 }));
-	                                 cursor.lineY.set("forceHidden", true);
-	                                 cursor.lineX.set("forceHidden", true);
-	                                 
-	                                 chart.appear(1000, 100);
-	     							
-	                                    //매치 디테일 데이터 통계 끝
+	                             	 //매치 디테일 데이터 통계 시작
+	                                // Create root element
+	                          // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+	                          var root = am5.Root.new("chartdiv");
+	                   
+	                          // Set themes
+	                          // https://www.amcharts.com/docs/v5/concepts/themes/
+	                          root.setThemes([
+	                            am5themes_Animated.new(root)
+	                          ]);
+	                   
+	                          // Create chart
+	                          // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+	                          var chart = root.container.children.push(
+	                            am5percent.PieChart.new(root, {
+	                             endAngle: 270
+	                            })
+	                          );
+	                   
+	                          // Create series
+	                          // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+	                          var series = chart.series.push(
+						         am5percent.PieSeries.new(root, {
+						           valueField: "value",
+						           categoryField: "category",
+						           alignLabels: false,
+						           fillField: "color"
+						         })
+						       );
+						       series.labels.template.setAll({
+						            fontSize: 20,
+						             textType: "radial",
+						             text: "[bold]{category}[/]\n {value}%",
+						             centerX: am5.percent(110),
+						             radius: 4
+						           });
+						       
+						       var title = root.container.children.push(am5.Label.new(root, {
+			                    	  text: "점유율(%)",
+			                    	  fontSize: 30,
+			                    	  x: am5.percent(50),
+			                    	  centerX: am5.percent(50)
+			                    	}));
+						       
 
-	                             	
+	                   
+	                          // Set data
+	                          // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+	                          series.data.setAll([
+	                        	  {
+	  	                            category: "Away",
+	  	                            value: data5[data5.length-1].AwayPossession,
+	  	                            color: am5.color(0x82CD47)
+	  	                          },
+		                          {
+		                            category: "Home",
+		                            value: data5[data5.length-1].HomePossession,
+		                            color: am5.color(0x54B435)
+		                          }
+	                          ]);
+	                   
+	                          series.appear(1000, 100);
+	                        //매치 디테일 데이터 통계 끝.
+	                                    
+	                                    
+	                                    
+	                                    
+	                                    
+	                                    
+	                                    
+	                        //매치 디테일 데이터 통계 시작
+	                            // Create root element
+	                      // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+	                      var root = am5.Root.new("chartdiv2");
+	               
+	                      // Set themes
+	                      // https://www.amcharts.com/docs/v5/concepts/themes/
+	                      root.setThemes([
+	                        am5themes_Animated.new(root)
+	                      ]);
+	               
+	                      // Create chart
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+	                      var chart = root.container.children.push(
+	                        am5percent.PieChart.new(root, {
+	                          endAngle: 270
+	                        })
+	                      );
+	               
+	                      // Create series
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+	                      var series = chart.series.push(
+					         am5percent.PieSeries.new(root, {
+					           valueField: "value",
+					           categoryField: "categorys",
+					           alignLabels: false,
+					           fillField: "color"
+					         })
+					       );
+					       series.labels.template.setAll({
+					            fontSize: 20,
+					             textType: "radial",
+					             text: "[bold]{category}[/]\n {value}",
+					             centerX: am5.percent(110),
+					             radius: 4
+					           });
+					       
+					       var title = root.container.children.push(am5.Label.new(root, {
+		                    	  text: "슈팅",
+		                    	  fontSize: 30,
+		                    	  x: am5.percent(50),
+		                    	  centerX: am5.percent(50)
+		                    	}));
+	               
+	                      // Set data
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+	                      series.data.setAll([
+	                        	  {
+	  	                            category: "Away",
+	  	                            value: data5[data5.length-1].AwayShooting,
+	  	                          	color: am5.color(0x82CD47)
+	  	                          },
+		                          {
+		                            category: "Home",
+		                            value: data5[data5.length-1].HomeShooting,
+		                            color: am5.color(0x54B435)
+		                          }
+	                          ]);
+	               
+	                      series.appear(1000, 100);
+	                      /* shooting pie chart finish */
+	                      
+	                      
+	                      
+	                      
+	                      
+	                      
+	                      
+	                      
+	                      /* 유효슈팅 pie chart start */
+	                      var root = am5.Root.new("chartdiv3");
+	               
+	                      // Set themes
+	                      // https://www.amcharts.com/docs/v5/concepts/themes/
+	                      root.setThemes([
+	                        am5themes_Animated.new(root)
+	                      ]);
+	               
+	                      // Create chart
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+	                      var chart = root.container.children.push(
+	                        am5percent.PieChart.new(root, {
+	                          endAngle: 270
+	                        })
+	                      );
+	               
+	                      // Create series
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+	                      var series = chart.series.push(
+					         am5percent.PieSeries.new(root, {
+					           valueField: "value",
+					           categoryField: "categorys",
+					           alignLabels: false,
+					           fillField: "color"
+					         })
+					       );
+					       series.labels.template.setAll({
+					            fontSize: 20,
+					             textType: "radial",
+					             text: "[bold]{category}[/]\n {value}",
+					             centerX: am5.percent(110),
+					             radius: 4
+					           });
+					       
+					       var title = root.container.children.push(am5.Label.new(root, {
+		                    	  text: "유효슈팅",
+		                    	  fontSize: 30,
+		                    	  x: am5.percent(50),
+		                    	  centerX: am5.percent(50)
+		                    	}));
+	               
+	                      // Set data
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+	                      series.data.setAll([
+	                        	  {
+	  	                            category: "Away",
+	  	                            value: data5[data5.length-1].AwaySog,
+	  	                          	color: am5.color(0x82CD47)
+	  	                          },
+		                          {
+		                            category: "Home",
+		                            value: data5[data5.length-1].HomeSog,
+		                            color: am5.color(0x54B435)
+		                          }
+	                          ]);
+	               
+	                      series.appear(1000, 100);
+	                      /* 유효슈팅 pie chart finish */
+	                      
+	                      
+	                      
+	                      
+	                      
+	                      
+	                      
+	                      /* 코너킥 pie chart start */
+	                      var root = am5.Root.new("chartdiv4");
+	               
+	                      // Set themes
+	                      // https://www.amcharts.com/docs/v5/concepts/themes/
+	                      root.setThemes([
+	                        am5themes_Animated.new(root)
+	                      ]);
+	               
+	                      // Create chart
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+	                      var chart = root.container.children.push(
+	                        am5percent.PieChart.new(root, {
+	                          endAngle: 270
+	                        })
+	                      );
+	               
+	                      // Create series
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+	                      var series = chart.series.push(
+					         am5percent.PieSeries.new(root, {
+					           valueField: "value",
+					           categoryField: "categorys",
+					           alignLabels: false,
+					           fillField: "color"
+					         })
+					       );
+					       series.labels.template.setAll({
+					            fontSize: 20,
+					             textType: "radial",
+					             text: "[bold]{category}[/]\n {value}",
+					             centerX: am5.percent(110),
+					             radius: 4
+					           });
+					       
+					       var title = root.container.children.push(am5.Label.new(root, {
+		                    	  text: "코너킥",
+		                    	  fontSize: 30,
+		                    	  x: am5.percent(50),
+		                    	  centerX: am5.percent(50)
+		                    	}));
+	               
+	                      // Set data
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+	                      series.data.setAll([
+	                        	  {
+	  	                            category: "Away",
+	  	                            value: data5[data5.length-1].AwayCk,
+	  	                          	color: am5.color(0x82CD47)
+	  	                          },
+		                          {
+		                            category: "Home",
+		                            value: data5[data5.length-1].HomeCk,
+		                            color: am5.color(0x54B435)
+		                          }
+	                          ]);
+	               
+	                      series.appear(1000, 100);
+	                      /* 코너킥 pie chart finish */
+	                      
+	                      
+	                      
+	                      
+	                      /* 파울 pie chart start */
+	                      var root = am5.Root.new("chartdiv5");
+	               
+	                      // Set themes
+	                      // https://www.amcharts.com/docs/v5/concepts/themes/
+	                      root.setThemes([
+	                        am5themes_Animated.new(root)
+	                      ]);
+	               
+	                      // Create chart
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+	                      var chart = root.container.children.push(
+	                        am5percent.PieChart.new(root, {
+	                          endAngle: 270
+	                        })
+	                      );
+	               
+	                      // Create series
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+	                      var series = chart.series.push(
+					         am5percent.PieSeries.new(root, {
+					           valueField: "value",
+					           categoryField: "categorys",
+					           alignLabels: false,
+					           fillField: "color"
+					         })
+					       );
+					       series.labels.template.setAll({
+					            fontSize: 20,
+					             textType: "radial",
+					             text: "[bold]{category}[/]\n {value}",
+					             centerX: am5.percent(110),
+					             radius: 4
+					           });
+					       
+					       var title = root.container.children.push(am5.Label.new(root, {
+		                    	  text: "파울",
+		                    	  fontSize: 30,
+		                    	  x: am5.percent(50),
+		                    	  centerX: am5.percent(50)
+		                    	}));
+	               
+	                      // Set data
+	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+	                      series.data.setAll([
+	                        	  {
+	  	                            category: "Away",
+	  	                            value: data5[data5.length-1].AwayFo,
+	  	                          	color: am5.color(0x82CD47)
+	  	                          },
+		                          {
+		                            category: "Home",
+		                            value: data5[data5.length-1].HomeFo,
+		                            color: am5.color(0x54B435)
+		                          }
+	                          ]);
+	               
+	                      series.appear(1000, 100);
+	                      /* 파울 pie chart finish */
+	                      
+	                      
 	                             	
 	                             			 
 	                           } // success funciton finish.
@@ -697,6 +866,16 @@
 	                      alignLabels: false,
 	                    })
 	                  );
+	                  
+	                  
+	                  var title = root.container.children.push(am5.Label.new(root, {
+                    	  text: "EPL 팀 및 개인 순위",
+                    	  fontSize: 30,
+                    	  x: am5.percent(50),
+                    	  centerX: am5.percent(50)
+                    	}));
+	                  
+	                  
 	                //메인 차트 ui
 	                  series.labels.template.setAll({
 	                   fontSize: 13,
@@ -732,9 +911,7 @@
 	                  );
 	                  subSeries.labels.template.setAll({
 	                     fontSize: 15,
-	                      textType: "radial",
-	                      text: "{category}",
-	                      radius: 4
+	                      text: "[bold]{category}[/]\n {value}골",
 	                    });
 	             //서브 차트의 서브 시리즈 5개 0으로 정의 (있어야 실행 가능하고, 5명의 선수만 불러 올것이라서 5개만 넣음)
 	                  subSeries.data.setAll([
@@ -992,8 +1169,6 @@
 	                    selectSlice(series.slices.getIndex(0));
 	                  });
 	                  
-	                  
-	                  
 	                  } // success function finish.
 	               });
 		             
@@ -1022,6 +1197,276 @@
 		                     }
 		                })
 		             }
+		             
+		             
+		             
+		             
+		             
+		             
+		             
+		             
+		             $.ajax({
+		                 url: "/craw/eplTeamRank.ajax",
+		                 dataType : "json",
+		                 type : "post",
+		                 async: false,
+		                 success:function(TeamData){ 
+		                    //------------------------------------barchart 시작 
+		                  var root = am5.Root.new("barchart");
+
+		                  root.setThemes([
+		                    am5themes_Animated.new(root)
+		                  ]);
+
+		                  // Create chart
+		                  var chart = root.container.children.push(am5xy.XYChart.new(root, {
+		   /*                  panX: false,
+		                    panY: false,
+		                    wheelX: "panX",
+		                    wheelY: "zoomX",  */
+		                    layout: root.verticalLayout
+		                  }));
+		                  
+		                  
+		                  
+		                  var title = root.container.children.push(am5.Label.new(root, {
+	                    	  text: "경기당 득/실점",
+	                    	  fontSize: 30,
+	                    	  x: am5.percent(50),
+	                    	  centerX: am5.percent(50)
+	                    	}));
+
+
+		                  // Data
+		                   var data = [];
+		                   for(var i = 0; i < 5; i++){
+		                       data.push({
+		                         team: TeamData[i]['teamName'],
+		                         income: Number(TeamData[i]['teamGfPerGame']),
+		                         expenses: Number(TeamData[i]['teamGaPerGame'])
+		                         }) 
+		                   } 
+
+
+
+		                  // Create axes
+		                  // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+		                  var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+		                    categoryField: "team",
+		                    renderer: am5xy.AxisRendererY.new(root, {
+		                      inversed: true,
+		                      cellStartLocation: 0.1,
+		                      cellEndLocation: 0.9
+		                    })
+		                  }));
+
+		                  yAxis.data.setAll(data);
+
+		                  var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+		                    renderer: am5xy.AxisRendererX.new(root, {}),
+		                    min: 0
+		                  }));
+
+
+		                  // Add series
+		                  // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+		                  function createSeries(field, name) {
+		                    var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+		                      name: name,
+		                      xAxis: xAxis,
+		                      yAxis: yAxis,
+		                      valueXField: field,
+		                      categoryYField: "team",
+		                      sequencedInterpolation: true,
+		                      //바에 마우스 올릴 시 나오는 ui
+		                    }));
+
+		                    series.columns.template.setAll({
+		                      height: am5.p100
+		                    });
+
+
+		                    series.bullets.push(function() {
+		                      return am5.Bullet.new(root, {
+		                        locationX: 1,
+		                        locationY: 0.5,
+		                        sprite: am5.Label.new(root, {
+		                           centerX: am5.p100,
+		                            centerY: am5.p50,
+		                          text: "{valueX}",
+		                          populateText: true
+		                        })
+		                      });
+		                    });
+
+		                    series.bullets.push(function() {
+		                      return am5.Bullet.new(root, {
+		                        locationX: 1,
+		                        locationY: 0.5,
+		                        sprite: am5.Label.new(root, {
+		                          centerX: am5.p100,
+		                          centerY: am5.p50,
+		                          fill: am5.color(0xffffff),
+		                          populateText: true
+		                        })
+		                      });
+		                    });
+
+		                    series.data.setAll(data);
+		                    series.appear();
+
+		                    return series;
+		                  }
+
+		                  createSeries("income", "경기당 득점");
+		                  createSeries("expenses", "경기당 실점");
+
+
+		                  // Add legend
+		                  // https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+		                  var legend = chart.children.push(am5.Legend.new(root, {
+		                    centerX: am5.p50,
+		                    x: am5.p50
+		                  }));
+
+		                  legend.data.setAll(chart.series.values);
+
+
+
+		                  // Make stuff animate on load
+		                  // https://www.amcharts.com/docs/v5/concepts/animations/
+		                  chart.appear(1000, 100);
+		                  //------------------------------------barchart 끝   
+		                  
+		                  
+		                    
+		                 } // success 끝
+		               }); //ajax 끝 
+		               
+		               
+		               /* bubble chart start */
+		               $.ajax({
+		                   url: "/craw/eplPlayerAsistRank.ajax",
+		                   dataType : "json",
+		                   type : "post",
+		                   async: false,
+		                   success:function(PlayerData){
+		                      // Create root element
+		                     // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+		                     var root = am5.Root.new("bubblechart");
+		                     
+		                     // Set themes
+		                     // https://www.amcharts.com/docs/v5/concepts/themes/
+		                     root.setThemes([
+		                       am5themes_Animated.new(root)
+		                     ]);
+		                     
+		                     var data = {
+		                             value: 0,
+		                             children: []
+		                           };
+
+		                     
+		                         for(var i = 0; i < PlayerData.length; i++){
+		                            data.children.push({
+		                               value: Number(PlayerData[i]['personAst']),
+		                               name: PlayerData[i]['name']
+		                               }) 
+		                         } 
+		                         
+		                     // Create wrapper container
+		                     var container = root.container.children.push(
+		                       am5.Container.new(root, {
+		                         width: am5.percent(100),
+		                         height: am5.percent(100),
+		                         layout: root.verticalLayout
+		                       })
+		                     );
+		                     
+		                     
+		                     var title = container.children.push(am5.Label.new(root, {
+		                    	  text: "EPL 도움 순위",
+		                    	  fontSize: 30,
+		                    	  x: am5.percent(50),
+		                    	  centerX: am5.percent(50)
+		                    	}));
+		                     
+		                     
+		                     // Create series
+		                     // https://www.amcharts.com/docs/v5/charts/hierarchy/#Adding
+		                     var series = container.children.push(
+		                       am5hierarchy.ForceDirected.new(root, {
+		                         singleBranchOnly: false,
+		                         downDepth: 2,
+		                         topDepth: 1,
+		                         initialDepth: 1,
+		                         maxRadius: 60,
+		                         minRadius: 20,
+		                         valueField: "value",
+		                         categoryField: "name",
+		                         childDataField: "children",
+		                         manyBodyStrength: -13,
+		                         centerStrength: 0.8
+		                       })
+		                     );
+		                     
+		                     series.get("colors").setAll({
+		                       step: 1
+		                     });
+		                     
+		                     series.links.template.setAll({
+		                       strokeWidth: 2
+		                     });
+		                     
+		                     series.nodes.template.setAll({
+		                       tooltipText: null,
+		                       cursorOverStyle: "pointer"
+		                     });
+		                     
+		                     var selectedDataItem;
+		                     
+		                     // handle clicking on nodes and link/unlink them
+		                     series.nodes.template.events.on("click", function(e) {
+		                       // check if we have a selected data item
+		                       if (selectedDataItem) {
+		                         var targetDataItem = e.target.dataItem;
+		                         // if yes, and it's the same, unselect
+		                         if (e.target.dataItem == selectedDataItem) {
+		                           selectedDataItem.get("outerCircle").setPrivate("visible", false);
+		                           selectedDataItem = undefined;
+		                         }
+		                         // otherwise connect selected with a clicked point
+		                         else {
+		                           if (series.areLinked(selectedDataItem, targetDataItem)) {
+		                             series.unlinkDataItems(selectedDataItem, targetDataItem);
+		                           }
+		                           else {
+		                             series.linkDataItems(selectedDataItem, targetDataItem, 0.2);
+		                           }
+		                         }
+		                       }
+		                       // if no selected data item, select
+		                       else {
+		                         selectedDataItem = e.target.dataItem;
+		                         selectedDataItem.get("outerCircle").setPrivate("visible", true)
+		                       }
+		                     })
+		                     
+		                     series.data.setAll([data]);
+		                     series.set("selectedDataItem", series.dataItems[0]);
+		                     
+		                     // Make stuff animate on load
+		                     series.appear(1000, 100);
+		                      
+		                   }   //success end
+		                   
+		               });      //ajax end
+		               /* bubble chart finish */
+		             
+		             
+		             
+		             
+		             
 		             
 		             $.ajax({
 		                  url: "/craw/eplTeamRank.ajax",
@@ -1151,7 +1596,7 @@
 						// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
 						var series = chart.series.push(
 						  am5xy.ColumnSeries.new(root, {
-						    name: "Income",
+						    name: "챔피언스리그",
 						    xAxis: xAxis,
 						    yAxis: yAxis,
 						    valueYField: "steps",
@@ -1255,39 +1700,30 @@
 						  });
 						});
 						
-						// heatrule
-						/* series.set("heatRules", [
-						  {
-						    dataField: "valueY",
-						    min: am5.color(0xe5dc36),
-						    max: am5.color(0x5faa46),
-						    target: series.columns.template,
-						    key: "fill"
-						  },
-						  {
-						    dataField: "valueY",
-						    min: am5.color(0xe5dc36),
-						    max: am5.color(0x5faa46),
-						    target: circleTemplate,
-						    key: "fill"
-						  }
-						]);  */
 						
 						series.data.setAll(barData);
 						xAxis.data.setAll(barData);
 						
-						var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
-						cursor.lineX.set("visible", false);
-						cursor.lineY.set("visible", false);
 						
-						cursor.events.on("cursormoved", function () {
-						  var dataItem = series.get("tooltip").dataItem;
-						  if (dataItem) {
-						    handleHover(dataItem);
-						  } else {
-						    handleOut();
-						  }
-						});
+			               // Add legend
+			               var legend = chart.children.push(am5.Legend.new(root, {
+			            	   nameField: "name",
+			            	   fillField: "color",
+			                   centerX: am5.p50,
+			                   x: am5.p50,
+			                 rayout: root.verticalLayout
+			               }));
+
+			               legend.data.setAll([{
+			            	   name: "챔피언스리그",
+			            	   color: am5.color(0x8D9EFF)
+			               },{
+			            	   name: "유로파리그",
+			            	   color: am5.color(0x82CD47)
+			               },{
+			            	   name: "강등",
+			            	   color: am5.color(0x6B728E)
+			               }]);
 						
 						// Make stuff animate on load
 						// https://www.amcharts.com/docs/v5/concepts/animations/
@@ -1312,7 +1748,7 @@
 		                success:function(data){
 		                      /* 득점순위 워드클라우드 시작. */
 		                      // Create root
-								var wordRoot = am5.Root.new("chartdiv3");
+								var wordRoot = am5.Root.new("wordcloud");
 		                      
 		                      wordRoot.setThemes([
 		                    	  am5themes_Animated.new(wordRoot)
@@ -1326,7 +1762,7 @@
 		                      
 		                      var wordTitle = wordContainer.children.push(am5.Label.new(wordRoot, {
 		                    	  text: "EPL 득점 순위",
-		                    	  fontSize: 50,
+		                    	  fontSize: 30,
 		                    	  x: am5.percent(50),
 		                    	  centerX: am5.percent(50)
 		                    	}));

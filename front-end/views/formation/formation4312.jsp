@@ -100,6 +100,9 @@
 								"<div class='player_name'>"+homeArray[8].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
+					"</div>"+
+
+					"<div class='strikerBox' style='width:20%; justify-content: space-evenly;'>"+
 						"<div class='player_info'>"+
 							"<div class='player_imgBox'style='height: 43px;'>"+
 								"<img class='player_img'src='"+homeArray[9].homePlayerImg+"'>"+
@@ -110,9 +113,6 @@
 								"<div class='player_name'>"+homeArray[9].homePlayerName+"</div>"+
 							"</div>"+
 						"</div>"+
-					"</div>"+
-
-					"<div class='strikerBox' style='width:20%;'>"+
 						"<div class='player_info'>"+
 							"<div class='player_imgBox'style='height: 43px;'>"+
 								"<img class='player_img'src='"+homeArray[10].homePlayerImg+"'>"+

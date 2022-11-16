@@ -51,6 +51,7 @@ public class TodayMatchScheduleCrawling {
 					HashMap<String, String> matchData = new HashMap<>(); 
 
 					if(leagueName.equals("프리미어리그") || leagueName.equals("라리가") || leagueName.equals("세리에A") || leagueName.equals("분데스리가")) {
+						if(homeResult != null) {
 						matchData.put("leagueName", leagueName);
 						matchData.put("startDate", startDate);
 						matchData.put("homeTN", homeTN);
@@ -61,7 +62,7 @@ public class TodayMatchScheduleCrawling {
 						matchData.put("awayTeamImageUrl", awayTeamImageUrl);
 						matchData.put("startTime", startTime);
 						matchDataList.add(matchData);
-
+						}
 					}
 
 				}

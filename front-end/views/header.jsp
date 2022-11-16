@@ -22,7 +22,7 @@
 }
 .headerLeft{
 	height: 60px;
-    width: 800px;
+    width: 100%;
     float: left;
     overflow: hidden;
 }
@@ -36,7 +36,7 @@
     height: 60px;
     position: relative;
     top: 15px;
-    margin-left:100px;
+    margin-left:70%;
 }
 ul, ol, li {
 	display:block;
@@ -83,6 +83,7 @@ a {
 <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/wc.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/hierarchy.js"></script>
 	
 </head>
 <body>

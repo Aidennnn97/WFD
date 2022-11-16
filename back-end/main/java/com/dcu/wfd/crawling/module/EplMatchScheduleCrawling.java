@@ -37,7 +37,7 @@ public class EplMatchScheduleCrawling {
 			ObjectMapper mapper = new ObjectMapper();
 			HashMap<String, Object> jsonData =  mapper.readValue(responseBody, new TypeReference<HashMap<String, Object> >() {});
 			HashMap<String, Object> matchList = (HashMap<String, Object>) jsonData.get("schedule");
-			ArrayList<HashMap<String,Object>> matchList2 = (ArrayList<HashMap<String, Object>>) matchList.get("20221106");
+			ArrayList<HashMap<String,Object>> matchList2 = (ArrayList<HashMap<String, Object>>) matchList.get("20221113");
 
 			if(matchList2 != null) {
 
@@ -56,7 +56,7 @@ public class EplMatchScheduleCrawling {
 
 					HashMap<String, String> matchData = new HashMap<>(); 
 
-					if(leagueName.equals("프리미어리그")) {
+					if(leagueName.equals("프리미어리그") && homeResult != null) {
 						matchData.put("gameId", gameId);
 						matchData.put("leagueName", leagueName);
 						matchData.put("startDate", startDate);

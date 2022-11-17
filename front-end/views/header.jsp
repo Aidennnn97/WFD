@@ -6,17 +6,16 @@
 <meta charset="UTF-8">
 <style type="text/css">
 .header{
-	height: 70px;
-    width: 100%;
+	height: 80px;
+    width: 97%;
     margin: 0 auto;
-    border-bottom: 1px solid black;
+    border-bottom: 5px solid #eeeeee;
 }
 .col-width{
 	float: none;
     clear: both;
-    width: 1140px;
+    width: 90%;
     margin: 0 auto;
-    padding: 0 30px 0 30px;
     overflow: hidden;
     height: 60px;
 }
@@ -84,6 +83,8 @@ a {
 <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/wc.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/hierarchy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
 	
 </head>
 <body>

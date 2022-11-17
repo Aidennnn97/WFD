@@ -5,26 +5,29 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.dcu.wfd.common.vo.DataStorage;
-import com.dcu.wfd.crawling.module.EplInnerPlayerCrawling;
-import com.dcu.wfd.crawling.module.EplMatchDetailCrawling;
-import com.dcu.wfd.crawling.module.EplMatchScheduleCrawling;
-import com.dcu.wfd.crawling.module.EplPlayerAsistRankCrawling;
-import com.dcu.wfd.crawling.module.EplPlayerRankCrawling;
-import com.dcu.wfd.crawling.module.EplTeamRankCrawling;
-import com.dcu.wfd.crawling.module.NaverSportsNewsLatestCrawling;
-import com.dcu.wfd.crawling.module.TodayMatchScheduleCrawling;
+import com.dcu.wfd.crawling.module.epl.EplInnerPlayerCrawling;
+import com.dcu.wfd.crawling.module.epl.EplMatchDetailCrawling;
+import com.dcu.wfd.crawling.module.epl.EplMatchScheduleCrawling;
+import com.dcu.wfd.crawling.module.epl.EplPlayerAsistRankCrawling;
+import com.dcu.wfd.crawling.module.epl.EplPlayerRankCrawling;
+import com.dcu.wfd.crawling.module.epl.EplTeamRankCrawling;
+import com.dcu.wfd.crawling.module.main.NaverSportsNewsLatestCrawling;
+import com.dcu.wfd.crawling.module.main.NaverSportsNewsPopularCrawling;
+import com.dcu.wfd.crawling.module.main.TodayMatchScheduleCrawling;
 
 public class CrawlingThread extends Thread {
 	
 	// 크롤링 시간담을 상수 선언. 60분 마다 크롤링.
-	private final Object[][] STANDARD_TIMES = {{"naverSportsNewsLatest", 60*60}, 
+	private final Object[][] STANDARD_TIMES = {
+			{"naverSportsNewsLatest", 60*60}, 
 			{"todayMatchSchedule", 60*60}, 
 			{"todayEplMatchSchedule", 60*60},
 			{"eplTeamRank", 60*60},
 			{"eplPlayerRank", 60*60},
 			{"eplMatchDetail", 60*60},
 			{"eplInnerPlayer", 60*60},
-			{"eplPlayerAsistRank", 60*60}
+			{"eplPlayerAsistRank", 60*60},
+	        {"naverSportsNewsPopular", 60*60}
 	}; 
 	
 	
@@ -42,6 +45,7 @@ public class CrawlingThread extends Thread {
 				EplPlayerRankCrawling eprc = new EplPlayerRankCrawling();
 				EplPlayerAsistRankCrawling eparc = new EplPlayerAsistRankCrawling();
 				EplInnerPlayerCrawling eipc = new EplInnerPlayerCrawling();
+				NaverSportsNewsPopularCrawling nsnpc = new NaverSportsNewsPopularCrawling();
 				
 				
 				for(Object [] STANDARD_TIME : STANDARD_TIMES) {
@@ -78,7 +82,7 @@ public class CrawlingThread extends Thread {
 								if(difTimes > crawlingDataTimes) {
 									ArrayList<HashMap<String, String>> data = nsnlc.naverSportsNewsLatestCrawling();
 									if(data != null && data.size() > 0) {
-										System.out.println("크롤링링");
+										System.out.println("크롤링링~");
 										DataStorage.setNaverSportsNewsLatestData(data);
 										DataStorage.setNaverSportsNewsLatestCrawlingTime(new Date());
 									}
@@ -242,7 +246,37 @@ public class CrawlingThread extends Thread {
 		                           }
 		                        }
 		                  }
-		               } 
+		               } else if(crawlingDataName.equals("naverSportsNewsPopular")) {
+                           // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+                           if(DataStorage.getNaverSportsNewsPopularData() == null) {
+                              // data에 크롤링하여 데이터를 넣고...
+                              ArrayList<HashMap<String, String>> data = nsnpc.naverSportsNewsPopularCrawling();
+                              // 만약 크롤링한 데이터가 있으면...
+                              if(data != null && data.size() > 0) {
+                                 // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+                                 DataStorage.setNaverSportsNewsPopularData(data);
+                                 DataStorage.setNaverSportsNewsPopularCrawlingTime(new Date());
+                              }
+                           } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+                                 // 크롤링된 시간을 변수에 담고...
+                                 Date oldNaverSportsNewsPopularCrawlingTime = DataStorage.getNaverSportsNewsPopularCrawlingTime();
+                                 // 현재크롤링한시간 변수에 담고...
+                                 Date currentNaverSportsNewsPopularCrawlingTime = new Date();
+                                 
+                                 // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+                                 long difTimes = (currentNaverSportsNewsPopularCrawlingTime.getTime() - oldNaverSportsNewsPopularCrawlingTime.getTime()) / 1000; // 초
+                                 
+                                 // 크롤링 할 
+                                 if(difTimes > crawlingDataTimes) {
+                                    ArrayList<HashMap<String, String>> data = nsnpc.naverSportsNewsPopularCrawling();
+                                    if(data != null && data.size() > 0) {
+                                       DataStorage.setNaverSportsNewsPopularData(data);
+                                       DataStorage.setNaverSportsNewsLatestCrawlingTime(new Date());
+                                    }
+                                 }
+                           }
+                        } 
+               
 					
 					
 				} // for finish 

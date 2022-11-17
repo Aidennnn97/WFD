@@ -22,20 +22,16 @@
 	<!-- 페이지 바디  -->
 	<div class="container">
 
+	<div class="topNewsAndMap">
 		<!-- 메인 페이지 상단 캐러셀 시작  -->
 		<div class="main_news_box">
 			<figure class="icon-cards mt-3">
 				<div class="icon-cards__content">
-					<c:forEach var="news" items="${newsList}" varStatus="status"
-						begin="0" end="5">
-						<div class="icon-cards__item">
-							<a href="${news.newsUrl}"><img src="${news.newsImgUrl}"></img>
-								<div class="text_box">${news.newsTitle }</div> </a>
-						</div>
-					</c:forEach>
 				</div>
 			</figure>
 		</div>
+		<div id="mapdiv"></div>
+	</div>
 		<!-- 메인 페이지 상단 캐러셀 시작  -->
 
 		<!-- 최신뉴스기사 오늘경기일정 시작  -->
@@ -58,7 +54,7 @@
 			<div class="today_match_box">
 
 				<div class="today_match_title">
-					<h1 style="height:14px;">오늘 경기 일정</h1>
+					<h1 style="height:14px; margin-bottom: 40px;">오늘 경기 일정</h1>
 					<div class="league_box">
 						<select id="selectbox">
 							<option value="all">전체일정</option>
@@ -109,6 +105,30 @@
              }
          })
          /* 최신 뉴스 기사 크롤링 끝. */
+         
+         
+         
+          /* 인기 뉴스 기사 크롤링 */
+         $.ajax({
+             url :"/craw/crawPopularNewsData.ajax",
+             dataType : "json",
+             type : "post",
+             success:function(data){
+                for (var i = 0; i < 6; i++){
+                   $(".icon-cards__content").append(
+                      "<div class='icon-cards__item'>"+
+                     "<a href="+data[i].news_url+"><img src="+data[i].news_main_image+"></img>"+
+                        "<div class='text_box'>"+data[i].news_title+"</div></a>"+
+                  "</div>"
+                     );    
+                }
+                
+             }
+         })
+         /* 인기 뉴스 기사 크롤링 끝. */
+         
+         
+         
          
     	 
 	/* 오늘 경기 일정 크롤링  */
@@ -338,6 +358,160 @@
              }
          })
          /* 오늘경기 일정 끝. */
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      // Data
+         var groupData = [
+           {
+             "name": "Epl",
+             "data": [
+             { "id": "GB", "name": "Epl", "href":"epl"}
+               ]
+           }, 
+           {
+             "name": "Bundesliga",
+             "data": [
+             { "id": "DE", "name": "Bundesliga", "href":"bundesliga"}
+             ]
+           }, 
+           {
+             "name": "Laliga",
+             "data": [
+             { "id": "ES", "name": "Laliga", "href":"laliga"}
+             ]
+           }, {
+             "name": "Serie A",
+             "data": [
+             { "id": "IT", "name": "Serie A", "href":"serieA"}
+             ]
+           }
+         ];
+
+
+         // Create root and chart
+         var root = am5.Root.new("mapdiv");
+
+
+         // Set themes
+         root.setThemes([
+           am5themes_Animated.new(root)
+         ]);
+
+
+         // Create chart
+         var chart = root.container.children.push(am5map.MapChart.new(root, {
+           minZoomLevel: 5,
+           maxZoomLevel: 5,
+           homeGeoPoint: { longitude: 0, latitude: 48 }
+         }));
+
+
+         // Create world polygon series
+         var worldSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+           geoJSON: am5geodata_worldLow,
+           exclude: ["AQ"]
+         }));
+
+         worldSeries.mapPolygons.template.setAll({
+           fill: am5.color(0xaaaaaa)
+         });
+
+         worldSeries.events.on("datavalidated", () => {
+           chart.goHome();
+         });
+
+
+         // Add legend
+         var legend = chart.children.push(am5.Legend.new(root, {
+           useDefaultMarker: true,
+           centerX: am5.p50,
+           x: am5.p50,
+           centerY: am5.p100,
+           y: am5.p100,
+           dy: -20,
+           background: am5.RoundedRectangle.new(root, {
+             fill: am5.color(0xffffff),
+             fillOpacity: 0
+           })
+         }));
+
+         legend.valueLabels.template.set("forceHidden", true)
+
+
+         // Create series for each group
+         var colors = am5.ColorSet.new(root, {
+           step: 2
+         });
+         colors.next();
+
+         am5.array.each(groupData, function(group) {
+           var countries = [];
+           var color = colors.next();
+
+           am5.array.each(group.data, function(country) {
+             countries.push(country.id)
+           });
+
+           var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+             geoJSON: am5geodata_worldLow,
+             include: countries,
+             name: group.name,
+             fill: color
+           }));
+
+
+           polygonSeries.mapPolygons.template.setAll({
+             tooltipText: "[bold]{name}[/]",
+             interactive: true,
+             fill: color,
+             strokeWidth: 2
+           });
+
+           polygonSeries.mapPolygons.template.states.create("hover", {
+             fill: am5.Color.brighten(color, -0.3)
+           });
+
+           polygonSeries.mapPolygons.template.events.on("pointerover", function(ev) {
+             ev.target.series.mapPolygons.each(function(polygon) {
+               polygon.states.applyAnimate("hover");
+             });
+           });
+           
+           polygonSeries.mapPolygons.template.events.on("click", function(ev) {
+              var href = ev.target.dataItem.dataContext.href;
+                 window.location.href = '/'+href;
+            });
+
+           polygonSeries.mapPolygons.template.events.on("pointerout", function(ev) {
+             ev.target.series.mapPolygons.each(function(polygon) {
+               polygon.states.applyAnimate("default");
+             });
+           });
+           polygonSeries.data.setAll(group.data);
+
+           legend.data.push(polygonSeries);
+         });
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
          
      });
      /* 도큐먼트 레디 펑션 끝. */

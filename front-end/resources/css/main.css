@@ -1,17 +1,23 @@
 @charset "UTF-8";
 
 .container{
-	padding: 0 100px;
+	padding: 1.5%;
+}
+
+.topNewsAndMap{
+	display: flex;
+	justify-content: space-evenly;
 }
 
 .main_news_box{
 	overflow: hidden;
     position: relative;
-    margin: 12px 0 0;
+    margin: 0 0 20px 0;
     height: 340px;
     display: flex;
   	align-items: center;
   	flex-direction: column;
+  	width: 63%;
 }
 
 .icon-cards {
@@ -142,12 +148,13 @@
 
 .content{
 	display: flex;
+	justify-content: space-evenly;
 }
 
 .news_box{
-	width: 65%;
+	width: 63%;
 	height: 500px;
-	border: 1px solid grey;
+	background-color: #eeeeee;
 	border-radius: 20px;
 	overflow: hidden;
 	margin-bottom: 30px;
@@ -156,7 +163,6 @@
 .today_news_title, .today_match_title{
 	width:100%;
 	text-align:center;
-	border-bottom:1px solid grey;
 }
 
 .news_list_box{
@@ -206,8 +212,8 @@
 }
 
 .today_match_box{
-	width: 35%;
-	border: 1px solid grey;
+	width: 33%;
+	background-color: #eeeeee;
 	border-radius: 20px;
 	margin-bottom: 30px;
 }
@@ -216,6 +222,7 @@
 	display:flex;
 	justify-content: right;
 	height: 25px;
+	padding-right: 20px;
 }
 
 #selectbox{
@@ -225,13 +232,12 @@
 
 .today_match_list{
 	overflow: scroll;
-	height: 380px;
+	height: 370px;
 }
 
 .today_match{
 	width:100%;
-	height:70px;
-	border-bottom: 1px solid grey;
+	height:60px;
 	margin-bottom: 20px;
 	display: flex;
 	align-items:center;
@@ -256,6 +262,14 @@
 	align-items: center;
 }
 
+
+#mapdiv{
+	width: 33%;
+	height: 340px;
+	background-color: #eeeeee;
+	border-radius: 20px;
+	overflow: hidden;
+}
 
 
 

@@ -40,16 +40,14 @@ public class MainController {
 		return "/main";
 	}
 
-	// 네이버 인기순 뉴스 크롤링하여 데이터베이스에 저장. 
-	@RequestMapping("/naverSportsNewsPopularInsert") //RequestMappingUrl요청이 오면 실행할 함수
-	public ModelAndView naverSportsNewsPopularInsert() { // 데이터와 뷰를 동시에 설정 가능 
+	   // 네이버 인기순 뉴스 크롤링하여 데이터베이스에 저장. 
+	   @RequestMapping("/craw/crawPopularNewsData.ajax") //RequestMappingUrl요청이 오면 실행할 함수
+	   @ResponseBody
+	   public ArrayList<HashMap<String, String>> naverSportsNewsPopularInsert()throws Exception { // 데이터와 뷰를 동시에 설정 가능 
 
-		ModelAndView mav = new ModelAndView("jsonView"); 
 
-		mainService.naverSportsNewsPopularInsert();
-
-		return mav;
-	}
+	      return DataStorage.getNaverSportsNewsPopularData();
+	   }
 
 	// 네이버 최신뉴스 크롤링.
 	@RequestMapping("/craw/crawSelect.ajax")

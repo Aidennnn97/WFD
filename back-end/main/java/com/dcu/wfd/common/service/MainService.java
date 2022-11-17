@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.dcu.wfd.common.dao.MainDAO;
 import com.dcu.wfd.common.vo.NewsVO;
-import com.dcu.wfd.crawling.module.NaverSportsNewsPopularCrawling;
+import com.dcu.wfd.crawling.module.main.NaverSportsNewsPopularCrawling;
 
 @Service
 public class MainService {

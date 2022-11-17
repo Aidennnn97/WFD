@@ -1,4 +1,4 @@
-package com.dcu.wfd.crawling.module;
+package com.dcu.wfd.crawling.module.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,15 +75,6 @@ public class NaverSportsNewsPopularCrawling {
 	            
 	            crawlingDataList.add(crawlingData);
 	            
-	            System.out.println("newsTitle: " + newstitle);
-	            System.out.println("newsContent: " + newsContent);
-	            System.out.println("newsImg: " + newsImageUrl);
-	            System.out.println("newsUrl: " + newsUrl);
-	            System.out.println("newsViews: " + newsViews);
-	            System.out.println("oid: " + oid);
-	            System.out.println("aid: " + aid);
-				System.out.println();
-				
 			}
 			
 		} catch (Exception e) {

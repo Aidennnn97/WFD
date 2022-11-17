@@ -1,4 +1,4 @@
-package com.dcu.wfd.crawling.module;
+package com.dcu.wfd.crawling.module.main;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class TodayMatchScheduleCrawling {
 			
 			HashMap<String, Object> matchList = (HashMap<String, Object>) jsonData.get("schedule");
 			
-			ArrayList<HashMap<String,Object>> matchList2 = (ArrayList<HashMap<String, Object>>) matchList.get(date.format(today));
+			ArrayList<HashMap<String,Object>> matchList2 = (ArrayList<HashMap<String, Object>>) matchList.get("20221113");
 			
 			if(matchList2 != null) {
 				

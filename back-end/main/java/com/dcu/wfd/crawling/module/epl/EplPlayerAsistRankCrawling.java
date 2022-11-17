@@ -1,4 +1,4 @@
-package com.dcu.wfd.crawling.module;
+package com.dcu.wfd.crawling.module.epl;
 
 import java.util.ArrayList;
 import java.util.HashMap;

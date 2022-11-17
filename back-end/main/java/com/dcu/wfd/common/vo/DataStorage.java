@@ -47,6 +47,11 @@ public class DataStorage {
 	// 개인 어시스트 순위 크롤링한 시간 담을 변수.
 	private static Date eplPlayerAsistRankCrawlingTime = null;
 	
+	// 네이버 인기뉴스 크롤링데이터 담을 변수.
+	private static ArrayList<HashMap<String, String>> naverSportsNewsPopularData = null;
+	// 네이버 인기뉴스 크롤링한 시간 담을 변수.
+	private static Date naverSportsNewsPopularCrawlingTime = null;
+	
 	
 	public static ArrayList<HashMap<String, String>> getNaverSportsNewsLatestData() {
 		return naverSportsNewsLatestData;
@@ -143,6 +148,18 @@ public class DataStorage {
 	}
 	public static void setEplPlayerAsistRankCrawlingTime(Date eplPlayerAsistRankCrawlingTime) {
 		DataStorage.eplPlayerAsistRankCrawlingTime = eplPlayerAsistRankCrawlingTime;
+	}
+	public static ArrayList<HashMap<String, String>> getNaverSportsNewsPopularData() {
+		return naverSportsNewsPopularData;
+	}
+	public static void setNaverSportsNewsPopularData(ArrayList<HashMap<String, String>> naverSportsNewsPopularData) {
+		DataStorage.naverSportsNewsPopularData = naverSportsNewsPopularData;
+	}
+	public static Date getNaverSportsNewsPopularCrawlingTime() {
+		return naverSportsNewsPopularCrawlingTime;
+	}
+	public static void setNaverSportsNewsPopularCrawlingTime(Date naverSportsNewsPopularCrawlingTime) {
+		DataStorage.naverSportsNewsPopularCrawlingTime = naverSportsNewsPopularCrawlingTime;
 	}
 	
 	

@@ -21,6 +21,7 @@
 
 		<!-- 상단 리그 경기 일정 캐러셀 시작  -->
 		<div class="row" style="padding: 0 50px;">
+			<div class="coment">*오늘 경기 일정*</div>
 			<div class="col-md-6">
 				<div id="testimonial-slider" class="owl-carousel"></div>
 			</div>
@@ -60,7 +61,10 @@
 				<div class="pieandbar">
 					<!-- 원 파이 그래프. -->
 					<div id="piechart"></div>
-					<div id="barchart"></div>
+	               <div class="outer-barchart">
+                  	<div class="barchartTitle">경기당 득/실점 Top5</div>
+                  <div id="barchart"></div>
+               </div>
 				</div>
 				
 				<!-- data visibility box Start -->
@@ -102,7 +106,7 @@
 	                     	if(data3[i].leagueName == "프리미어리그"){
 	                     		cnt++;
 	                        $("#testimonial-slider").append(
-	                              "<div class='testimonial-item equal-height style-6' ' style='height:170px;'>"+
+	                              "<div class='testimonial-item equal-height style-6' ' style='height:170px; cursor: pointer;'>"+
 	                                   "<div class='match_schedule' id='"+data3[i].gameId+"'>"+
 	                                     //  "<div class='match_day'>"+data3[i].startDate.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3')+"</div>"+
 	                                       "<div class='match_vs'>"+
@@ -295,8 +299,11 @@
 	                             	$(".match_info_home_detail").append(
 	                             		"<div class='match_home_info_img'><img class='match_team_emblem' src='"+matchData.homeTeamImg+"'/></div>"+
 	                             		"<div class='match_home_info_formation'>"+homeTeamFormation+"</div>"+
+	                             		"<div class='match_homeaway_title'>"+
+	                             			"<div class='match_home_title_homeaway'>Home</div>"+
 	                             		"<div class='match_home_info_name'>"+matchData.homeTeamName+"</div>"+
-	                             		"<div class='match_away_info_goal tooltip'>"+
+	                             		"</div>"+
+	                             		"<div class='match_away_info_goal tooltip' style='cursor: pointer;'>"+
 	                             		"<span>"+matchData.homeTeamResult+"</span>"+
 	                             		"<div class='home_tooltip_content'></div>"+
 	                             		"</div>"
@@ -314,11 +321,14 @@
 	                             	
 	                             	
 	         						$(".match_info_away_detail").append(
-	                                 		"<div class='match_away_info_goal tooltip'>"+
+	                                 		"<div class='match_away_info_goal tooltip' style='cursor: pointer;'>"+
 	                                 		"<span>"+matchData.awayTeamResult+"</span>"+
 	                                 		"<div class='away_tooltip_content'></div>"+
 	                                 		"</div>"+
-	                                 		"<div class='match_away_info_name'>"+matchData.awayTeamName+"</div>"+
+	                                 		"<div class='match_homeaway_title'>"+
+	                             			"<div class='match_home_title_homeaway'>Away</div>"+
+	                             			"<div class='match_home_info_name'>"+matchData.awayTeamName+"</div>"+
+	                             			"</div>"+
 	                                 		"<div class='match_away_info_formation'>"+awayTeamFormation+"</div>"+
 	                                 		"<div class='match_away_info_img'><img class='match_team_emblem' src='"+matchData.awayTeamImg+"'/></div>"
 	                                 	);
@@ -869,7 +879,7 @@
 	                  
 	                  
 	                  var title = root.container.children.push(am5.Label.new(root, {
-                    	  text: "EPL 팀 및 개인 순위",
+                    	  text: "프리미어리그 전체 팀 및 팀 내 Top5",
                     	  fontSize: 30,
                     	  x: am5.percent(50),
                     	  centerX: am5.percent(50)
@@ -1228,14 +1238,6 @@
 		                  }));
 		                  
 		                  
-		                  
-		                  var title = root.container.children.push(am5.Label.new(root, {
-	                    	  text: "경기당 득/실점",
-	                    	  fontSize: 30,
-	                    	  x: am5.percent(50),
-	                    	  centerX: am5.percent(50)
-	                    	}));
-
 
 		                  // Data
 		                   var data = [];

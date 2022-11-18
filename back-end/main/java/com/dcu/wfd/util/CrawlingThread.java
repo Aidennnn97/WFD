@@ -5,10 +5,15 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.dcu.wfd.common.vo.EplDataStorage;
+import com.dcu.wfd.common.vo.LaligaDataStorage;
 import com.dcu.wfd.crawling.module.epl.EplMatchScheduleCrawling;
 import com.dcu.wfd.crawling.module.epl.EplPlayerAsistRankCrawling;
 import com.dcu.wfd.crawling.module.epl.EplPlayerRankCrawling;
 import com.dcu.wfd.crawling.module.epl.EplTeamRankCrawling;
+import com.dcu.wfd.crawling.module.laliga.LaligaMatchScheduleCrawling;
+import com.dcu.wfd.crawling.module.laliga.LaligaPlayerAsistRankCrawling;
+import com.dcu.wfd.crawling.module.laliga.LaligaPlayerRankCrawling;
+import com.dcu.wfd.crawling.module.laliga.LaligaTeamRankCrawling;
 import com.dcu.wfd.crawling.module.main.NaverSportsNewsLatestCrawling;
 import com.dcu.wfd.crawling.module.main.TodayMatchScheduleCrawling;
 
@@ -18,12 +23,16 @@ public class CrawlingThread extends Thread {
 	private final Object[][] STANDARD_TIMES = {
 			{"naverSportsNewsLatest", 60*60}, 
 			{"todayMatchSchedule", 60*60}, 
+			
 			{"todayEplMatchSchedule", 60*60},
 			{"eplTeamRank", 60*60},
 			{"eplPlayerRank", 60*60},
-			{"eplMatchDetail", 60*60},
-			{"eplInnerPlayer", 60*60},
-			{"eplPlayerAsistRank", 60*60}
+			{"eplPlayerAsistRank", 60*60},
+			
+			{"todayLaligaMatchSchedule", 60*60},
+	        {"laligaTeamRank", 60*60},
+	        {"laligaPlayerRank", 60*60},
+	        {"laligaPlayerAsistRank", 60*60}
 	}; 
 	
 	
@@ -35,10 +44,17 @@ public class CrawlingThread extends Thread {
 				
 				NaverSportsNewsLatestCrawling nsnlc = new NaverSportsNewsLatestCrawling();
 				TodayMatchScheduleCrawling tmsc = new TodayMatchScheduleCrawling();
+				
+				
 				EplMatchScheduleCrawling emsc = new EplMatchScheduleCrawling();
 				EplTeamRankCrawling etrc = new EplTeamRankCrawling();
 				EplPlayerRankCrawling eprc = new EplPlayerRankCrawling();
 				EplPlayerAsistRankCrawling eparc = new EplPlayerAsistRankCrawling();
+				
+				LaligaMatchScheduleCrawling lmsc = new LaligaMatchScheduleCrawling();
+	            LaligaTeamRankCrawling ltrc = new LaligaTeamRankCrawling();
+	            LaligaPlayerRankCrawling lprc = new LaligaPlayerRankCrawling();
+	            LaligaPlayerAsistRankCrawling lparc = new LaligaPlayerAsistRankCrawling();
 				
 				
 				for(Object [] STANDARD_TIME : STANDARD_TIMES) {
@@ -114,7 +130,10 @@ public class CrawlingThread extends Thread {
 									}
 								}
 						}
-					} else if(crawlingDataName.equals("todayEplMatchSchedule")) {
+					} 
+					
+					// 프리미어리그 크롤링 시작. 
+					else if(crawlingDataName.equals("todayEplMatchSchedule")) {
 						// DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
 						if(EplDataStorage.getTodayEplMatchData() == null) {
 							// data에 크롤링하여 데이터를 넣고...
@@ -239,7 +258,138 @@ public class CrawlingThread extends Thread {
 		                           }
 		                        }
 		                  }
-		               } 
+		               } // 프리미어리그 크롤링 종료. 
+					
+					
+					
+					// 라리가 크롤링 시작.
+					else if(crawlingDataName.equals("todayLaligaMatchSchedule")) {
+	                     // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                     if(LaligaDataStorage.getTodayLaligaMatchData() == null) {
+	                        // data에 크롤링하여 데이터를 넣고...
+	                        ArrayList<HashMap<String, String>> data = lmsc.laligaMatchScheduleCrawling();
+	                        // 만약 크롤링한 데이터가 있으면...
+	                        if(data != null && data.size() > 0) {
+	                           // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                           LaligaDataStorage.setTodayLaligaMatchData(data);
+	                           LaligaDataStorage.setTodayLaligaMatchCrawlingTime(new Date());
+	                        } else {
+	                           LaligaDataStorage.setTodayLaligaMatchData(null);
+	                           LaligaDataStorage.setTodayLaligaMatchCrawlingTime(null);
+	                        }
+	                     } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                           // 크롤링된 시간을 변수에 담고...
+	                           Date oldTodayLaligaMatchCrawlingTime = LaligaDataStorage.getTodayLaligaMatchCrawlingTime();
+	                           // 현재크롤링한시간 변수에 담고...
+	                           Date currentTodayLaligaMatchCrawlingTime = new Date();
+	                           
+	                           // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                           long difTimes = (currentTodayLaligaMatchCrawlingTime.getTime() - oldTodayLaligaMatchCrawlingTime.getTime()) / 1000; // 초
+	                           
+	                           // 크롤링 할 
+	                           if(difTimes > crawlingDataTimes) {
+	                              ArrayList<HashMap<String, String>> data = lmsc.laligaMatchScheduleCrawling();
+	                              if(data != null && data.size() > 0) {
+	                                 LaligaDataStorage.setTodayLaligaMatchData(data);
+	                                 LaligaDataStorage.setTodayLaligaMatchCrawlingTime(new Date());
+	                              }
+	                           }
+	                     }
+	                  } else if(crawlingDataName.equals("laligaTeamRank")) {
+	                     // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                     if(LaligaDataStorage.getLaligaTeamRankData() == null) {
+	                        // data에 크롤링하여 데이터를 넣고...
+	                        ArrayList<HashMap<String, String>> data = ltrc.laligaTeamRankCrawling();
+	                        // 만약 크롤링한 데이터가 있으면...
+	                        if(data != null && data.size() > 0) {
+	                           // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                           LaligaDataStorage.setLaligaTeamRankData(data);
+	                           LaligaDataStorage.setLaligaTeamRankCrawlingTime(new Date());
+	                        } else {
+	                           LaligaDataStorage.setLaligaTeamRankData(null);
+	                           LaligaDataStorage.setLaligaTeamRankCrawlingTime(null);
+	                        }
+	                     } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                           // 크롤링된 시간을 변수에 담고...
+	                           Date oldLaligaTeamRankCrawlingTime = LaligaDataStorage.getLaligaTeamRankCrawlingTime();
+	                           // 현재크롤링한시간 변수에 담고...
+	                           Date currentLaligaTeamRankCrawlingTime = new Date();
+	                           
+	                           // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                           long difTimes = (currentLaligaTeamRankCrawlingTime.getTime() - oldLaligaTeamRankCrawlingTime.getTime()) / 1000; // 초
+	                           
+	                           // 크롤링 할 
+	                           if(difTimes > crawlingDataTimes) {
+	                              ArrayList<HashMap<String, String>> data = ltrc.laligaTeamRankCrawling();
+	                              if(data != null && data.size() > 0) {
+	                                 LaligaDataStorage.setLaligaTeamRankData(data);
+	                                 LaligaDataStorage.setLaligaTeamRankCrawlingTime(new Date());
+	                              }
+	                           }
+	                     }
+	                  } else if(crawlingDataName.equals("laligaPlayerRank")) {
+	                     // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                     if(LaligaDataStorage.getLaligaPlayerRankData() == null) {
+	                        // data에 크롤링하여 데이터를 넣고...
+	                        ArrayList<HashMap<String, String>> data = lprc.laligaPlayerRank();
+	                        // 만약 크롤링한 데이터가 있으면...
+	                        if(data != null && data.size() > 0) {
+	                           // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                           LaligaDataStorage.setLaligaPlayerRankData(data);
+	                           LaligaDataStorage.setLaligaPlayerRankCrawlingTime(new Date());
+	                        } else {
+	                           LaligaDataStorage.setLaligaPlayerRankData(null);
+	                           LaligaDataStorage.setLaligaPlayerRankCrawlingTime(null);
+	                        }
+	                     } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                           // 크롤링된 시간을 변수에 담고...
+	                           Date oldLaligaPlayerRankCrawlingTime = LaligaDataStorage.getLaligaPlayerRankCrawlingTime();
+	                           // 현재크롤링한시간 변수에 담고...
+	                           Date currentLaligaPlayerRankCrawlingTime = new Date();
+	                           
+	                           // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                           long difTimes = (currentLaligaPlayerRankCrawlingTime.getTime() - oldLaligaPlayerRankCrawlingTime.getTime()) / 1000; // 초
+	                           
+	                           // 크롤링 할 
+	                           if(difTimes > crawlingDataTimes) {
+	                              ArrayList<HashMap<String, String>> data = lprc.laligaPlayerRank();
+	                              if(data != null && data.size() > 0) {
+	                                 LaligaDataStorage.setLaligaPlayerRankData(data);
+	                                 LaligaDataStorage.setLaligaPlayerRankCrawlingTime(new Date());
+	                              }
+	                           }
+	                     }
+	                  } else if(crawlingDataName.equals("laligaPlayerAsistRank")) {
+	                           // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                           if(LaligaDataStorage.getLaligaPlayerAsistRankData() == null) {
+	                              // data에 크롤링하여 데이터를 넣고...
+	                              ArrayList<HashMap<String, String>> data = lparc.laligaPlayerAsistRank();
+	                              // 만약 크롤링한 데이터가 있으면...
+	                              if(data != null && data.size() > 0) {
+	                                 // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                                 LaligaDataStorage.setLaligaPlayerAsistRankData(data);
+	                                 LaligaDataStorage.setLaligaPlayerAsistRankCrawlingTime(new Date());
+	                              }
+	                           } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                                 // 크롤링된 시간을 변수에 담고...
+	                                 Date oldLaligaPlayerAsistRankCrawlingTime = LaligaDataStorage.getLaligaPlayerAsistRankCrawlingTime();
+	                                 // 현재크롤링한시간 변수에 담고...
+	                                 Date currentLaligaPlayerAsistRankCrawlingTime = new Date();
+	                                 
+	                                 // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                                 long difTimes = (currentLaligaPlayerAsistRankCrawlingTime.getTime() - oldLaligaPlayerAsistRankCrawlingTime.getTime()) / 1000; // 초
+	                                 
+	                                 // 크롤링 할 
+	                                 if(difTimes > crawlingDataTimes) {
+	                                    ArrayList<HashMap<String, String>> data = lparc.laligaPlayerAsistRank();
+	                                    if(data != null && data.size() > 0) {
+	                                       LaligaDataStorage.setLaligaPlayerAsistRankData(data);
+	                                       LaligaDataStorage.setLaligaPlayerAsistRankCrawlingTime(new Date());
+	                                    }
+	                                 }
+	                           }
+	                        }
+					// 라리가 크롤링 종료.
                
 					
 					

@@ -144,23 +144,27 @@ public class EplController {
 				
 				
 				ArrayList<HashMap<String, Object>> playerGoal = (ArrayList<HashMap<String, Object>>) jsonData.get("goal");
-	            for(int i=0; i < playerGoal.size(); i++) {
-	               
-	               HashMap<String, String> Detail4 = new HashMap<>();
-
-	               String homeAway = (String) playerGoal.get(i).get("homeAway");
-	               String halfTime = (String) playerGoal.get(i).get("periodType");
-	               String timeMin = String.valueOf(playerGoal.get(i).get("timeMin"));
-	               HashMap<String, Object> whoGoalList = (HashMap<String, Object>) playerGoal.get(i).get("person");
-	               String whoGoal = (String) whoGoalList.get("name");
-	               
-	               Detail4.put("homeAway", homeAway);
-	               Detail4.put("halfTime", halfTime);
-	               Detail4.put("timeMin", timeMin);
-	               Detail4.put("whoGoal", whoGoal);
-	               GameDetailList.add(Detail4);
-
-	            }
+				
+				if(playerGoal != null) {
+					
+					for(int i=0; i < playerGoal.size(); i++) {
+						
+						HashMap<String, String> Detail4 = new HashMap<>();
+						
+						String homeAway = (String) playerGoal.get(i).get("homeAway");
+						String halfTime = (String) playerGoal.get(i).get("periodType");
+						String timeMin = String.valueOf(playerGoal.get(i).get("timeMin"));
+						HashMap<String, Object> whoGoalList = (HashMap<String, Object>) playerGoal.get(i).get("person");
+						String whoGoal = (String) whoGoalList.get("name");
+						
+						Detail4.put("homeAway", homeAway);
+						Detail4.put("halfTime", halfTime);
+						Detail4.put("timeMin", timeMin);
+						Detail4.put("whoGoal", whoGoal);
+						GameDetailList.add(Detail4);
+						
+					}
+				}
 				
 				
 				HashMap<String, Object> homeStatList = (HashMap<String, Object>) jsonData.get("homeTeamStat");

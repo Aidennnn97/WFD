@@ -293,7 +293,7 @@ tr:last-child td:last-child {
 
 #chartdiv, #chartdiv2, #chartdiv3, #chartdiv4, #chartdiv5 {
   width: 20%;
-  height: 400px;
+  height: 300px;
 }
 
 
@@ -374,5 +374,45 @@ tr:last-child td:last-child {
 span{
 	font-size: 45px;
 }
+
+.chartcolor{
+	position: absolute;
+    width: 20%;
+    height: 30px;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    left: 200px;
+    margin-top: 10px;
+}
+
+.homecolor, .awaycolor{
+	width: 20px;
+	height: 20px;
+	border-radius: 6px;
+    margin-right: 15px;
+}
+
+.homecolor{
+	background-color: #7D5A50;
+}
+
+.awaycolor{
+	background-color: #B4846C;
+	margin-left: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

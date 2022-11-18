@@ -187,13 +187,14 @@
 	                         	  $(".match_info_home_detail").empty();
 	                         	  $(".match_info_away_detail").empty();
 	                         	  $(".match_detail_chart").empty();
-	                         	  $(".match_detail_chart").append(
+	                         	 $(".match_detail_chart").append(
+	                         			 "<div class='chartcolor'><div class='homecolor'></div><div>Home</div><div class='awaycolor'></div>Away</div>"+
 	                         			  "<div id='chartdiv'></div>"+
 	                         			  "<div id='chartdiv2'></div>"+
 	                         			  "<div id='chartdiv3'></div>"+
 	                         			  "<div id='chartdiv4'></div>"+
 	                         			  "<div id='chartdiv5'></div>"
-                        			  );
+	                         		  );
 	                         	  
 	                         	  const matchData = data5[data5.length-1];
 	                         	  var data = data5[data5.length-1].homeTeamFormation;
@@ -483,333 +484,350 @@
 	     					}
 	                             	
 	                             	
-	                             	 //매치 디테일 데이터 통계 시작
-	                                // Create root element
-	                          // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-	                          var root = am5.Root.new("chartdiv");
-	                   
-	                          // Set themes
-	                          // https://www.amcharts.com/docs/v5/concepts/themes/
-	                          root.setThemes([
-	                            am5themes_Animated.new(root)
-	                          ]);
-	                   
-	                          // Create chart
-	                          // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-	                          var chart = root.container.children.push(
-	                            am5percent.PieChart.new(root, {
-	                             endAngle: 270
-	                            })
-	                          );
-	                   
-	                          // Create series
-	                          // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-	                          var series = chart.series.push(
-						         am5percent.PieSeries.new(root, {
-						           valueField: "value",
-						           categoryField: "category",
-						           alignLabels: false,
-						           fillField: "color"
-						         })
-						       );
-						       series.labels.template.setAll({
-						            fontSize: 20,
-						             textType: "radial",
-						             text: "[bold]{category}[/]\n {value}%",
-						             centerX: am5.percent(110),
-						             radius: 4
-						           });
-						       
-						       var title = root.container.children.push(am5.Label.new(root, {
-			                    	  text: "점유율(%)",
-			                    	  fontSize: 30,
-			                    	  x: am5.percent(50),
-			                    	  centerX: am5.percent(50)
-			                    	}));
-						       
+	                             	
+	                             	
+	                             	
 
-	                   
-	                          // Set data
-	                          // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-	                          series.data.setAll([
-	                        	  {
-	  	                            category: "Away",
-	  	                            value: data5[data5.length-1].AwayPossession,
-	  	                            color: am5.color(0x82CD47)
-	  	                          },
-		                          {
-		                            category: "Home",
-		                            value: data5[data5.length-1].HomePossession,
-		                            color: am5.color(0x54B435)
-		                          }
-	                          ]);
-	                   
-	                          series.appear(1000, 100);
-	                        //매치 디테일 데이터 통계 끝.
-	                                    
-	                                    
-	                                    
-	                                    
-	                                    
-	                                    
-	                                    
-	                        //매치 디테일 데이터 통계 시작
+	                            	//매치 디테일 데이터 통계 시작
 	                            // Create root element
-	                      // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-	                      var root = am5.Root.new("chartdiv2");
-	               
-	                      // Set themes
-	                      // https://www.amcharts.com/docs/v5/concepts/themes/
-	                      root.setThemes([
-	                        am5themes_Animated.new(root)
-	                      ]);
-	               
-	                      // Create chart
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-	                      var chart = root.container.children.push(
-	                        am5percent.PieChart.new(root, {
-	                          endAngle: 270
-	                        })
-	                      );
-	               
-	                      // Create series
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-	                      var series = chart.series.push(
-					         am5percent.PieSeries.new(root, {
-					           valueField: "value",
-					           categoryField: "categorys",
-					           alignLabels: false,
-					           fillField: "color"
-					         })
-					       );
-					       series.labels.template.setAll({
-					            fontSize: 20,
-					             textType: "radial",
-					             text: "[bold]{category}[/]\n {value}",
-					             centerX: am5.percent(110),
-					             radius: 4
-					           });
-					       
-					       var title = root.container.children.push(am5.Label.new(root, {
-		                    	  text: "슈팅",
-		                    	  fontSize: 30,
-		                    	  x: am5.percent(50),
-		                    	  centerX: am5.percent(50)
-		                    	}));
-	               
-	                      // Set data
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-	                      series.data.setAll([
-	                        	  {
-	  	                            category: "Away",
-	  	                            value: data5[data5.length-1].AwayShooting,
-	  	                          	color: am5.color(0x82CD47)
-	  	                          },
-		                          {
-		                            category: "Home",
-		                            value: data5[data5.length-1].HomeShooting,
-		                            color: am5.color(0x54B435)
-		                          }
-	                          ]);
-	               
-	                      series.appear(1000, 100);
-	                      /* shooting pie chart finish */
-	                      
-	                      
-	                      
-	                      
-	                      
-	                      
-	                      
-	                      
-	                      /* 유효슈팅 pie chart start */
-	                      var root = am5.Root.new("chartdiv3");
-	               
-	                      // Set themes
-	                      // https://www.amcharts.com/docs/v5/concepts/themes/
-	                      root.setThemes([
-	                        am5themes_Animated.new(root)
-	                      ]);
-	               
-	                      // Create chart
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-	                      var chart = root.container.children.push(
-	                        am5percent.PieChart.new(root, {
-	                          endAngle: 270
-	                        })
-	                      );
-	               
-	                      // Create series
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-	                      var series = chart.series.push(
-					         am5percent.PieSeries.new(root, {
-					           valueField: "value",
-					           categoryField: "categorys",
-					           alignLabels: false,
-					           fillField: "color"
-					         })
-					       );
-					       series.labels.template.setAll({
-					            fontSize: 20,
-					             textType: "radial",
-					             text: "[bold]{category}[/]\n {value}",
-					             centerX: am5.percent(110),
-					             radius: 4
-					           });
-					       
-					       var title = root.container.children.push(am5.Label.new(root, {
-		                    	  text: "유효슈팅",
-		                    	  fontSize: 30,
-		                    	  x: am5.percent(50),
-		                    	  centerX: am5.percent(50)
-		                    	}));
-	               
-	                      // Set data
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-	                      series.data.setAll([
-	                        	  {
-	  	                            category: "Away",
-	  	                            value: data5[data5.length-1].AwaySog,
-	  	                          	color: am5.color(0x82CD47)
-	  	                          },
-		                          {
-		                            category: "Home",
-		                            value: data5[data5.length-1].HomeSog,
-		                            color: am5.color(0x54B435)
-		                          }
-	                          ]);
-	               
-	                      series.appear(1000, 100);
-	                      /* 유효슈팅 pie chart finish */
-	                      
-	                      
-	                      
-	                      
-	                      
-	                      
-	                      
-	                      /* 코너킥 pie chart start */
-	                      var root = am5.Root.new("chartdiv4");
-	               
-	                      // Set themes
-	                      // https://www.amcharts.com/docs/v5/concepts/themes/
-	                      root.setThemes([
-	                        am5themes_Animated.new(root)
-	                      ]);
-	               
-	                      // Create chart
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-	                      var chart = root.container.children.push(
-	                        am5percent.PieChart.new(root, {
-	                          endAngle: 270
-	                        })
-	                      );
-	               
-	                      // Create series
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-	                      var series = chart.series.push(
-					         am5percent.PieSeries.new(root, {
-					           valueField: "value",
-					           categoryField: "categorys",
-					           alignLabels: false,
-					           fillField: "color"
-					         })
-					       );
-					       series.labels.template.setAll({
-					            fontSize: 20,
-					             textType: "radial",
-					             text: "[bold]{category}[/]\n {value}",
-					             centerX: am5.percent(110),
-					             radius: 4
-					           });
-					       
-					       var title = root.container.children.push(am5.Label.new(root, {
-		                    	  text: "코너킥",
-		                    	  fontSize: 30,
-		                    	  x: am5.percent(50),
-		                    	  centerX: am5.percent(50)
-		                    	}));
-	               
-	                      // Set data
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-	                      series.data.setAll([
-	                        	  {
-	  	                            category: "Away",
-	  	                            value: data5[data5.length-1].AwayCk,
-	  	                          	color: am5.color(0x82CD47)
-	  	                          },
-		                          {
-		                            category: "Home",
-		                            value: data5[data5.length-1].HomeCk,
-		                            color: am5.color(0x54B435)
-		                          }
-	                          ]);
-	               
-	                      series.appear(1000, 100);
-	                      /* 코너킥 pie chart finish */
-	                      
-	                      
-	                      
-	                      
-	                      /* 파울 pie chart start */
-	                      var root = am5.Root.new("chartdiv5");
-	               
-	                      // Set themes
-	                      // https://www.amcharts.com/docs/v5/concepts/themes/
-	                      root.setThemes([
-	                        am5themes_Animated.new(root)
-	                      ]);
-	               
-	                      // Create chart
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-	                      var chart = root.container.children.push(
-	                        am5percent.PieChart.new(root, {
-	                          endAngle: 270
-	                        })
-	                      );
-	               
-	                      // Create series
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-	                      var series = chart.series.push(
-					         am5percent.PieSeries.new(root, {
-					           valueField: "value",
-					           categoryField: "categorys",
-					           alignLabels: false,
-					           fillField: "color"
-					         })
-					       );
-					       series.labels.template.setAll({
-					            fontSize: 20,
-					             textType: "radial",
-					             text: "[bold]{category}[/]\n {value}",
-					             centerX: am5.percent(110),
-					             radius: 4
-					           });
-					       
-					       var title = root.container.children.push(am5.Label.new(root, {
-		                    	  text: "파울",
-		                    	  fontSize: 30,
-		                    	  x: am5.percent(50),
-		                    	  centerX: am5.percent(50)
-		                    	}));
-	               
-	                      // Set data
-	                      // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-	                      series.data.setAll([
-	                        	  {
-	  	                            category: "Away",
-	  	                            value: data5[data5.length-1].AwayFo,
-	  	                          	color: am5.color(0x82CD47)
-	  	                          },
-		                          {
-		                            category: "Home",
-		                            value: data5[data5.length-1].HomeFo,
-		                            color: am5.color(0x54B435)
-		                          }
-	                          ]);
-	               
-	                      series.appear(1000, 100);
-	                      /* 파울 pie chart finish */
+	                            var root = am5.Root.new("chartdiv");
+
+
+	                            // Set themes
+	                            // https://www.amcharts.com/docs/v5/concepts/themes/
+	                            root.setThemes([
+	                            am5themes_Animated.new(root)
+	                            ]);
+
+
+	                            // Create chart
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+	                            var chart = root.container.children.push(am5percent.PieChart.new(root, {
+	                            innerRadius: 70,
+	                            layout: root.verticalLayout,
+	                            tooltip: am5.Tooltip.new(root, {
+	                              labelText: "{value}%"
+	                            })
+	                            }));
+
+
+	                            // Create series
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+	                            var series = chart.series.push(am5percent.PieSeries.new(root, {
+	                            valueField: "size",
+	                            categoryField: "sector",
+	                            fillField: "color"
+	                            }));
+
+
+	                            // Set data
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+	                            series.data.setAll([
+	                            { sector: "Awaypossession", size: data5[data5.length-1].AwayPossession, color: am5.color(0xB4846C) },
+	                            { sector: "Homepossession", size: data5[data5.length-1].HomePossession, color: am5.color(0x7D5A50) }
+	                            ]);
+
+
+	                            // Play initial series animation
+	                            // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
+	                            series.appear(1000, 100);
+
+
+	                            // Add label
+	                            var label = root.tooltipContainer.children.push(am5.Label.new(root, {
+	                            x: am5.p50,
+	                            y: am5.p50,
+	                            centerX: am5.p50,
+	                            centerY: am5.p50,
+	                            fill: am5.color(0xffffff),
+	                            fontSize: 30
+	                            }));
+	                            series.labels.template.setAll({
+	                            text: ""
+	                            });
+
+	                            // Animate chart data
+	                            var currentYear = "점유율";
+
+
+
+	                            label.set("text", currentYear);
+	                            //매치 디테일 데이터 통계 끝.
+	                                
+	                                
+	                                
+	                                
+	                                
+	                                
+	                                
+	                            //매치 디테일 데이터 통계 시작
+	                            // Create root element
+	                            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+	                            var root = am5.Root.new("chartdiv2");
+
+
+	                            // Set themes
+	                            // https://www.amcharts.com/docs/v5/concepts/themes/
+	                            root.setThemes([
+	                            am5themes_Animated.new(root)
+	                            ]);
+
+
+	                            // Create chart
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+	                            var chart = root.container.children.push(am5percent.PieChart.new(root, {
+	                            innerRadius: 70,
+	                            layout: root.verticalLayout,
+	                            tooltip: am5.Tooltip.new(root, {
+	                            labelText: "{value}"
+	                            })
+	                            }));
+
+
+	                            // Create series
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+	                            var series = chart.series.push(am5percent.PieSeries.new(root, {
+	                            valueField: "size",
+	                            categoryField: "sector",
+	                            fillField: "color"
+	                            }));
+
+
+	                            // Set data
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+	                            series.data.setAll([
+	                            { sector: "AwayShooting", size: data5[data5.length-1].AwayShooting, color: am5.color(0xB4846C) },
+	                            { sector: "HomeShooting", size: data5[data5.length-1].HomeShooting, color: am5.color(0x7D5A50) }
+	                            ]);
+
+
+	                            // Play initial series animation
+	                            // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
+	                            series.appear(1000, 100);
+
+
+	                            // Add label
+	                            var label = root.tooltipContainer.children.push(am5.Label.new(root, {
+	                            x: am5.p50,
+	                            y: am5.p50,
+	                            centerX: am5.p50,
+	                            centerY: am5.p50,
+	                            fill: am5.color(0xffffff),
+	                            fontSize: 30
+	                            }));
+	                            series.labels.template.setAll({
+	                            text: ""
+	                            });
+
+	                            // Animate chart data
+	                            var currentYear = "슈팅";
+
+
+	                            label.set("text", currentYear);
+	                            /* shooting pie chart finish */
+
+
+
+
+
+
+
+
+	                            /* 유효슈팅 pie chart start */
+	                            var root = am5.Root.new("chartdiv3");
+
+	                            // Set themes
+	                            // https://www.amcharts.com/docs/v5/concepts/themes/
+	                            root.setThemes([
+	                            am5themes_Animated.new(root)
+	                            ]);
+
+
+	                            // Create chart
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+	                            var chart = root.container.children.push(am5percent.PieChart.new(root, {
+	                            innerRadius: 70,
+	                            layout: root.verticalLayout,
+	                            tooltip: am5.Tooltip.new(root, {
+	                            labelText: "{value}"
+	                            })
+	                            }));
+
+
+	                            // Create series
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+	                            var series = chart.series.push(am5percent.PieSeries.new(root, {
+	                            valueField: "size",
+	                            categoryField: "sector",
+	                            fillField: "color"
+	                            }));
+
+
+	                            // Set data
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+	                            series.data.setAll([
+	                            { sector: "AwaySog", size: data5[data5.length-1].AwaySog, color: am5.color(0xB4846C) },
+	                            { sector: "HomeSog", size: data5[data5.length-1].HomeSog, color: am5.color(0x7D5A50) }
+	                            ]);
+
+
+	                            // Play initial series animation
+	                            // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
+	                            series.appear(1000, 100);
+
+
+	                            // Add label
+	                            var label = root.tooltipContainer.children.push(am5.Label.new(root, {
+	                            x: am5.p50,
+	                            y: am5.p50,
+	                            centerX: am5.p50,
+	                            centerY: am5.p50,
+	                            fill: am5.color(0xffffff),
+	                            fontSize: 30
+	                            }));
+	                            series.labels.template.setAll({
+	                            text: ""
+	                            });
+
+	                            // Animate chart data
+	                            var currentYear = "유효슈팅";
+
+
+	                            label.set("text", currentYear);
+	                            /* 유효슈팅 pie chart finish */
+
+
+
+
+
+
+
+	                            /* 코너킥 pie chart start */
+	                            var root = am5.Root.new("chartdiv4");
+
+	                            root.setThemes([
+	                            am5themes_Animated.new(root)
+	                            ]);
+
+
+	                            // Create chart
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+	                            var chart = root.container.children.push(am5percent.PieChart.new(root, {
+	                            innerRadius: 70,
+	                            layout: root.verticalLayout,
+	                            tooltip: am5.Tooltip.new(root, {
+	                            labelText: "{value}"
+	                            })
+	                            }));
+
+
+	                            // Create series
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+	                            var series = chart.series.push(am5percent.PieSeries.new(root, {
+	                            valueField: "size",
+	                            categoryField: "sector",
+	                            fillField: "color"
+	                            }));
+
+
+	                            // Set data
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+	                            series.data.setAll([
+	                            { sector: "AwayCk", size: data5[data5.length-1].AwayCk, color: am5.color(0xB4846C) },
+	                            { sector: "HomeCk", size: data5[data5.length-1].HomeCk, color: am5.color(0x7D5A50) }
+	                            ]);
+
+
+	                            // Play initial series animation
+	                            // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
+	                            series.appear(1000, 100);
+
+
+	                            // Add label
+	                            var label = root.tooltipContainer.children.push(am5.Label.new(root, {
+	                            x: am5.p50,
+	                            y: am5.p50,
+	                            centerX: am5.p50,
+	                            centerY: am5.p50,
+	                            fill: am5.color(0xffffff),
+	                            fontSize: 30
+	                            }));
+	                            series.labels.template.setAll({
+	                            text: ""
+	                            });
+
+	                            // Animate chart data
+	                            var currentYear = "코너킥";
+
+
+	                            label.set("text", currentYear);
+	                            /* 코너킥 pie chart finish */
+
+
+
+
+	                            /* 파울 pie chart start */
+	                            var root = am5.Root.new("chartdiv5");
+
+	                            root.setThemes([
+	                            am5themes_Animated.new(root)
+	                            ]);
+
+
+	                            // Create chart
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+	                            var chart = root.container.children.push(am5percent.PieChart.new(root, {
+	                            innerRadius: 70,
+	                            layout: root.verticalLayout,
+	                            tooltip: am5.Tooltip.new(root, {
+	                            labelText: "{value}"
+	                            })
+	                            }));
+
+
+	                            // Create series
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+	                            var series = chart.series.push(am5percent.PieSeries.new(root, {
+	                            valueField: "size",
+	                            categoryField: "sector",
+	                            fillField: "color"
+	                            }));
+
+
+	                            // Set data
+	                            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+	                            series.data.setAll([
+	                            { sector: "AwayFo", size: data5[data5.length-1].AwayFo, color: am5.color(0xB4846C) },
+	                            { sector: "HomeFo", size: data5[data5.length-1].HomeFo, color: am5.color(0x7D5A50) }
+	                            ]);
+
+
+	                            // Play initial series animation
+	                            // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
+	                            series.appear(1000, 100);
+
+
+	                            // Add label
+	                            var label = root.tooltipContainer.children.push(am5.Label.new(root, {
+	                            x: am5.p50,
+	                            y: am5.p50,
+	                            centerX: am5.p50,
+	                            centerY: am5.p50,
+	                            fill: am5.color(0xffffff),
+	                            fontSize: 30
+	                            }));
+	                            series.labels.template.setAll({
+	                            text: ""
+	                            });
+
+	                            // Animate chart data
+	                            var currentYear = "파울";
+
+
+	                            label.set("text", currentYear);
+	                            /* 파울 pie chart finish */  	
+	                             	
+
 	                      
 	                      
 	                             	
@@ -1836,7 +1854,6 @@
 	</script>
 </body>
 </html>
-
 
 
 

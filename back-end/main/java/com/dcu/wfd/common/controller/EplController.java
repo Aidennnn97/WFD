@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dcu.wfd.common.vo.DataStorage;
+import com.dcu.wfd.common.vo.EplDataStorage;
 import com.dcu.wfd.util.HttpUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -23,20 +23,6 @@ public class EplController {
 
 	@RequestMapping("/epl")
 	public String eplJsp(Model model) {
-		
-//		ArrayList<HashMap<String, String>> allTeamPlayer =  DataStorage.getEplInnerPlayerRankData();
-//		
-//		ObjectMapper mapper = new ObjectMapper(); 
-//		
-//		try {
-//			String jsonData =  mapper.writeValueAsString(allTeamPlayer);
-//			System.out.println(jsonData);
-//			model.addAttribute("allTeamPlayer", jsonData);
-//		} catch (JsonProcessingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
 		
 		return "/epl";
 	}
@@ -49,7 +35,7 @@ public class EplController {
 
 		// DataStorage VO의 변수에 담긴 프리미어리그 경기일정 크롤링 데이터 리턴.
 		
-		return DataStorage.getTodayEplMatchData();
+		return EplDataStorage.getTodayEplMatchData();
 
 	}
 
@@ -230,7 +216,7 @@ public class EplController {
 	@ResponseBody
 	public ArrayList<HashMap<String, String>> eplTeamRank()throws Exception {
 
-		return DataStorage.getEplTeamRankData();
+		return EplDataStorage.getEplTeamRankData();
 
 	}
 
@@ -240,7 +226,7 @@ public class EplController {
 	@ResponseBody
 	public ArrayList<HashMap<String, String>> eplPlayerRank()throws Exception {
 
-		return DataStorage.getEplPlayerRankData();
+		return EplDataStorage.getEplPlayerRankData();
 
 	}
 	
@@ -251,7 +237,7 @@ public class EplController {
    @ResponseBody
    public ArrayList<HashMap<String, String>> eplPlayerAsistRank()throws Exception {
       
-      return DataStorage.getEplPlayerAsistRankData();
+      return EplDataStorage.getEplPlayerAsistRankData();
       
    }
 	

@@ -3,10 +3,7 @@ package com.dcu.wfd.crawling.module.epl;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.dcu.wfd.common.vo.DataStorage;
+import com.dcu.wfd.common.vo.EplDataStorage;
 import com.dcu.wfd.util.HttpUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,7 +49,7 @@ public class EplPlayerRankCrawling {
 		}
 		
 		// 클릭시 팀내 전체선수 순위 담을 변수 초기화.
-		DataStorage.setEplInnerPlayerRankData(trCrawlingDataList2);
+		EplDataStorage.setEplInnerPlayerRankData(trCrawlingDataList2);
 		
 		return trCrawlingDataList2;
 	}

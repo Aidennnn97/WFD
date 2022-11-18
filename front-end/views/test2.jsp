@@ -12,19 +12,12 @@
    type="text/css">
 
 <style>
-#piechart {
-   width: 100%;
-   height: 500px;
-}
 
 #chartdiv {
    width: 100%;
    height: 500px;
 }
-#chartdiv2 {
-   width: 100%;
-   height: 500px;
-}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <!-- Resources -->
@@ -33,21 +26,100 @@
 <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-<script type="text/javascript" src="/resources/js/test2.js" ></script> 
-<script type="text/javascript" src="/resources/js/test3.js" ></script> 
 
 
 </head>
 <body>
    <!-- Chart code -->
    <div id="chartdiv"></div>
-   <div id="chartdiv2"></div>
+<!-- Chart code -->
 <script>
-	
-      
-      
+am5.ready(function() {
 
+// Define data for each year
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartdiv");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
+var chart = root.container.children.push(am5percent.PieChart.new(root, {
+  innerRadius: 100,
+  layout: root.verticalLayout
+}));
+
+
+// Create series
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
+var series = chart.series.push(am5percent.PieSeries.new(root, {
+  valueField: "size",
+  categoryField: "sector"
+}));
+
+series.ticks.template.set("visible", false);
+
+
+// Set data
+// https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
+series.data.setAll([
+  { sector: "Agriculture", size: 6.6 },
+  { sector: "Mining and Quarrying", size: 0.6 },
+  { sector: "Manufacturing", size: 23.2 },
+  { sector: "Electricity and Water", size: 2.2 },
+  { sector: "Construction", size: 4.5 },
+  { sector: "Trade (Wholesale, Retail, Motor)", size: 14.6 },
+  { sector: "Transport and Communication", size: 9.3 },
+  { sector: "Finance, real estate and business services", size: 22.5 }
+]);
+
+
+// Play initial series animation
+// https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
+series.appear(1000, 100);
+
+
+// Add label
+var label = root.tooltipContainer.children.push(am5.Label.new(root, {
+  x: am5.p50,
+  y: am5.p50,
+  centerX: am5.p50,
+  centerY: am5.p50,
+  fill: am5.color(0x000000),
+  fontSize: 50
+}));
+
+series.labels.template.setAll({
+     text: "",
+   });
+
+
+// Animate chart data
+var currentYear = "점유율";
+function getCurrentData() {
+  var data = chartData[currentYear];
+  return data;
+}
+
+label.set("text", currentYear);
+
+
+
+
+
+
+
+}); // end am5.ready()
 </script>
+
 
 <!-- HTML -->
 

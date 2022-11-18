@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-public class DataStorage {
+public class EplDataStorage {
 	// 크롤링한 데이터 담을 변수 선언.
 	
 	// 네이버 최신뉴스 크롤링데이터 담을 변수.
@@ -47,123 +47,103 @@ public class DataStorage {
 	// 개인 어시스트 순위 크롤링한 시간 담을 변수.
 	private static Date eplPlayerAsistRankCrawlingTime = null;
 	
-	// 네이버 인기뉴스 크롤링데이터 담을 변수.
-	private static ArrayList<HashMap<String, String>> naverSportsNewsPopularData = null;
-	// 네이버 인기뉴스 크롤링한 시간 담을 변수.
-	private static Date naverSportsNewsPopularCrawlingTime = null;
-	
 	
 	public static ArrayList<HashMap<String, String>> getNaverSportsNewsLatestData() {
 		return naverSportsNewsLatestData;
 	}
 	public static void setNaverSportsNewsLatestData(ArrayList<HashMap<String, String>> naverSportsNewsLatestData) {
-		DataStorage.naverSportsNewsLatestData = naverSportsNewsLatestData;
+		EplDataStorage.naverSportsNewsLatestData = naverSportsNewsLatestData;
 	}
 	public static Date getNaverSportsNewsLatestCrawlingTime() {
 		return naverSportsNewsLatestCrawlingTime;
 	}
 	public static void setNaverSportsNewsLatestCrawlingTime(Date naverSportsNewsLatestCrawlingTime) {
-		DataStorage.naverSportsNewsLatestCrawlingTime = naverSportsNewsLatestCrawlingTime;
+		EplDataStorage.naverSportsNewsLatestCrawlingTime = naverSportsNewsLatestCrawlingTime;
 	}
 	public static ArrayList<HashMap<String, String>> getTodayMatchScheduleData() {
 		return todayMatchScheduleData;
 	}
 	public static void setTodayMatchScheduleData(ArrayList<HashMap<String, String>> todayMatchScheduleData) {
-		DataStorage.todayMatchScheduleData = todayMatchScheduleData;
+		EplDataStorage.todayMatchScheduleData = todayMatchScheduleData;
 	}
 	public static Date getTodayMatchScheduleCrawlingTime() {
 		return todayMatchScheduleCrawlingTime;
 	}
 	public static void setTodayMatchScheduleCrawlingTime(Date todayMatchScheduleCrawlingTime) {
-		DataStorage.todayMatchScheduleCrawlingTime = todayMatchScheduleCrawlingTime;
+		EplDataStorage.todayMatchScheduleCrawlingTime = todayMatchScheduleCrawlingTime;
 	}
 	public static ArrayList<HashMap<String, String>> getTodayEplMatchData() {
 		return todayEplMatchData;
 	}
 	public static void setTodayEplMatchData(ArrayList<HashMap<String, String>> todayEplMatchData) {
-		DataStorage.todayEplMatchData = todayEplMatchData;
+		EplDataStorage.todayEplMatchData = todayEplMatchData;
 	}
 	public static Date getTodayEplMatchCrawlingTime() {
 		return todayEplMatchCrawlingTime;
 	}
 	public static void setTodayEplMatchCrawlingTime(Date todayEplMatchCrawlingTime) {
-		DataStorage.todayEplMatchCrawlingTime = todayEplMatchCrawlingTime;
+		EplDataStorage.todayEplMatchCrawlingTime = todayEplMatchCrawlingTime;
 	}
 	public static ArrayList<HashMap<String, String>> getEplTeamRankData() {
 		return eplTeamRankData;
 	}
 	public static void setEplTeamRankData(ArrayList<HashMap<String, String>> eplTeamRankData) {
-		DataStorage.eplTeamRankData = eplTeamRankData;
+		EplDataStorage.eplTeamRankData = eplTeamRankData;
 	}
 	public static Date getEplTeamRankCrawlingTime() {
 		return eplTeamRankCrawlingTime;
 	}
 	public static void setEplTeamRankCrawlingTime(Date eplTeamRankCrawlingTime) {
-		DataStorage.eplTeamRankCrawlingTime = eplTeamRankCrawlingTime;
+		EplDataStorage.eplTeamRankCrawlingTime = eplTeamRankCrawlingTime;
 	}
 	public static ArrayList<HashMap<String, String>> getEplPlayerRankData() {
 		return eplPlayerRankData;
 	}
 	public static void setEplPlayerRankData(ArrayList<HashMap<String, String>> eplPlayerRankData) {
-		DataStorage.eplPlayerRankData = eplPlayerRankData;
+		EplDataStorage.eplPlayerRankData = eplPlayerRankData;
 	}
 	public static Date getEplPlayerRankCrawlingTime() {
 		return eplPlayerRankCrawlingTime;
 	}
 	public static void setEplPlayerRankCrawlingTime(Date eplPlayerRankCrawlingTime) {
-		DataStorage.eplPlayerRankCrawlingTime = eplPlayerRankCrawlingTime;
+		EplDataStorage.eplPlayerRankCrawlingTime = eplPlayerRankCrawlingTime;
 	}
 	public static ArrayList<HashMap<String, String>> getEplInnerPlayerRankData() {
 		return eplInnerPlayerRankData;
 	}
 	public static void setEplInnerPlayerRankData(ArrayList<HashMap<String, String>> eplInnerPlayerRankData) {
-		DataStorage.eplInnerPlayerRankData = eplInnerPlayerRankData;
+		EplDataStorage.eplInnerPlayerRankData = eplInnerPlayerRankData;
 	}
 	public static Date getEplInnerPlayerRankCrawlingTime() {
 		return eplInnerPlayerRankCrawlingTime;
 	}
 	public static void setEplInnerPlayerRankCrawlingTime(Date eplInnerPlayerRankCrawlingTime) {
-		DataStorage.eplInnerPlayerRankCrawlingTime = eplInnerPlayerRankCrawlingTime;
+		EplDataStorage.eplInnerPlayerRankCrawlingTime = eplInnerPlayerRankCrawlingTime;
 	}
 	public static ArrayList<HashMap<String, String>> getEplMatchDetailData() {
 		return eplMatchDetailData;
 	}
 	public static void setEplMatchDetailData(ArrayList<HashMap<String, String>> eplMatchDetailData) {
-		DataStorage.eplMatchDetailData = eplMatchDetailData;
+		EplDataStorage.eplMatchDetailData = eplMatchDetailData;
 	}
 	public static Date getEplMatchDetailCrawlingTime() {
 		return eplMatchDetailCrawlingTime;
 	}
 	public static void setEplMatchDetailCrawlingTime(Date eplMatchDetailCrawlingTime) {
-		DataStorage.eplMatchDetailCrawlingTime = eplMatchDetailCrawlingTime;
+		EplDataStorage.eplMatchDetailCrawlingTime = eplMatchDetailCrawlingTime;
 	}
 	public static ArrayList<HashMap<String, String>> getEplPlayerAsistRankData() {
 		return eplPlayerAsistRankData;
 	}
 	public static void setEplPlayerAsistRankData(ArrayList<HashMap<String, String>> eplPlayerAsistRankData) {
-		DataStorage.eplPlayerAsistRankData = eplPlayerAsistRankData;
+		EplDataStorage.eplPlayerAsistRankData = eplPlayerAsistRankData;
 	}
 	public static Date getEplPlayerAsistRankCrawlingTime() {
 		return eplPlayerAsistRankCrawlingTime;
 	}
 	public static void setEplPlayerAsistRankCrawlingTime(Date eplPlayerAsistRankCrawlingTime) {
-		DataStorage.eplPlayerAsistRankCrawlingTime = eplPlayerAsistRankCrawlingTime;
+		EplDataStorage.eplPlayerAsistRankCrawlingTime = eplPlayerAsistRankCrawlingTime;
 	}
-	public static ArrayList<HashMap<String, String>> getNaverSportsNewsPopularData() {
-		return naverSportsNewsPopularData;
-	}
-	public static void setNaverSportsNewsPopularData(ArrayList<HashMap<String, String>> naverSportsNewsPopularData) {
-		DataStorage.naverSportsNewsPopularData = naverSportsNewsPopularData;
-	}
-	public static Date getNaverSportsNewsPopularCrawlingTime() {
-		return naverSportsNewsPopularCrawlingTime;
-	}
-	public static void setNaverSportsNewsPopularCrawlingTime(Date naverSportsNewsPopularCrawlingTime) {
-		DataStorage.naverSportsNewsPopularCrawlingTime = naverSportsNewsPopularCrawlingTime;
-	}
-	
-	
-	
 	
 	
 }

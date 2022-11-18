@@ -58,12 +58,12 @@ public class NaverSportsNewsPopularCrawling {
 //				Element newTitleElement = doc.selectFirst("#content > div > div.content > div > div.news_headline > h4");
 //	            Element newContentElement = doc.selectFirst("#newsEndContents");
 //	            Element newInsertDateTimeElement = doc.selectFirst("#content > div > div.content > div > div.news_headline > div > span:nth-child(1)");
-	            Element newImageUrlElement = doc.selectFirst("span.end_photo_org > img");
+	            Element newsImageUrlElement = doc.selectFirst("span.end_photo_org > img");
 //	            
 //	            String newsTitle = newTitleElement.text();
 //	            String newsContent = newContentElement.text();
 //	            String newsInsertDateTime = newInsertDateTimeElement.text();
-	            String newsImageUrl = newImageUrlElement.attr("src"); //이미지는 태그안의 속성을 가져와야한다
+	            String newsImageUrl = newsImageUrlElement.attr("src"); //이미지는 태그안의 속성을 가져와야한다
 	            
 	            HashMap<String, String> crawlingData = new HashMap<>();
 	            

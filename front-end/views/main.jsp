@@ -27,6 +27,13 @@
 		<div class="main_news_box">
 			<figure class="icon-cards mt-3">
 				<div class="icon-cards__content">
+				<c:forEach var="news" items="${newsList}" varStatus="status"
+						begin="0" end="5">
+						<div class="icon-cards__item">
+							<a href="${news.newsUrl}"><img src="${news.newsImgUrl}"></img>
+								<div class="text_box">${news.newsTitle }</div> </a>
+						</div>
+					</c:forEach>
 				</div>
 			</figure>
 		</div>
@@ -105,28 +112,6 @@
              }
          })
          /* 최신 뉴스 기사 크롤링 끝. */
-         
-         
-         
-          /* 인기 뉴스 기사 크롤링 */
-         $.ajax({
-             url :"/craw/crawPopularNewsData.ajax",
-             dataType : "json",
-             type : "post",
-             success:function(data){
-                for (var i = 0; i < 6; i++){
-                   $(".icon-cards__content").append(
-                      "<div class='icon-cards__item'>"+
-                     "<a href="+data[i].news_url+"><img src="+data[i].news_main_image+"></img>"+
-                        "<div class='text_box'>"+data[i].news_title+"</div></a>"+
-                  "</div>"
-                     );    
-                }
-                
-             }
-         })
-         /* 인기 뉴스 기사 크롤링 끝. */
-         
          
          
          

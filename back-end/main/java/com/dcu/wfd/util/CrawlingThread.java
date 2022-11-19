@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import com.dcu.wfd.common.vo.BundesligaDataStorage;
 import com.dcu.wfd.common.vo.EplDataStorage;
 import com.dcu.wfd.common.vo.LaligaDataStorage;
+import com.dcu.wfd.common.vo.SerieaDataStorage;
+import com.dcu.wfd.crawling.module.bundesliga.BundesligaMatchScheduleCrawling;
+import com.dcu.wfd.crawling.module.bundesliga.BundesligaPlayerAsistRankCrawling;
+import com.dcu.wfd.crawling.module.bundesliga.BundesligaPlayerRankCrawling;
+import com.dcu.wfd.crawling.module.bundesliga.BundesligaTeamRankCrawling;
 import com.dcu.wfd.crawling.module.epl.EplMatchScheduleCrawling;
 import com.dcu.wfd.crawling.module.epl.EplPlayerAsistRankCrawling;
 import com.dcu.wfd.crawling.module.epl.EplPlayerRankCrawling;
@@ -16,6 +22,10 @@ import com.dcu.wfd.crawling.module.laliga.LaligaPlayerRankCrawling;
 import com.dcu.wfd.crawling.module.laliga.LaligaTeamRankCrawling;
 import com.dcu.wfd.crawling.module.main.NaverSportsNewsLatestCrawling;
 import com.dcu.wfd.crawling.module.main.TodayMatchScheduleCrawling;
+import com.dcu.wfd.crawling.module.seriea.SerieaMatchScheduleCrawling;
+import com.dcu.wfd.crawling.module.seriea.SerieaPlayerAsistRankCrawling;
+import com.dcu.wfd.crawling.module.seriea.SerieaPlayerRankCrawling;
+import com.dcu.wfd.crawling.module.seriea.SerieaTeamRankCrawling;
 
 public class CrawlingThread extends Thread {
 	
@@ -32,7 +42,17 @@ public class CrawlingThread extends Thread {
 			{"todayLaligaMatchSchedule", 60*60},
 	        {"laligaTeamRank", 60*60},
 	        {"laligaPlayerRank", 60*60},
-	        {"laligaPlayerAsistRank", 60*60}
+	        {"laligaPlayerAsistRank", 60*60},
+	        
+	        {"todayBundesligaMatchSchedule", 60*60},
+	        {"bundesligaTeamRank", 60*60},
+	        {"bundesligaPlayerRank", 60*60},
+	        {"bundesligaPlayerAsistRank", 60*60},
+	        
+	        {"todaySerieaMatchSchedule", 60*60},
+	        {"serieaTeamRank", 60*60},
+	        {"serieaPlayerRank", 60*60},
+	        {"serieaPlayerAsistRank", 60*60}
 	}; 
 	
 	
@@ -55,6 +75,16 @@ public class CrawlingThread extends Thread {
 	            LaligaTeamRankCrawling ltrc = new LaligaTeamRankCrawling();
 	            LaligaPlayerRankCrawling lprc = new LaligaPlayerRankCrawling();
 	            LaligaPlayerAsistRankCrawling lparc = new LaligaPlayerAsistRankCrawling();
+	            
+	            BundesligaMatchScheduleCrawling bmsc = new BundesligaMatchScheduleCrawling();
+                BundesligaTeamRankCrawling btrc = new BundesligaTeamRankCrawling();
+                BundesligaPlayerRankCrawling bprc = new BundesligaPlayerRankCrawling();
+                BundesligaPlayerAsistRankCrawling bparc = new BundesligaPlayerAsistRankCrawling();
+                
+                SerieaMatchScheduleCrawling smsc = new SerieaMatchScheduleCrawling();
+                SerieaTeamRankCrawling strc = new SerieaTeamRankCrawling();
+                SerieaPlayerRankCrawling sprc = new SerieaPlayerRankCrawling();
+                SerieaPlayerAsistRankCrawling sparc = new SerieaPlayerAsistRankCrawling();
 				
 				
 				for(Object [] STANDARD_TIME : STANDARD_TIMES) {
@@ -390,6 +420,270 @@ public class CrawlingThread extends Thread {
 	                           }
 	                        }
 					// 라리가 크롤링 종료.
+					
+					// 분데스리가 크롤링 시작.
+	                  else if(crawlingDataName.equals("todayBundesligaMatchSchedule")) {
+	                           // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                           if(BundesligaDataStorage.getTodayBundesligaMatchData() == null) {
+	                              // data에 크롤링하여 데이터를 넣고...
+	                              ArrayList<HashMap<String, String>> data = bmsc.bundesligaMatchScheduleCrawling();
+	                              // 만약 크롤링한 데이터가 있으면...
+	                              if(data != null && data.size() > 0) {
+	                                 // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                                 BundesligaDataStorage.setTodayBundesligaMatchData(data);
+	                                 BundesligaDataStorage.setTodayBundesligaMatchCrawlingTime(new Date());
+	                              } else {
+	                                 BundesligaDataStorage.setTodayBundesligaMatchData(null);
+	                                 BundesligaDataStorage.setTodayBundesligaMatchCrawlingTime(null);
+	                              }
+	                           } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                                 // 크롤링된 시간을 변수에 담고...
+	                                 Date oldTodayBundesligaMatchCrawlingTime = BundesligaDataStorage.getTodayBundesligaMatchCrawlingTime();
+	                                 // 현재크롤링한시간 변수에 담고...
+	                                 Date currentTodayBundesligaMatchCrawlingTime = new Date();
+	                                 
+	                                 // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                                 long difTimes = (currentTodayBundesligaMatchCrawlingTime.getTime() - oldTodayBundesligaMatchCrawlingTime.getTime()) / 1000; // 초
+	                                 
+	                                 // 크롤링 할 
+	                                 if(difTimes > crawlingDataTimes) {
+	                                    ArrayList<HashMap<String, String>> data = bmsc.bundesligaMatchScheduleCrawling();
+	                                    if(data != null && data.size() > 0) {
+	                                       BundesligaDataStorage.setTodayBundesligaMatchData(null);
+	                                      BundesligaDataStorage.setTodayBundesligaMatchCrawlingTime(null);
+	                                    }
+	                                 }
+	                           }
+	                        } else if(crawlingDataName.equals("bundesligaTeamRank")) {
+	                           // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                           if(BundesligaDataStorage.getBundesligaTeamRankData() == null) {
+	                              // data에 크롤링하여 데이터를 넣고...
+	                              ArrayList<HashMap<String, String>> data = btrc.bundesligaTeamRankCrawling();
+	                              // 만약 크롤링한 데이터가 있으면...
+	                              if(data != null && data.size() > 0) {
+	                                 // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                                 BundesligaDataStorage.setBundesligaTeamRankData(data);
+	                                 BundesligaDataStorage.setBundesligaTeamRankCrawlingTime(new Date());
+	                              } else {
+	                                 BundesligaDataStorage.setBundesligaTeamRankData(null);
+	                                 BundesligaDataStorage.setBundesligaTeamRankCrawlingTime(null);
+	                              }
+	                           } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                                 // 크롤링된 시간을 변수에 담고...
+	                                 Date oldBundesligaTeamRankCrawlingTime = BundesligaDataStorage.getBundesligaTeamRankCrawlingTime();
+	                                 // 현재크롤링한시간 변수에 담고...
+	                                 Date currentBundesligaTeamRankCrawlingTime = new Date();
+	                                 
+	                                 // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                                 long difTimes = (currentBundesligaTeamRankCrawlingTime.getTime() - oldBundesligaTeamRankCrawlingTime.getTime()) / 1000; // 초
+	                                 
+	                                 // 크롤링 할 
+	                                 if(difTimes > crawlingDataTimes) {
+	                                    ArrayList<HashMap<String, String>> data = btrc.bundesligaTeamRankCrawling();
+	                                    if(data != null && data.size() > 0) {
+	                                       BundesligaDataStorage.setBundesligaTeamRankData(data);
+	                                      BundesligaDataStorage.setBundesligaTeamRankCrawlingTime(new Date());
+	                                    }
+	                                 }
+	                           }
+	                        } else if(crawlingDataName.equals("bundesligaPlayerRank")) {
+	                           // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                           if(BundesligaDataStorage.getBundesligaPlayerRankData() == null) {
+	                              // data에 크롤링하여 데이터를 넣고...
+	                              ArrayList<HashMap<String, String>> data = bprc.bundesligaPlayerRank();
+	                              // 만약 크롤링한 데이터가 있으면...
+	                              if(data != null && data.size() > 0) {
+	                                 // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                                 BundesligaDataStorage.setBundesligaPlayerRankData(data);
+	                                 BundesligaDataStorage.setBundesligaPlayerRankCrawlingTime(new Date());
+	                              } else {
+	                                 BundesligaDataStorage.setBundesligaPlayerRankData(null);
+	                                 BundesligaDataStorage.setBundesligaPlayerRankCrawlingTime(null);
+	                              }
+	                           } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                                 // 크롤링된 시간을 변수에 담고...
+	                                 Date oldBundesligaPlayerRankCrawlingTime = BundesligaDataStorage.getBundesligaPlayerRankCrawlingTime();
+	                                 // 현재크롤링한시간 변수에 담고...
+	                                 Date currentBundesligaPlayerRankCrawlingTime = new Date();
+	                                 
+	                                 // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                                 long difTimes = (currentBundesligaPlayerRankCrawlingTime.getTime() - oldBundesligaPlayerRankCrawlingTime.getTime()) / 1000; // 초
+	                                 
+	                                 // 크롤링 할 
+	                                 if(difTimes > crawlingDataTimes) {
+	                                    ArrayList<HashMap<String, String>> data = bprc.bundesligaPlayerRank();
+	                                    if(data != null && data.size() > 0) {
+	                                       BundesligaDataStorage.setBundesligaPlayerRankData(data);
+	                                      BundesligaDataStorage.setBundesligaPlayerRankCrawlingTime(new Date());
+	                                    }
+	                                 }
+	                           }
+	                        } else if(crawlingDataName.equals("bundesligaPlayerAsistRank")) {
+	                                 // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                                 if(BundesligaDataStorage.getBundesligaPlayerAsistRankData() == null) {
+	                                    // data에 크롤링하여 데이터를 넣고...
+	                                    ArrayList<HashMap<String, String>> data = bparc.bundesligaPlayerAsistRank();
+	                                    // 만약 크롤링한 데이터가 있으면...
+	                                    if(data != null && data.size() > 0) {
+	                                       // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                                       BundesligaDataStorage.setBundesligaPlayerAsistRankData(data);
+	                                       BundesligaDataStorage.setBundesligaPlayerAsistRankCrawlingTime(new Date());
+	                                    } else {
+	                                       BundesligaDataStorage.setBundesligaPlayerAsistRankData(null);
+	                                       BundesligaDataStorage.setBundesligaPlayerAsistRankCrawlingTime(null);
+	                                    }
+	                                 } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                                       // 크롤링된 시간을 변수에 담고...
+	                                       Date oldBundesligaPlayerAsistRankCrawlingTime = BundesligaDataStorage.getBundesligaPlayerAsistRankCrawlingTime();
+	                                       // 현재크롤링한시간 변수에 담고...
+	                                       Date currentBundesligaPlayerAsistRankCrawlingTime = new Date();
+	                                       
+	                                       // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                                       long difTimes = (currentBundesligaPlayerAsistRankCrawlingTime.getTime() - oldBundesligaPlayerAsistRankCrawlingTime.getTime()) / 1000; // 초
+	                                       
+	                                       // 크롤링 할 
+	                                       if(difTimes > crawlingDataTimes) {
+	                                          ArrayList<HashMap<String, String>> data = bparc.bundesligaPlayerAsistRank();
+	                                          if(data != null && data.size() > 0) {
+	                                             BundesligaDataStorage.setBundesligaPlayerAsistRankData(data);
+	                                           BundesligaDataStorage.setBundesligaPlayerAsistRankCrawlingTime(new Date());
+	                                          }
+	                                       }
+	                                 }
+	                              }
+	                  // 분데스리가 크롤링 종료.
+					
+					// 세리에A 크롤링 시작.
+	                        else if(crawlingDataName.equals("todaySerieaMatchSchedule")) {
+	                                 // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                                 if(SerieaDataStorage.getTodaySerieaMatchData() == null) {
+	                                    // data에 크롤링하여 데이터를 넣고...
+	                                    ArrayList<HashMap<String, String>> data = smsc.serieaMatchScheduleCrawling();
+	                                    // 만약 크롤링한 데이터가 있으면...
+	                                    if(data != null && data.size() > 0) {
+	                                       // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                                       SerieaDataStorage.setTodaySerieaMatchData(data);
+	                                       SerieaDataStorage.setTodaySerieaMatchCrawlingTime(new Date());
+	                                    } else {
+	                                       SerieaDataStorage.setTodaySerieaMatchData(null);
+	                                       SerieaDataStorage.setTodaySerieaMatchCrawlingTime(null);
+	                                    }
+	                                 } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                                       // 크롤링된 시간을 변수에 담고...
+	                                       Date oldTodaySerieaMatchCrawlingTime = SerieaDataStorage.getTodaySerieaMatchCrawlingTime();
+	                                       // 현재크롤링한시간 변수에 담고...
+	                                       Date currentTodaySerieaMatchCrawlingTime = new Date();
+	                                       
+	                                       // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                                       long difTimes = (currentTodaySerieaMatchCrawlingTime.getTime() - oldTodaySerieaMatchCrawlingTime.getTime()) / 1000; // 초
+	                                       
+	                                       // 크롤링 할 
+	                                       if(difTimes > crawlingDataTimes) {
+	                                          ArrayList<HashMap<String, String>> data = smsc.serieaMatchScheduleCrawling();
+	                                          if(data != null && data.size() > 0) {
+	                                             SerieaDataStorage.setTodaySerieaMatchData(data);
+	                                            SerieaDataStorage.setTodaySerieaMatchCrawlingTime(new Date());
+	                                          }
+	                                       }
+	                                 }
+	                              } else if(crawlingDataName.equals("serieaTeamRank")) {
+	                                 // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                                 if(SerieaDataStorage.getSerieaTeamRankData() == null) {
+	                                    // data에 크롤링하여 데이터를 넣고...
+	                                    ArrayList<HashMap<String, String>> data = strc.serieaTeamRankCrawling();
+	                                    // 만약 크롤링한 데이터가 있으면...
+	                                    if(data != null && data.size() > 0) {
+	                                       // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                                       SerieaDataStorage.setSerieaTeamRankData(data);
+	                                       SerieaDataStorage.setSerieaTeamRankCrawlingTime(new Date());
+	                                    } else {
+	                                       SerieaDataStorage.setSerieaTeamRankData(null);
+	                                       SerieaDataStorage.setSerieaTeamRankCrawlingTime(null);
+	                                    }
+	                                 } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                                       // 크롤링된 시간을 변수에 담고...
+	                                       Date oldSerieaTeamRankCrawlingTime = SerieaDataStorage.getSerieaTeamRankCrawlingTime();
+	                                       // 현재크롤링한시간 변수에 담고...
+	                                       Date currentSerieaTeamRankCrawlingTime = new Date();
+	                                       
+	                                       // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                                       long difTimes = (currentSerieaTeamRankCrawlingTime.getTime() - oldSerieaTeamRankCrawlingTime.getTime()) / 1000; // 초
+	                                       
+	                                       // 크롤링 할 
+	                                       if(difTimes > crawlingDataTimes) {
+	                                          ArrayList<HashMap<String, String>> data = strc.serieaTeamRankCrawling();
+	                                          if(data != null && data.size() > 0) {
+	                                             SerieaDataStorage.setSerieaTeamRankData(data);
+	                                            SerieaDataStorage.setSerieaTeamRankCrawlingTime(new Date());
+	                                          }
+	                                       }
+	                                 }
+	                              } else if(crawlingDataName.equals("serieaPlayerRank")) {
+	                                 // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                                 if(SerieaDataStorage.getSerieaPlayerRankData() == null) {
+	                                    // data에 크롤링하여 데이터를 넣고...
+	                                    ArrayList<HashMap<String, String>> data = sprc.serieaPlayerRank();
+	                                    // 만약 크롤링한 데이터가 있으면...
+	                                    if(data != null && data.size() > 0) {
+	                                       // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                                       SerieaDataStorage.setSerieaPlayerRankData(data);
+	                                       SerieaDataStorage.setSerieaPlayerRankCrawlingTime(new Date());
+	                                    } else {
+	                                       SerieaDataStorage.setSerieaPlayerRankData(null);
+	                                       SerieaDataStorage.setSerieaPlayerRankCrawlingTime(null);
+	                                    }
+	                                 } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                                       // 크롤링된 시간을 변수에 담고...
+	                                       Date oldSerieaPlayerRankCrawlingTime = SerieaDataStorage.getSerieaPlayerRankCrawlingTime();
+	                                       // 현재크롤링한시간 변수에 담고...
+	                                       Date currentSerieaPlayerRankCrawlingTime = new Date();
+	                                       
+	                                       // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                                       long difTimes = (currentSerieaPlayerRankCrawlingTime.getTime() - oldSerieaPlayerRankCrawlingTime.getTime()) / 1000; // 초
+	                                       
+	                                       // 크롤링 할 
+	                                       if(difTimes > crawlingDataTimes) {
+	                                          ArrayList<HashMap<String, String>> data = sprc.serieaPlayerRank();
+	                                          if(data != null && data.size() > 0) {
+	                                             SerieaDataStorage.setSerieaPlayerRankData(data);
+	                                            SerieaDataStorage.setSerieaPlayerRankCrawlingTime(new Date());
+	                                          }
+	                                       }
+	                                 }
+	                              } else if(crawlingDataName.equals("serieaPlayerAsistRank")) {
+	                                       // DataSotrage VO 의 변수에 데이터가 들어있지 않다면...
+	                                       if(SerieaDataStorage.getSerieaPlayerAsistRankData() == null) {
+	                                          // data에 크롤링하여 데이터를 넣고...
+	                                          ArrayList<HashMap<String, String>> data = sparc.serieaPlayerAsistRank();
+	                                          // 만약 크롤링한 데이터가 있으면...
+	                                          if(data != null && data.size() > 0) {
+	                                             // DataStorage VO 안의 변수에 크롤링한 data와 크롤링한 시간을 담아라...
+	                                             SerieaDataStorage.setSerieaPlayerAsistRankData(data);
+	                                             SerieaDataStorage.setSerieaPlayerAsistRankCrawlingTime(new Date());
+	                                          } else {
+	                                             SerieaDataStorage.setSerieaPlayerAsistRankData(null);
+	                                             SerieaDataStorage.setSerieaPlayerAsistRankCrawlingTime(null);
+	                                          }
+	                                       } else { // DataStorage VO 변수에 데이터가 들어 있다면...
+	                                             // 크롤링된 시간을 변수에 담고...
+	                                             Date oldSerieaPlayerAsistRankCrawlingTime = SerieaDataStorage.getSerieaPlayerAsistRankCrawlingTime();
+	                                             // 현재크롤링한시간 변수에 담고...
+	                                             Date currentSerieaPlayerAsistRankCrawlingTime = new Date();
+	                                             
+	                                             // 현재 크롤링시간과 최근 크롤링시간의 차이를 계산하여 변수에 저장...
+	                                             long difTimes = (currentSerieaPlayerAsistRankCrawlingTime.getTime() - oldSerieaPlayerAsistRankCrawlingTime.getTime()) / 1000; // 초
+	                                             
+	                                             // 크롤링 할 
+	                                             if(difTimes > crawlingDataTimes) {
+	                                                ArrayList<HashMap<String, String>> data = sparc.serieaPlayerAsistRank();
+	                                                if(data != null && data.size() > 0) {
+	                                                   SerieaDataStorage.setSerieaPlayerAsistRankData(data);
+	                                                 SerieaDataStorage.setSerieaPlayerAsistRankCrawlingTime(new Date());
+	                                                }
+	                                             }
+	                                       }
+	                                    }
+	                        // 세리에A 크롤링 종료.
                
 					
 					

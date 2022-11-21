@@ -14,7 +14,7 @@
 .col-width{
 	float: none;
     clear: both;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     overflow: hidden;
     height: 60px;
@@ -35,7 +35,7 @@
     height: 60px;
     position: relative;
     top: 15px;
-    margin-left:70%;
+    margin-left:85%;
 }
 ul, ol, li {
 	display:block;

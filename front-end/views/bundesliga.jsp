@@ -1232,7 +1232,7 @@
                            
                            
                            var title = container.children.push(am5.Label.new(root, {
-                               text: "Bundesliga 도움 순위",
+                               text: "분데스리가 도움 순위",
                                fontSize: 30,
                                x: am5.percent(50),
                                centerX: am5.percent(50)
@@ -1266,7 +1266,7 @@
                            });
                            
                            series.nodes.template.setAll({
-                             tooltipText: null,
+                        	   tooltipText: "{value}도움",
                              cursorOverStyle: "pointer"
                            });
                            
@@ -1600,7 +1600,7 @@
                              }));
                             
                             var wordTitle = wordContainer.children.push(am5.Label.new(wordRoot, {
-                               text: "Bundesliga 득점 순위",
+                               text: "분데스리가 득점 순위",
                                fontSize: 30,
                                x: am5.percent(50),
                                centerX: am5.percent(50)

@@ -1439,7 +1439,7 @@
 		                     });
 		                     
 		                     series.nodes.template.setAll({
-		                       tooltipText: null,
+		                    	 tooltipText: "{value}도움",
 		                       cursorOverStyle: "pointer"
 		                     });
 		                     

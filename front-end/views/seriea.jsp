@@ -1245,7 +1245,7 @@
                            
                            
                            var title = container.children.push(am5.Label.new(root, {
-                               text: "SerieA 도움 순위",
+                               text: "세리에A 도움 순위",
                                fontSize: 30,
                                x: am5.percent(50),
                                centerX: am5.percent(50)
@@ -1279,7 +1279,7 @@
                            });
                            
                            series.nodes.template.setAll({
-                             tooltipText: null,
+                        	   tooltipText: "{value}도움",
                              cursorOverStyle: "pointer"
                            });
                            
@@ -1620,7 +1620,7 @@
                              }));
                             
                             var wordTitle = wordContainer.children.push(am5.Label.new(wordRoot, {
-                               text: "SerieA 득점 순위",
+                               text: "세리에A 득점 순위",
                                fontSize: 30,
                                x: am5.percent(50),
                                centerX: am5.percent(50)

@@ -32,10 +32,16 @@ public class RootContext {
     @Bean(name = "mainHikariConfig")
     public HikariConfig getMainHikariConfig () {
         HikariConfig hikariConfig = new HikariConfig();
+		/* 개발서버 DB 접속 정보
+		 * hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		 * hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/ms");
+		 * hikariConfig.setUsername("user"); hikariConfig.setPassword("user");
+		 */
+        /* 운영서버 DB 접속 정보 */
         hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/ms");
-        hikariConfig.setUsername("user");
-        hikariConfig.setPassword("user");
+        hikariConfig.setJdbcUrl("jdbc:mysql://210.180.118.83:3306/wfd");
+        hikariConfig.setUsername("wfd_prod");
+        hikariConfig.setPassword("1234");
         return hikariConfig;
     }
 

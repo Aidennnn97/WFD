@@ -1392,7 +1392,7 @@
                        columnSettings: {fill: am5.color(0x6B728E)}
                      }
                   ];
-                  console.log(barData);
+                  //console.log(barData);
                   
                   // Create chart
                   // https://www.amcharts.com/docs/v5/charts/xy-chart/

@@ -11,7 +11,7 @@
 <!-- 개발하다가 웹페이지에 cache때문에 바뀐 css가 적용되지 않으묜 href에 ?ver=1.1이런식으로 쿼리스트링을 붙여주면 새로운 파일로인식하여 해결이가능하다 -->
 <!-- 또는 웹페이지설정에서 캐시데이터를 비워주면 된다  -->
 <link rel="stylesheet" href="/resources/css/reset.css" type="text/css">
-<link rel="stylesheet" href="/resources/css/main.css?ver=1" type="text/css">
+<link rel="stylesheet" href="/resources/css/main.css?ver=1.1" type="text/css">
 </head>
 <body>
 	<!--  페이지 Nav바 시작  -->

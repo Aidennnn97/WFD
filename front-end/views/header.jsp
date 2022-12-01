@@ -5,12 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
+
 .header{
 	height: 80px;
     width: 97%;
     margin: 0 auto;
     border-bottom: 5px solid #eeeeee;
 }
+
 .col-width{
 	float: none;
     clear: both;
@@ -19,6 +21,7 @@
     overflow: hidden;
     height: 60px;
 }
+
 .headerLeft{
 	height: 60px;
     width: 100%;
@@ -35,7 +38,7 @@
     height: 60px;
     position: relative;
     top: 15px;
-    margin-left:85%;
+    margin-left: 80%;
 }
 ul, ol, li {
 	display:block;

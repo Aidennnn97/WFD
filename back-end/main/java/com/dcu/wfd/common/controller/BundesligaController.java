@@ -29,7 +29,7 @@ public class BundesligaController {
       public ArrayList<HashMap<String, String>> bundesligaTodayMatch()throws Exception {
 
          // DataStorage VO의 변수에 담긴 프리미어리그 경기일정 크롤링 데이터 리턴.
-//    	  System.out.println(BundesligaDataStorage.getTodayBundesligaMatchData());
+    	  //System.out.println(BundesligaDataStorage.getTodayBundesligaMatchData());
          
          return BundesligaDataStorage.getTodayBundesligaMatchData();
 

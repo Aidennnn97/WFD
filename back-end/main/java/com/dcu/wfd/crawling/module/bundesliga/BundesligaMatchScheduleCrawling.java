@@ -26,7 +26,7 @@ public class BundesligaMatchScheduleCrawling {
       LocalDate start1 = today1.atDay(1);
       LocalDate end1 = today1.atEndOfMonth();
       
-      String url = "https://sports.daum.net/prx/hermes/api/game/schedule.json?page=1&leagueCode=epl%2Cprimera%2Cbundesliga%2Cseriea%2Cligue1%2Ceredivisie%2Cuefacl%2Cuefacup%2Cepl_cup%2Cfacup%2Ccopadelrey&fromDate="+start1.format(date2)+"&toDate="+end1.format(date2);
+      String url = "https://sports.daum.net/prx/hermes/api/game/schedule.json?page=1&leagueCode=epl%2Cprimera%2Cbundesliga%2Cseriea%2Cligue1%2Ceredivisie%2Cuefacl%2Cuefacup%2Cepl_cup%2Cfacup%2Ccopadelrey&fromDate=20221101&toDate=20221130";
 
 
       try {
